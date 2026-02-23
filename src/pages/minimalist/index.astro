@@ -1,0 +1,23 @@
+---
+import Layout from "../../templates/minimalist/Layout.astro";
+import Button from "../../templates/minimalist/components/atoms/Button.astro";
+---
+
+<Layout title="Minimalist Invitation">
+    <main>
+        <h1>Minimalist Invitation</h1>
+        <p>This is the minimalist design proposal.</p>
+        <Button label="Confirm Attendance" />
+    </main>
+</Layout>
+
+<style>
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+    }
+</style>
