@@ -1,0 +1,95 @@
+---
+---
+
+<section class="location">
+    <div class="icon-container" data-aos="zoom-in">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            class="icon"
+        >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+    </div>
+
+    <h2 class="section-title" data-aos="fade-up">El Lugar</h2>
+
+    <div class="map-container" data-aos="fade-up" data-aos-delay="200">
+        <iframe
+            src="https://maps.google.com/maps?q=Palacio%20de%20Bellas%20Artes,%20Mexico&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación del Evento"></iframe>
+    </div>
+</section>
+
+<style>
+    .location {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: var(--section-padding);
+        text-align: center;
+    }
+
+    .icon-container {
+        margin-bottom: 2rem;
+        color: var(--color-accent);
+    }
+
+    .icon {
+        width: 40px;
+        height: 40px;
+        opacity: 0.8;
+    }
+
+    .section-title {
+        font-family: var(--font-script);
+        font-size: 3.5rem;
+        margin-bottom: 3rem;
+        padding-left: 0.4rem; /* Optical balance for recursive "E" */
+    }
+
+    /* Container for the Map */
+    .map-container {
+        width: 100%;
+        max-width: 800px;
+        height: 450px;
+        margin-bottom: 2rem;
+        border-radius: 12px;
+        overflow: hidden;
+        border: 2px solid var(--color-accent);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        position: relative;
+    }
+
+    .map-container iframe {
+        /* Base filter: Slightly desaturated and sepia to look elegant */
+        filter: grayscale(80%) sepia(20%) contrast(1.1) opacity(0.9);
+        transition: filter 0.5s ease;
+    }
+
+    /* Dark Mode map adjustment */
+    :global(:root[data-theme="dark"]) .map-container iframe,
+    :global(:root[data-theme="emerald"]) .map-container iframe,
+    :global(:root[data-theme="rose"]) .map-container iframe {
+        /* Invert colors for dark backgrounds while keeping it elegant */
+        filter: invert(90%) hue-rotate(180deg) grayscale(60%) contrast(1.2)
+            opacity(0.85);
+    }
+
+    :global(:root[data-theme="gold"]) .map-container iframe {
+        /* Warm golden tone for Gold theme */
+        filter: grayscale(40%) sepia(80%) hue-rotate(20deg) contrast(1.1)
+            opacity(0.9);
+    }
+</style>

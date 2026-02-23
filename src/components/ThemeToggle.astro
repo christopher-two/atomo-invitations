@@ -1,0 +1,240 @@
+---
+---
+
+<div class="theme-switcher">
+    <button
+        id="theme-toggle-btn"
+        class="theme-toggle-btn"
+        aria-label="Cambiar paleta de colores"
+        aria-expanded="false"
+        title="Cambiar Tema"
+    >
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="palette-icon"
+        >
+            <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+            <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+            <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+            <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+            <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+            ></path>
+        </svg>
+    </button>
+
+    <div id="theme-menu" class="theme-menu">
+        <button class="theme-option" data-value="light" aria-label="Tema Claro">
+            <span class="swatch swatch-light"></span> Claro
+        </button>
+        <button class="theme-option" data-value="dark" aria-label="Tema Oscuro">
+            <span class="swatch swatch-dark"></span> Oscuro
+        </button>
+        <button
+            class="theme-option"
+            data-value="emerald"
+            aria-label="Tema Esmeralda"
+        >
+            <span class="swatch swatch-emerald"></span> Esmeralda
+        </button>
+        <button
+            class="theme-option"
+            data-value="rose"
+            aria-label="Tema Rose Gold"
+        >
+            <span class="swatch swatch-rose"></span> Rose Gold
+        </button>
+        <button class="theme-option" data-value="gold" aria-label="Tema Dorado">
+            <span class="swatch swatch-gold"></span> Dorado
+        </button>
+    </div>
+</div>
+
+<style>
+    .theme-switcher {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        font-family: var(--font-sans, sans-serif);
+    }
+
+    .theme-toggle-btn {
+        background-color: var(--color-text);
+        color: var(--color-bg);
+        border: none;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .palette-icon {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* Ajuste para que el botón también cambie con el tema oscuro */
+    :global(:root[data-theme="dark"]) .theme-toggle-btn {
+        background-color: #f9f9f9;
+        color: #1a1a1a;
+    }
+
+    .theme-menu {
+        position: absolute;
+        top: 55px;
+        right: 0;
+        background-color: var(--color-bg);
+        border: 1px solid var(--color-accent);
+        border-radius: 12px;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        min-width: 140px;
+    }
+
+    .theme-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .theme-option {
+        background: transparent;
+        border: none;
+        color: var(--color-text);
+        padding: 0.5rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        transition: background-color 0.2s ease;
+        width: 100%;
+        text-align: left;
+    }
+
+    .theme-option:hover {
+        background-color: rgba(150, 150, 150, 0.1);
+    }
+
+    .theme-option.active-theme {
+        background-color: rgba(150, 150, 150, 0.15);
+        font-weight: 500;
+    }
+
+    .swatch {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    /* Colores aproximados de las paletas para los circulitos visuales */
+    .swatch-light {
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+    }
+    .swatch-dark {
+        background-color: #1a1a1a;
+    }
+    .swatch-emerald {
+        background-color: #2a3b32;
+    }
+    .swatch-rose {
+        background-color: #b58383;
+    }
+    .swatch-gold {
+        background-color: #c2a878;
+    }
+</style>
+
+<script>
+    const btn = document.getElementById("theme-toggle-btn");
+    const menu = document.getElementById("theme-menu");
+    const options = document.querySelectorAll(".theme-option");
+
+    // Tema inicial
+    const currentTheme = localStorage.getItem("theme") || "light";
+
+    if (currentTheme !== "light") {
+        document.documentElement.setAttribute("data-theme", currentTheme);
+    }
+
+    // Marcar opción activa en el menú
+    const setActiveOption = (themeName: string) => {
+        options.forEach((opt) => {
+            opt.classList.remove("active-theme");
+            if (opt.getAttribute("data-value") === themeName) {
+                opt.classList.add("active-theme");
+            }
+        });
+    };
+
+    setActiveOption(currentTheme);
+
+    // Toggle dropdown
+    if (btn && menu) {
+        btn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            menu.classList.toggle("active");
+            btn.setAttribute(
+                "aria-expanded",
+                menu.classList.contains("active") ? "true" : "false"
+            );
+        });
+
+        // Cerrar al clickear fuera
+        document.addEventListener("click", (e) => {
+            if (
+                !btn.contains(e.target as Node) &&
+                !menu.contains(e.target as Node)
+            ) {
+                menu.classList.remove("active");
+                btn.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
+
+    // Manejar selección
+    options.forEach((opt) => {
+        opt.addEventListener("click", () => {
+            const newTheme = opt.getAttribute("data-value");
+            if (newTheme) {
+                document.documentElement.setAttribute("data-theme", newTheme);
+                localStorage.setItem("theme", newTheme);
+                setActiveOption(newTheme);
+
+                // Ocultar menú tras seleccionar
+                if (menu && btn) {
+                    menu.classList.remove("active");
+                    btn.setAttribute("aria-expanded", "false");
+                }
+            }
+        });
+    });
+</script>

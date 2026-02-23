@@ -1,43 +1,619 @@
 ---
+// Atomo Invitations Catalog
 ---
 
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>Invitations Catalog</title>
-	</head>
-	<body>
-		<main>
-			<h1>Your Main Catalog</h1>
-			<nav>
-				<ul>
-					<li><a href="/minimalist">Minimalist</a></li>
-					<li><a href="/festive">Festive</a></li>
-				</ul>
-			</nav>
-		</main>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Átomo Invitations</title>
+
+		<!-- Google Fonts: Inter for minimal, bold typography -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+			rel="stylesheet"
+		/>
+
 		<style>
-			main {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				height: 100vh;
-				font-family: sans-serif;
+			:root {
+				--catalog-bg: #f5f5f5; /* Light mode */
+				--catalog-text: #111111;
+				--catalog-border: rgba(17, 17, 17, 0.1);
+				--card-bg: #ffffff;
+				--font-primary: "Inter", sans-serif;
 			}
-			ul {
-				list-style: none;
+
+			:root[data-catalog-theme="dark"] {
+				--catalog-bg: #0a0a0a; /* Dark mode */
+				--catalog-text: #f5f5f5;
+				--catalog-border: rgba(245, 245, 245, 0.1);
+				--card-bg: #111111;
+			}
+
+			* {
+				box-sizing: border-box;
+				margin: 0;
 				padding: 0;
 			}
-			li {
-				margin: 1rem 0;
+
+			body {
+				background-color: var(--catalog-bg);
+				color: var(--catalog-text);
+				font-family: var(--font-primary);
+				transition: background-color 0.4s ease, color 0.4s ease;
+				-webkit-font-smoothing: antialiased;
 			}
-			a {
+
+			/* Container for mobile-first layout */
+			.catalog-container {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+				padding: 2rem 1.5rem;
+				max-width: 1200px;
+				margin: 0 auto;
+			}
+
+			/* Header */
+			.header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 4rem;
+				border-bottom: 1px solid var(--catalog-border);
+				padding-bottom: 1rem;
+			}
+
+			.logo {
+				font-weight: 800;
+				font-size: 1.2rem;
+				letter-spacing: -0.05em;
+				text-transform: uppercase;
+			}
+
+			/* Minimalist Theme Toggle */
+			.theme-toggle-btn {
+				background: transparent;
+				border: 1px solid var(--catalog-text);
+				color: var(--catalog-text);
+				padding: 0.4rem 0.8rem;
+				border-radius: 4px;
+				font-family: inherit;
+				font-size: 0.75rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+			}
+
+			.theme-toggle-btn:hover {
+				background-color: var(--catalog-text);
+				color: var(--catalog-bg);
+			}
+
+			/* Hero */
+			.hero {
+				margin-bottom: 5rem;
+			}
+
+			.hero h1 {
+				font-size: clamp(2.5rem, 10vw, 5rem);
+				font-weight: 800;
+				line-height: 1;
+				margin-bottom: 1rem;
+				letter-spacing: -0.03em;
+			}
+
+			.hero p {
+				font-size: 1.1rem;
+				font-weight: 300;
+				opacity: 0.7;
+				max-width: 500px;
+				margin-top: 1rem;
+			}
+
+			/* Search and Filter Section */
+			.controls-section {
+				margin-bottom: 3rem;
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+
+			.search-wrapper {
+				position: relative;
+				width: 100%;
+			}
+
+			.search-icon {
+				position: absolute;
+				left: 1rem;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 20px;
+				height: 20px;
+				color: var(--catalog-text);
+				opacity: 0.5;
+			}
+
+			.search-input {
+				width: 100%;
+				padding: 1.2rem 1.2rem 1.2rem 3rem;
+				border: 1px solid var(--catalog-border);
+				border-radius: 8px;
+				background-color: var(--card-bg);
+				color: var(--catalog-text);
+				font-family: var(--font-primary);
+				font-size: 1rem;
+				transition: border-color 0.3s ease, box-shadow 0.3s ease;
+			}
+
+			.search-input:focus {
+				outline: none;
+				border-color: var(--catalog-text);
+				box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+			}
+
+			:root[data-catalog-theme="dark"] .search-input:focus {
+				box-shadow: 0 0 0 2px rgba(245, 245, 245, 0.2);
+			}
+
+			.search-input::placeholder {
+				color: var(--catalog-text);
+				opacity: 0.4;
+			}
+
+			.tags-wrapper {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.8rem;
+			}
+
+			.filter-tag {
+				background: transparent;
+				border: 1px solid var(--catalog-border);
+				color: var(--catalog-text);
+				padding: 0.5rem 1rem;
+				border-radius: 20px;
+				font-family: var(--font-primary);
+				font-size: 0.85rem;
+				cursor: pointer;
+				transition: all 0.2s ease;
+				opacity: 0.7;
+			}
+
+			.filter-tag:hover {
+				opacity: 1;
+				border-color: var(--catalog-text);
+			}
+
+			.filter-tag.active {
+				background-color: var(--catalog-text);
+				color: var(--catalog-bg);
+				opacity: 1;
+				border-color: var(--catalog-text);
+			}
+
+			/* Gallery Grid */
+			.gallery-title {
+				font-size: 0.85rem;
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-weight: 600;
+				margin-bottom: 2rem;
+				opacity: 0.5;
+			}
+
+			.gallery {
+				display: flex;
+				flex-direction: column;
+				gap: 2rem;
+			}
+
+			/* Template Card */
+			.card {
+				display: block;
 				text-decoration: none;
-				color: #007bff;
+				color: inherit;
+				background-color: var(--card-bg);
+				border: 1px solid var(--catalog-border);
+				border-radius: 8px;
+				overflow: hidden;
+				transition: transform 0.3s ease, box-shadow 0.3s ease,
+					opacity 0.3s ease;
+				position: relative;
+			}
+
+			.card.hidden {
+				display: none;
+			}
+
+			.card:hover {
+				transform: translateY(-5px);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+			}
+
+			:root[data-catalog-theme="dark"] .card:hover {
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+			}
+
+			.card-image-placeholder {
+				width: 100%;
+				aspect-ratio: 16 / 9;
+				background-color: var(--catalog-bg);
+				border-bottom: 1px solid var(--catalog-border);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+			}
+
+			.card-image-placeholder svg {
+				width: 40px;
+				height: 40px;
+				opacity: 0.2;
+			}
+
+			.card-info {
+				padding: 1.5rem;
+				display: flex;
+				justify-content: space-between;
+				align-items: flex-end;
+			}
+
+			.card-title {
 				font-size: 1.5rem;
+				font-weight: 600;
+				margin-bottom: 0.3rem;
+			}
+
+			.card-tags {
+				font-size: 0.8rem;
+				opacity: 0.6;
+			}
+
+			.card-link-icon {
+				width: 24px;
+				height: 24px;
+				opacity: 0.5;
+				transition: opacity 0.2s;
+			}
+			.card:hover .card-link-icon {
+				opacity: 1;
+			}
+
+			/* Footer */
+			.footer {
+				margin-top: auto;
+				padding-top: 5rem;
+				padding-bottom: 2rem;
+				text-align: center;
+				font-size: 0.8rem;
+				opacity: 0.4;
+			}
+
+			/* No Results Message */
+			.no-results {
+				display: none;
+				text-align: center;
+				padding: 3rem;
+				opacity: 0.5;
+				font-style: italic;
+			}
+
+			.no-results.visible {
+				display: block;
+			}
+
+			@media (min-width: 768px) {
+				.catalog-container {
+					padding: 4rem 3rem;
+				}
+				.gallery {
+					flex-direction: row;
+					flex-wrap: wrap;
+				}
+				.card {
+					flex: 1 1 calc(50% - 1rem);
+				}
+				.controls-section {
+					flex-direction: row;
+					align-items: center;
+					justify-content: space-between;
+				}
+				.search-wrapper {
+					max-width: 400px;
+				}
+			}
+
+			@media (min-width: 1024px) {
+				.card {
+					flex: 1 1 calc(33.333% - 1.34rem);
+				}
 			}
 		</style>
+	</head>
+	<body>
+		<div class="catalog-container">
+			<header class="header">
+				<div class="logo">Átomo.</div>
+				<button id="catalog-theme-toggle" class="theme-toggle-btn">
+					<span id="theme-text">Dark / Ligth</span>
+				</button>
+			</header>
+
+			<section class="hero">
+				<h1>Colección de Invitaciones</h1>
+				<p>
+					Explora diseños minimalistas, elegantes y totalmente
+					adaptables para tus eventos especiales.
+				</p>
+			</section>
+
+			<section class="controls-section">
+				<div class="search-wrapper">
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="search-icon"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						><circle cx="11" cy="11" r="8"></circle><line
+							x1="21"
+							y1="21"
+							x2="16.65"
+							y2="16.65"></line>
+					</svg>
+					<input
+						type="text"
+						id="search-input"
+						class="search-input"
+						placeholder="Buscar por nombre, estilo..."
+					/>
+				</div>
+				<div class="tags-wrapper" id="filter-tags">
+					<button class="filter-tag active" data-filter="todos"
+						>Todos</button
+					>
+					<button class="filter-tag" data-filter="boda">Boda</button>
+					<button class="filter-tag" data-filter="cumpleaños"
+						>Cumpleaños</button
+					>
+					<button class="filter-tag" data-filter="xv">XV Años</button>
+					<button class="filter-tag" data-filter="bautizo"
+						>Bautizo</button
+					>
+					<button class="filter-tag" data-filter="baby shower"
+						>Baby Shower</button
+					>
+					<button class="filter-tag" data-filter="elegante"
+						>Elegante</button
+					>
+					<button class="filter-tag" data-filter="minimalista"
+						>Minimalista</button
+					>
+					<button class="filter-tag" data-filter="divertido"
+						>Divertido</button
+					>
+				</div>
+			</section>
+
+			<section class="templates">
+				<h2 class="gallery-title">Plantillas Disponibles</h2>
+
+				<div class="gallery" id="templates-gallery">
+					<!-- Template Card: Serenity -->
+					<a
+						href="/serenity"
+						class="card"
+						data-title="Serenity"
+						data-tags="cumpleaños elegante minimalista"
+					>
+						<div class="card-image-placeholder">
+							<!-- Custom abstract preview of Serenity -->
+							<div
+								style="font-family: serif; font-size: 3rem; opacity: 0.3; letter-spacing: 0.2em;"
+							>
+								Serenity
+							</div>
+						</div>
+						<div class="card-info">
+							<div>
+								<h3 class="card-title">Serenity</h3>
+								<div class="card-tags">
+									Cumpleaños • Elegante • Minimalista
+								</div>
+							</div>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="card-link-icon"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><line x1="5" y1="12" x2="19" y2="12"
+								></line><polyline points="12 5 19 12 12 19"
+								></polyline>
+							</svg>
+						</div>
+					</a>
+
+					<!-- Template Card: Scrapbook -->
+					<a
+						href="/scrapbook"
+						class="card"
+						data-title="Scrapbook"
+						data-tags="cumpleaños moderno divertido"
+					>
+						<div class="card-image-placeholder">
+							<div
+								style="font-family: 'Permanent Marker', cursive; font-size: 2.5rem; opacity: 0.3; letter-spacing: 0.1em; color: var(--pink-main); transform: rotate(-5deg);"
+							>
+								Scrapbook
+							</div>
+						</div>
+						<div class="card-info">
+							<div>
+								<h3 class="card-title">Scrapbook</h3>
+								<div class="card-tags">
+									Cumpleaños • Moderno • Divertido
+								</div>
+							</div>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="card-link-icon"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><line x1="5" y1="12" x2="19" y2="12"
+								></line><polyline points="12 5 19 12 12 19"
+								></polyline>
+							</svg>
+						</div>
+					</a>
+
+					<!-- Dummy Card for testing filters -->
+					<a
+						href="#"
+						class="card"
+						data-title="Neon Nights"
+						data-tags="xv moderno oscuro"
+					>
+						<div class="card-image-placeholder">
+							<div
+								style="font-family: sans-serif; font-weight: 800; font-size: 2.5rem; opacity: 0.3; letter-spacing: 0.1em; color: #ff00ff;"
+							>
+								NEON
+							</div>
+						</div>
+						<div class="card-info">
+							<div>
+								<h3 class="card-title">Neon Nights</h3>
+								<div class="card-tags">
+									XV Años • Moderno • Oscuro
+								</div>
+							</div>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="card-link-icon"
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								><line x1="5" y1="12" x2="19" y2="12"
+								></line><polyline points="12 5 19 12 12 19"
+								></polyline>
+							</svg>
+						</div>
+					</a>
+				</div>
+
+				<div id="no-results" class="no-results">
+					No se encontraron plantillas que coincidan con tu búsqueda.
+				</div>
+			</section>
+
+			<footer class="footer">
+				<p>&copy; 2026 Átomo Invitations</p>
+			</footer>
+		</div>
+
+		<script>
+			// === Theme Switcher ===
+			const toggleBtn = document.getElementById("catalog-theme-toggle");
+			const htmlTag = document.documentElement;
+
+			const savedTheme = localStorage.getItem("catalog-theme");
+			const systemDark = window.matchMedia(
+				"(prefers-color-scheme: dark)"
+			).matches;
+			let currentTheme = savedTheme || (systemDark ? "dark" : "light");
+
+			const applyTheme = (theme) => {
+				htmlTag.setAttribute("data-catalog-theme", theme);
+				localStorage.setItem("catalog-theme", theme);
+			};
+
+			applyTheme(currentTheme);
+
+			toggleBtn.addEventListener("click", () => {
+				currentTheme = currentTheme === "dark" ? "light" : "dark";
+				applyTheme(currentTheme);
+			});
+
+			// === Filtering and Search Logic ===
+			const searchInput = document.getElementById("search-input");
+			const filterTags = document.querySelectorAll(".filter-tag");
+			const cards = document.querySelectorAll(".card");
+			const noResults = document.getElementById("no-results");
+
+			let activeFilter = "todos";
+			let searchQuery = "";
+
+			const filterCards = () => {
+				let visibleCount = 0;
+
+				cards.forEach((card) => {
+					const title = card.getAttribute("data-title").toLowerCase();
+					const tags = card.getAttribute("data-tags").toLowerCase();
+
+					const matchesSearch =
+						title.includes(searchQuery) ||
+						tags.includes(searchQuery);
+					const matchesFilter =
+						activeFilter === "todos" || tags.includes(activeFilter);
+
+					if (matchesSearch && matchesFilter) {
+						card.classList.remove("hidden");
+						visibleCount++;
+					} else {
+						card.classList.add("hidden");
+					}
+				});
+
+				if (visibleCount === 0) {
+					noResults.classList.add("visible");
+				} else {
+					noResults.classList.remove("visible");
+				}
+			};
+
+			// Search Input Event
+			searchInput.addEventListener("input", (e) => {
+				searchQuery = e.target.value.toLowerCase().trim();
+				filterCards();
+			});
+
+			// Filter Tags Event
+			filterTags.forEach((tag) => {
+				tag.addEventListener("click", () => {
+					// Update Active State Visuals
+					filterTags.forEach((t) => t.classList.remove("active"));
+					tag.classList.add("active");
+
+					// Apply Filter Logic
+					activeFilter = tag
+						.getAttribute("data-filter")
+						.toLowerCase();
+					filterCards();
+				});
+			});
+		</script>
 	</body>
 </html>

@@ -1,0 +1,130 @@
+---
+interface Props {
+    whatsappNumber: string;
+}
+
+const { whatsappNumber } = Astro.props;
+---
+
+<!-- 6. RSVP FORMULARIO -->
+<section class="mb-12 relative max-w-2xl mx-auto">
+    <div class="text-center mb-8 md:mb-12">
+        <span
+            class="marker-font text-6xl md:text-8xl text-[var(--pink-main)] transform -rotate-6 inline-block opacity-80"
+            >X O X O</span
+        >
+    </div>
+
+    <div
+        class="bg-[var(--tape-bg)] p-6 md:p-10 rounded-lg shadow-sm border border-pink-100"
+    >
+        <h2 class="marker-font text-2xl md:text-4xl mb-6 text-center">
+            ¡NO FALTES!
+        </h2>
+
+        <form id="rsvpForm" class="space-y-8 text-xl md:text-2xl">
+            <div class="flex flex-col gap-4 md:gap-6 mt-2">
+                <span>Juro solemnemente que:</span>
+                <label class="flex items-center gap-4 cursor-pointer group">
+                    <div
+                        class="w-8 h-8 md:w-10 md:h-10 hand-drawn-border flex items-center justify-center p-0 relative bg-white shrink-0"
+                    >
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="yes"
+                            required
+                            class="opacity-0 absolute w-full h-full cursor-pointer peer"
+                        />
+                        <span
+                            class="text-2xl md:text-3xl text-[var(--charcoal)] hidden peer-checked:block marker-font mt-1"
+                            >X</span
+                        >
+                    </div>
+                    <span
+                        class="group-hover:text-[var(--pink-main)] transition-colors"
+                        >¡Obvio voy a ir! <i
+                            class="fa-solid fa-wand-magic-sparkles text-[var(--pink-main)] ml-2"
+                        ></i>
+                    </span>
+                </label>
+
+                <label class="flex items-center gap-4 cursor-pointer group">
+                    <div
+                        class="w-8 h-8 md:w-10 md:h-10 hand-drawn-border flex items-center justify-center p-0 relative bg-white shrink-0"
+                    >
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="no"
+                            class="opacity-0 absolute w-full h-full cursor-pointer peer"
+                        />
+                        <span
+                            class="text-2xl md:text-3xl text-[var(--charcoal)] hidden peer-checked:block marker-font mt-1"
+                            >X</span
+                        >
+                    </div>
+                    <span class="group-hover:text-gray-500 transition-colors"
+                        >Me lo pierdo <i class="fa-solid fa-face-sad-tear ml-2"
+                        ></i>
+                    </span>
+                </label>
+            </div>
+
+            <div class="text-center mt-10">
+                <button
+                    type="submit"
+                    class="hand-drawn-border text-2xl md:text-4xl marker-font text-[var(--pink-main)] hover:text-white hover:bg-[var(--pink-main)] transition-all px-10 py-3"
+                >
+                    ENVIAR
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Lazo decorativo final -->
+    <div
+        class="sticker text-7xl md:text-9xl -bottom-10 -left-10 md:-left-20 transform -rotate-12"
+    >
+        <i class="fa-solid fa-ribbon text-[var(--pink-main)] opacity-80"></i>
+    </div>
+    <svg
+        class="sparkle bottom-0 right-4 md:-right-12 w-8 h-8 md:w-16 md:h-16"
+        viewBox="0 0 24 24"
+        style="animation-delay: 1.5s;"
+        ><path
+            d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"
+            class="svg-pink"></path>
+    </svg>
+</section>
+
+<script define:vars={{ whatsappNumber }}>
+    // MANEJO DEL FORMULARIO (RSVP) A WHATSAPP
+    const form = document.getElementById("rsvpForm");
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const attendingInput = document.querySelector(
+                'input[name="attendance"]:checked'
+            );
+            if (!attendingInput) return;
+
+            const attending = attendingInput.value;
+
+            let mensaje = "";
+            if (attending === "yes") {
+                mensaje =
+                    "¡Hola! Juro solemnemente que ¡Obvio voy a ir! a la Noche de Chicas. 💅✨ Nos vemos ahí.";
+            } else {
+                mensaje =
+                    "¡Hola! Lloraremos, pero me lo pierdo. No podré ir a la Noche de Chicas. 😭💔";
+            }
+
+            const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+                mensaje
+            )}`;
+            window.open(url, "_blank");
+        });
+    }
+</script>

@@ -1,0 +1,211 @@
+---
+import "./styles/variables.css";
+import ThemeToggle from "../../components/ThemeToggle.astro";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+
+        <!-- TailwindCSS for Scrapbook layout utility classes -->
+        <script is:inline src="https://cdn.tailwindcss.com"></script>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <!-- Fuentes: Permanent Marker (Títulos) y Caveat (Texto escrito a mano) -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Permanent+Marker&display=swap"
+            rel="stylesheet"
+        />
+        <!-- FontAwesome para los íconos -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+    </head>
+    <body class="antialiased">
+        <ThemeToggle />
+        <!-- Contenedor Principal (El Cuaderno) -->
+        <div
+            class="notebook-paper pt-8 pb-16 px-4 md:px-8 overflow-hidden relative"
+        >
+            <!-- Margen de contenido adaptado al ancho completo sin padding restrictivo izquierdo -->
+            <div class="w-full max-w-screen-2xl mx-auto relative z-10">
+                <slot />
+            </div>
+        </div>
+
+        <!-- ESTILOS GLOBALES -->
+        <style is:global>
+            body {
+                background-color: var(--bg-paper);
+                color: var(--charcoal);
+                font-family: var(--font-script);
+                overflow-x: hidden;
+            }
+
+            /* FONDO DE CUADERNO REALISTA */
+            .notebook-paper {
+                background-color: var(--bg-paper);
+                background-image: 
+                    /* Renglones azules horizontales */ linear-gradient(
+                    transparent calc(100% - 1px),
+                    var(--line-color) calc(100% - 1px)
+                );
+                background-size: 100% var(--line-height);
+                min-height: 100vh;
+                width: 100%;
+                position: relative;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                line-height: var(--line-height);
+                padding-bottom: 50px;
+            }
+
+            /* LÍNEA ROSA VERTICAL COMO ELEMENTO DECORATIVO ABSOLUTO */
+            .notebook-paper::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 10%; /* Ajuste proporcional en lugar de fijo */
+                width: 4px;
+                background-color: var(--accent-line);
+                z-index: 0;
+                pointer-events: none;
+            }
+
+            @media (min-width: 768px) {
+                .notebook-paper::before {
+                    left: 80px; /* Margen fijo en pantallas grandes */
+                }
+            }
+
+            .marker-font {
+                font-family: var(--font-marker);
+                line-height: 1.2;
+            }
+
+            /* EFECTOS DE TRAZO DE MARCADOR Y FORMAS ORGÁNICAS */
+            .marker-underline {
+                position: relative;
+                display: inline-block;
+            }
+            .marker-underline::after {
+                content: "";
+                position: absolute;
+                left: -5%;
+                bottom: 0px;
+                width: 110%;
+                height: 4px;
+                background-color: var(--charcoal);
+                border-radius: 50%;
+                transform: rotate(-1deg);
+            }
+
+            .marker-highlight {
+                position: relative;
+                display: inline-block;
+                z-index: 1;
+            }
+            .marker-highlight::before {
+                content: "";
+                position: absolute;
+                z-index: -1;
+                left: -5%;
+                top: 40%;
+                width: 110%;
+                height: 60%;
+                background-color: var(
+                    --accent-line
+                ); /* Cambiado a variable dinámica */
+                transform: rotate(-2deg);
+                border-radius: 4px;
+            }
+
+            .hand-drawn-border {
+                border: 3px solid var(--charcoal);
+                border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+                padding: 10px 20px;
+                display: inline-block;
+                transition: all 0.2s ease;
+                background-color: transparent;
+                cursor: pointer;
+                line-height: 1.2;
+            }
+
+            .hand-drawn-border:hover {
+                background-color: var(--accent-line);
+                transform: scale(1.02) rotate(-1deg);
+            }
+
+            /* ELEMENTOS FLOTANTES / STICKERS */
+            .sticker {
+                position: absolute;
+                filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.15));
+                z-index: 10;
+            }
+
+            .sparkle {
+                position: absolute;
+                color: var(--pink-main);
+                animation: twinkle 2s infinite alternate;
+            }
+
+            @keyframes twinkle {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 0.5;
+                }
+                100% {
+                    transform: scale(1.2);
+                    opacity: 1;
+                }
+            }
+
+            /* POLAROID CAROUSEL */
+            .polaroid {
+                background: var(--bg-card);
+                padding: 10px 10px 30px 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1),
+                    0 1px 3px rgba(0, 0, 0, 0.08);
+                transform: rotate(calc(var(--rot) * 1deg));
+                min-width: 150px;
+                border: 1px solid #eee;
+                position: relative;
+            }
+            .tape {
+                position: absolute;
+                top: -10px;
+                left: 50%;
+                transform: translateX(-50%) rotate(calc(var(--rot) * -2deg));
+                width: 40px;
+                height: 15px;
+                background-color: var(--tape-bg);
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+                border-left: 1px dashed rgba(0, 0, 0, 0.1);
+                border-right: 1px dashed rgba(0, 0, 0, 0.1);
+            }
+
+            .hide-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            .hide-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+
+            .svg-pink {
+                fill: var(--pink-main);
+            }
+        </style>
+    </body>
+</html>

@@ -1,0 +1,90 @@
+---
+---
+
+<!-- 2. CONTADOR (Estilo Casillas) -->
+<section class="mb-16 md:mb-24 relative">
+    <h2
+        class="marker-font text-2xl md:text-4xl text-[var(--pink-main)] mb-6 text-center transform rotate-1"
+    >
+        CUENTA REGRESIVA
+    </h2>
+    <div class="flex justify-center gap-2 sm:gap-6 md:gap-8">
+        <div class="flex flex-col items-center">
+            <div
+                class="hand-drawn-border text-3xl md:text-5xl font-bold w-16 h-16 md:w-24 md:h-24 flex items-center justify-center bg-[var(--bg-card)] shadow-sm"
+                id="days"
+            >
+                00
+            </div>
+            <span class="marker-font text-sm md:text-xl mt-2">DÍAS</span>
+        </div>
+        <div class="text-3xl md:text-5xl mt-2 md:mt-4 font-bold">:</div>
+        <div class="flex flex-col items-center">
+            <div
+                class="hand-drawn-border text-3xl md:text-5xl font-bold w-16 h-16 md:w-24 md:h-24 flex items-center justify-center bg-[var(--bg-card)] shadow-sm"
+                id="hours"
+            >
+                00
+            </div>
+            <span class="marker-font text-sm md:text-xl mt-2">HRS</span>
+        </div>
+        <div class="text-3xl md:text-5xl mt-2 md:mt-4 font-bold">:</div>
+        <div class="flex flex-col items-center">
+            <div
+                class="hand-drawn-border text-3xl md:text-5xl font-bold w-16 h-16 md:w-24 md:h-24 flex items-center justify-center bg-[var(--bg-card)] shadow-sm"
+                id="mins"
+            >
+                00
+            </div>
+            <span class="marker-font text-sm md:text-xl mt-2">MIN</span>
+        </div>
+    </div>
+    <div
+        class="sticker text-5xl md:text-7xl right-4 md:right-24 mt-2 transform rotate-12"
+    >
+        <i
+            class="fa-solid fa-martini-glass-citrus text-[var(--pink-main)] opacity-80"
+        ></i>
+    </div>
+</section>
+
+<script>
+    // CONFIGURACIÓN DEL CONTADOR (Sábado 22 de Abril del próximo año por defecto)
+    const now = new Date();
+    const eventDateAt = new Date(now.getFullYear(), 3, 22, 19, 0, 0); // Meses en JS son 0 indexados (3 = Abril)
+    if (now > eventDateAt) {
+        eventDateAt.setFullYear(eventDateAt.getFullYear() + 1);
+    }
+
+    function updateCountdown() {
+        const currentTime = new Date();
+        const difference = eventDateAt.getTime() - currentTime.getTime();
+
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minsEl = document.getElementById("mins");
+
+        if (!daysEl || !hoursEl || !minsEl) return;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutes = Math.floor(
+                (difference % (1000 * 60 * 60)) / (1000 * 60)
+            );
+
+            daysEl.innerText = days.toString().padStart(2, "0");
+            hoursEl.innerText = hours.toString().padStart(2, "0");
+            minsEl.innerText = minutes.toString().padStart(2, "0");
+        } else {
+            daysEl.innerText = "00";
+            hoursEl.innerText = "00";
+            minsEl.innerText = "00";
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>

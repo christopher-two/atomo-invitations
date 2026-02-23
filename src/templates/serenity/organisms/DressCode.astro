@@ -1,0 +1,198 @@
+---
+---
+
+<section class="dress-gifts">
+    <!-- Dress Code Section -->
+    <div class="clothing-section" data-aos="fade-up">
+        <div class="icon-container">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon"
+            >
+                <path
+                    d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.62 1.96V10a2 2 0 002 2h2v8a2 2 0 002 2h8a2 2 0 002-2v-8h2a2 2 0 002-2V5.42a2 2 0 00-1.62-1.96z"
+                ></path>
+            </svg>
+        </div>
+        <h2 class="sub-heading">DRESS CODE</h2>
+        <p class="script-heading dress-type">Elegante Sport</p>
+    </div>
+
+    <!-- Small elegant separator -->
+    <div class="dot-separator" data-aos="zoom-in" data-aos-delay="100"></div>
+
+    <!-- Gifts Section -->
+    <div class="gifts-section" data-aos="fade-up" data-aos-delay="200">
+        <div class="icon-container">
+            <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="icon"
+            >
+                <rect x="3" y="8" width="18" height="14" rx="2"></rect>
+                <path d="M12 5a3 3 0 1 0-3 3"></path>
+                <path d="M15 8a3 3 0 1 0-3-3"></path>
+                <path d="M12 5v3"></path>
+                <line x1="12" y1="8" x2="12" y2="22"></line>
+            </svg>
+        </div>
+        <h2 class="sub-heading">REGALOS</h2>
+        <p class="script-heading gifts-title">Lluvia de Sobres</p>
+        <p class="gifts-description">
+            El mejor regalo es tu presencia. Pero si deseas tener un detalle
+            adicional, contaremos con un buzón en el salón o puedes realizar una
+            transferencia.
+        </p>
+
+        <div class="bank-details" data-aos="fade-up" data-aos-delay="300">
+            <p><strong>CBU/CVU:</strong> 0000011111222233344455</p>
+            <p><strong>Alias:</strong> BODA.FIESTA.AMOR</p>
+            <p><strong>Titular:</strong> Daniela y Christopher</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .dress-gifts {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 5rem 1rem;
+        background-color: var(--color-bg);
+        gap: 4rem;
+    }
+
+    .clothing-section,
+    .gifts-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .icon-container {
+        margin-bottom: 1.5rem;
+        color: var(--color-accent);
+    }
+
+    .icon {
+        width: 45px;
+        height: 45px;
+        opacity: 0.9;
+    }
+
+    .sub-heading {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        letter-spacing: 0.4rem;
+        color: var(--color-text);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        opacity: 0.6;
+        /* Optical centering for letter-spacing */
+        margin-right: -0.4rem;
+    }
+
+    .script-heading {
+        font-family: var(--font-script) !important;
+        font-size: 4rem;
+        color: var(--color-text);
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .dress-type {
+        padding-left: 0.5rem; /* Optical balance */
+    }
+
+    .gifts-title {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .dot-separator {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background-color: var(--color-accent);
+        opacity: 0.5;
+        position: relative;
+    }
+    .dot-separator::before,
+    .dot-separator::after {
+        content: "";
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--color-accent);
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .dot-separator::before {
+        left: -20px;
+    }
+    .dot-separator::after {
+        right: -20px;
+    }
+
+    .gifts-description {
+        font-family: var(--font-serif);
+        font-size: 1.2rem;
+        color: var(--color-accent);
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        max-width: 500px;
+    }
+
+    .bank-details {
+        background-color: rgba(150, 150, 150, 0.05); /* Very slight tint */
+        border: 1px solid rgba(150, 150, 150, 0.4);
+        border-radius: 12px;
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .bank-details p {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        color: var(--color-text);
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.05rem;
+    }
+    .bank-details p:last-child {
+        margin-bottom: 0;
+    }
+    .bank-details strong {
+        font-weight: 600;
+        opacity: 0.8;
+    }
+
+    @media (max-width: 480px) {
+        .script-heading {
+            font-size: 3rem;
+        }
+        .gifts-title {
+            font-size: 2.8rem;
+        }
+        .gifts-description {
+            font-size: 1.1rem;
+        }
+    }
+</style>
