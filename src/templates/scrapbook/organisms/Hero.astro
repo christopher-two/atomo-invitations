@@ -9,10 +9,24 @@ const { eventDate, eventTime } = Astro.props;
 
 <!-- STICKERS DECORATIVOS SUPERIORES -->
 <div class="sticker text-6xl md:text-8xl -top-4 -left-2 transform -rotate-12">
-    <i class="fa-solid fa-compact-disc text-[var(--pink-main)] opacity-80"></i>
+    <i
+        class="theme-icon fa-solid fa-compact-disc text-[var(--pink-main)] opacity-80"
+        data-light="fa-solid fa-compact-disc"
+        data-dark="fa-solid fa-star"
+        data-emerald="fa-solid fa-graduation-cap"
+        data-rose="fa-solid fa-ring"
+        data-gold="fa-solid fa-gem"
+        data-current-icon-class="fa-solid fa-compact-disc"></i>
 </div>
 <div class="sticker text-6xl md:text-8xl top-4 right-4 transform rotate-12">
-    <i class="fa-solid fa-heart text-[var(--pink-main)] opacity-80"></i>
+    <i
+        class="theme-icon fa-solid fa-heart text-[var(--pink-main)] opacity-80"
+        data-light="fa-solid fa-heart"
+        data-dark="fa-solid fa-moon"
+        data-emerald="fa-solid fa-scroll"
+        data-rose="fa-solid fa-champagne-glasses"
+        data-gold="fa-solid fa-crown"
+        data-current-icon-class="fa-solid fa-heart"></i>
 </div>
 
 <!-- Estrellas/Sparkles SVG -->
@@ -38,15 +52,32 @@ const { eventDate, eventTime } = Astro.props;
     <h1
         class="marker-font text-5xl sm:text-7xl md:text-8xl uppercase tracking-wider transform -rotate-2"
     >
-        <span class="block text-[var(--charcoal)] mb-2 md:mb-6">Noche de</span>
-        <span class="block text-[var(--charcoal)]">Chicas</span>
+        <span
+            class="theme-text block text-[var(--charcoal)] mb-2 md:mb-6"
+            data-light="Noche de"
+            data-dark="Noche de"
+            data-emerald="Mi"
+            data-rose="Despedida"
+            data-gold="Nuestro">Noche de</span
+        >
+        <span
+            class="theme-text block text-[var(--charcoal)]"
+            data-light="Chicas"
+            data-dark="Gala"
+            data-emerald="Graduación"
+            data-rose="de Soltera"
+            data-gold="Aniversario">Chicas</span
+        >
     </h1>
     <div class="mt-4 md:mt-8">
-        <span class="text-2xl md:text-4xl marker-underline text-gray-800"
+        <span
+            class="text-2xl md:text-4xl marker-underline text-[var(--charcoal)] opacity-90"
             >sábado {eventDate}
         </span>
     </div>
     <div class="mt-2 md:mt-6">
-        <span class="text-2xl md:text-4xl font-bold">{eventTime}</span>
+        <span class="text-2xl md:text-4xl font-bold text-[var(--charcoal)]"
+            >{eventTime}
+        </span>
     </div>
 </section>

@@ -195,7 +195,56 @@
         });
     };
 
+    // Aplicar contenido dinámico basado en las etiquetas data-* (theme-text, theme-icon)
+    const applyThemeContent = (themeName: string) => {
+        // Actualizar Textos
+        document.querySelectorAll(".theme-text").forEach((el) => {
+            const newText = el.getAttribute(`data-${themeName}`);
+            if (newText !== null) {
+                (el as HTMLElement).innerText = newText;
+            }
+        });
+
+        // Actualizar Íconos (clases utilitarias como fa-solid fa-martini-glass-citrus)
+        document.querySelectorAll(".theme-icon").forEach((el) => {
+            const newClassKey = `data-${themeName}`;
+            const newClass = el.getAttribute(newClassKey);
+
+            if (newClass !== null) {
+                // Recuperar la clase previa (si existe) para eliminarla
+                const prevClassKey = `data-current-icon-class`;
+                const prevClass = el.getAttribute(prevClassKey);
+
+                if (prevClass) {
+                    // Remover las clases anteriores (soporta múltiples separadas por espacio)
+                    prevClass
+                        .split(" ")
+                        .filter(Boolean)
+                        .forEach((c) => el.classList.remove(c));
+                }
+
+                // Añadir la nueva clase
+                newClass
+                    .split(" ")
+                    .filter(Boolean)
+                    .forEach((c) => el.classList.add(c));
+                // Guardar como "actual" para poder removerla en el futuro
+                el.setAttribute(prevClassKey, newClass);
+            }
+        });
+
+        // Actualizar Imágenes (Polaroids u otras)
+        document.querySelectorAll(".theme-img").forEach((el) => {
+            const newSrc = el.getAttribute(`data-${themeName}-src`);
+            if (newSrc !== null) {
+                (el as HTMLImageElement).src = newSrc;
+            }
+        });
+    };
+
+    // Ejecutar inicialización
     setActiveOption(currentTheme);
+    applyThemeContent(currentTheme);
 
     // Toggle dropdown
     if (btn && menu) {
@@ -228,6 +277,7 @@
                 document.documentElement.setAttribute("data-theme", newTheme);
                 localStorage.setItem("theme", newTheme);
                 setActiveOption(newTheme);
+                applyThemeContent(newTheme);
 
                 // Ocultar menú tras seleccionar
                 if (menu && btn) {

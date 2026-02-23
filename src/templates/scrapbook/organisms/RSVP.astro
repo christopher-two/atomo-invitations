@@ -11,20 +11,41 @@ const { whatsappNumber } = Astro.props;
     <div class="text-center mb-8 md:mb-12">
         <span
             class="marker-font text-6xl md:text-8xl text-[var(--pink-main)] transform -rotate-6 inline-block opacity-80"
-            >X O X O</span
-        >
+            ><span
+                class="theme-text"
+                data-light="X O X O"
+                data-dark="R S V P"
+                data-emerald="R S V P"
+                data-rose="X O X O"
+                data-gold="R S V P">X O X O</span
+            >
+        </span>
     </div>
 
     <div
         class="bg-[var(--tape-bg)] p-6 md:p-10 rounded-lg shadow-sm border border-pink-100"
     >
         <h2 class="marker-font text-2xl md:text-4xl mb-6 text-center">
-            ¡NO FALTES!
+            <span
+                class="theme-text"
+                data-light="¡NO FALTES!"
+                data-dark="Confirmar Asistencia"
+                data-emerald="Acompáñanos"
+                data-rose="¡Acompáñanos!"
+                data-gold="Confirma Tu Asistencia">¡NO FALTES!</span
+            >
         </h2>
 
         <form id="rsvpForm" class="space-y-8 text-xl md:text-2xl">
             <div class="flex flex-col gap-4 md:gap-6 mt-2">
-                <span>Juro solemnemente que:</span>
+                <span
+                    class="theme-text"
+                    data-light="Juro solemnemente que:"
+                    data-dark="Por favor confirmar asistencia:"
+                    data-emerald="Confirmo mi asistencia:"
+                    data-rose="¿Podemos contar contigo?"
+                    data-gold="Favor de confirmar:">Juro solemnemente que:</span
+                >
                 <label class="flex items-center gap-4 cursor-pointer group">
                     <div
                         class="w-8 h-8 md:w-10 md:h-10 hand-drawn-border flex items-center justify-center p-0 relative bg-white shrink-0"
@@ -42,9 +63,24 @@ const { whatsappNumber } = Astro.props;
                         >
                     </div>
                     <span
-                        class="group-hover:text-[var(--pink-main)] transition-colors"
-                        >¡Obvio voy a ir! <i
-                            class="fa-solid fa-wand-magic-sparkles text-[var(--pink-main)] ml-2"
+                        class="group-hover:text-[var(--pink-main)] transition-colors inline-flex items-center"
+                        ><span
+                            class="theme-text"
+                            data-light="¡Obvio voy a ir!"
+                            data-dark="Sí, asistiré"
+                            data-emerald="Sí, ahí estaré"
+                            data-rose="¡Sí, me encantaría!"
+                            data-gold="Con gusto asistiré"
+                            >¡Obvio voy a ir!</span
+                        >
+                        <i
+                            class="theme-icon fa-solid fa-wand-magic-sparkles text-[var(--pink-main)] ml-2 mt-1"
+                            data-light="fa-solid fa-wand-magic-sparkles"
+                            data-dark="fa-solid fa-check"
+                            data-emerald="fa-solid fa-check-double"
+                            data-rose="fa-solid fa-heart"
+                            data-gold="fa-solid fa-check"
+                            data-current-icon-class="fa-solid fa-wand-magic-sparkles"
                         ></i>
                     </span>
                 </label>
@@ -64,8 +100,24 @@ const { whatsappNumber } = Astro.props;
                             >X</span
                         >
                     </div>
-                    <span class="group-hover:text-gray-500 transition-colors"
-                        >Me lo pierdo <i class="fa-solid fa-face-sad-tear ml-2"
+                    <span
+                        class="group-hover:text-gray-500 transition-colors inline-flex items-center"
+                        ><span
+                            class="theme-text"
+                            data-light="Me lo pierdo"
+                            data-dark="No podré asistir"
+                            data-emerald="Lamentablemente no"
+                            data-rose="Me lo pierdo"
+                            data-gold="Declino con pesar">Me lo pierdo</span
+                        >
+                        <i
+                            class="theme-icon fa-solid fa-face-sad-tear ml-2 mt-1"
+                            data-light="fa-solid fa-face-sad-tear"
+                            data-dark="fa-solid fa-xmark"
+                            data-emerald="fa-solid fa-xmark"
+                            data-rose="fa-solid fa-face-frown"
+                            data-gold="fa-solid fa-xmark"
+                            data-current-icon-class="fa-solid fa-face-sad-tear"
                         ></i>
                     </span>
                 </label>
@@ -112,13 +164,34 @@ const { whatsappNumber } = Astro.props;
 
             const attending = attendingInput.value;
 
+            const currentTheme = localStorage.getItem("theme") || "light";
             let mensaje = "";
-            if (attending === "yes") {
+
+            if (currentTheme === "light") {
                 mensaje =
-                    "¡Hola! Juro solemnemente que ¡Obvio voy a ir! a la Noche de Chicas. 💅✨ Nos vemos ahí.";
-            } else {
+                    attending === "yes"
+                        ? "¡Hola! Juro solemnemente que ¡Obvio voy a ir! a la Noche de Chicas. 💅✨ Nos vemos ahí."
+                        : "¡Hola! Lloraremos, pero me lo pierdo. No podré ir a la Noche de Chicas. 😭💔";
+            } else if (currentTheme === "dark") {
                 mensaje =
-                    "¡Hola! Lloraremos, pero me lo pierdo. No podré ir a la Noche de Chicas. 😭💔";
+                    attending === "yes"
+                        ? "¡Hola! Confirmo mi asistencia a la Noche de Gala."
+                        : "¡Hola! Lamentablemente no podré asistir a la Noche de Gala.";
+            } else if (currentTheme === "emerald") {
+                mensaje =
+                    attending === "yes"
+                        ? "¡Hola! Confirmo mi asistencia a la Graduación."
+                        : "¡Hola! Me es imposible asistir a la Graduación.";
+            } else if (currentTheme === "rose") {
+                mensaje =
+                    attending === "yes"
+                        ? "¡Hola! Claro que sí, ¡me encantaría asistir a la Despedida de Soltera! 💕"
+                        : "¡Hola! Qué pena, no podré acompañarlas en la Despedida. ¡Pásenla increíble!";
+            } else if (currentTheme === "gold") {
+                mensaje =
+                    attending === "yes"
+                        ? "¡Hola! Con gusto confirmo mi asistencia al Aniversario."
+                        : "¡Hola! Agradezco la invitación, pero declino con pesar la asistencia al Aniversario.";
             }
 
             const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
