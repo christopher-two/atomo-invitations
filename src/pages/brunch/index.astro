@@ -1,0 +1,56 @@
+---
+import BrunchLayout from "../../templates/brunch/Layout.astro";
+import Hero from "../../templates/brunch/organisms/Hero.astro";
+import Countdown from "../../templates/brunch/organisms/Countdown.astro";
+import Plan from "../../templates/brunch/organisms/Plan.astro";
+import Dresscode from "../../templates/brunch/organisms/Dresscode.astro";
+import Music from "../../templates/brunch/organisms/Music.astro";
+import RSVP from "../../templates/brunch/organisms/RSVP.astro";
+
+// Global data configuration
+const eventData = {
+    titlePart1: "¿Chelita",
+    titlePart2: "y",
+    titlePart3: "brunch?",
+    locationName: "Calle Cualquiera 123",
+    locationAddress: "Cualquier lugar",
+    time: "11 am",
+    type: "Cumple #30",
+    honoree: "Olivia",
+    date: "12 de Oct.",
+    dateFull: "Sábado 12 de Oct.",
+    placeName: 'Terraza "La Crudelia"',
+    placeDetails: "Calle Cualquiera 123, Col. Roma.",
+};
+---
+
+<BrunchLayout
+    title={`${eventData.titlePart1} ${eventData.titlePart2} ${eventData.titlePart3}`}
+>
+    <Hero
+        eventTitlePart1={eventData.titlePart1}
+        eventTitlePart2={eventData.titlePart2}
+        eventTitlePart3={eventData.titlePart3}
+        locationName={eventData.locationName}
+        locationAddress={eventData.locationAddress}
+        eventTime={eventData.time}
+        eventType={eventData.type}
+        guestOfHonor={eventData.honoree}
+    />
+
+    <Countdown />
+
+    <Plan
+        dateFull={eventData.dateFull}
+        time={eventData.time}
+        placeName={eventData.placeName}
+        placeDetails={eventData.placeDetails}
+        mapUrl="https://maps.google.com"
+    />
+
+    <Dresscode />
+
+    <Music />
+
+    <RSVP whatsappNumber="+1234567890" />
+</BrunchLayout>

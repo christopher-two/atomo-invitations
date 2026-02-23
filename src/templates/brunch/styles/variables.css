@@ -1,0 +1,65 @@
+/* variables.css para plantilla Brunch */
+
+:root {
+    /* Tema Claro (Por defecto) - Lavanda y Lima */
+    --bg-color: #aeb1e8;
+    --accent-color: #d3f798;
+    --text-contrast: #5b5585;
+    /* Para textos sobre el color de acento */
+
+    --color-bg: var(--bg-color);
+    --color-text: var(--text-main);
+    --color-accent: var(--accent-color);
+    --font-sans: 'Kalam', cursive;
+    --font-serif: 'Caveat Brush', cursive;
+
+    font-family: 'Kalam', cursive;
+}
+
+:root[data-theme="dark"] {
+    /* Tema Oscuro - Noche Bohemia */
+    --bg-color: #1c1a27;
+    --accent-color: #d1b894;
+    --text-main: #e2e2e2;
+    --text-contrast: #1c1a27;
+
+    --color-bg: var(--bg-color);
+    --color-text: var(--text-main);
+    --color-accent: var(--accent-color);
+}
+
+:root[data-theme="emerald"] {
+    /* Tema Esmeralda - Matcha */
+    --bg-color: #d1dfc5;
+    --accent-color: #e57373;
+    --text-main: #ffffff;
+    --text-contrast: #4a5c3a;
+
+    --color-bg: var(--bg-color);
+    --color-text: var(--text-main);
+    --color-accent: var(--accent-color);
+}
+
+:root[data-theme="rose"] {
+    /* Tema Rose - Frutos Rojos */
+    --bg-color: #f5c4cf;
+    --accent-color: #8b3a58;
+    --text-main: #ffffff;
+    --text-contrast: #f5c4cf;
+
+    --color-bg: var(--bg-color);
+    --color-text: var(--text-main);
+    --color-accent: var(--accent-color);
+}
+
+:root[data-theme="gold"] {
+    /* Tema Gold - Mimosa */
+    --bg-color: #fcd989;
+    --accent-color: #d85c27;
+    --text-main: #ffffff;
+    --text-contrast: #6b3314;
+
+    --color-bg: var(--bg-color);
+    --color-text: var(--text-main);
+    --color-accent: var(--accent-color);
+}

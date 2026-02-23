@@ -1,0 +1,101 @@
+---
+interface Props {
+    dresscodeTitle?: string;
+    dresscodeText?: string;
+    dresscodeSubtext?: string;
+}
+
+const {
+    dresscodeTitle = "Dresscode",
+    dresscodeText = "Relajado, casual y con espacio extra en la barriga para los chilaquiles.",
+    dresscodeSubtext = "(Cero tacones, por favor)",
+} = Astro.props;
+---
+
+<!-- 4. DRESSCODE -->
+<section class="dresscode-section">
+    <!-- Mancha decorativa al fondo -->
+    <div class="dresscode-blobbg"></div>
+
+    <h2 class="dresscode-title">{dresscodeTitle}</h2>
+    <p class="dresscode-text">
+        {dresscodeText}
+        <br />
+        {
+            dresscodeSubtext && (
+                <span class="dresscode-subtext">{dresscodeSubtext}</span>
+            )
+        }
+    </p>
+</section>
+
+<style>
+    .dresscode-section {
+        width: 100%;
+        padding: 2.5rem 2rem;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+        box-sizing: border-box;
+    }
+    .dresscode-blobbg {
+        position: absolute;
+        width: 10rem;
+        height: 10rem;
+        background-color: var(--accent-color);
+        border-radius: 50%;
+        opacity: 0.2;
+        filter: blur(24px);
+        top: 0;
+        left: 2.5rem;
+        z-index: -10;
+        transition: background-color 0.5s;
+    }
+    .dresscode-title {
+        font-family: "Caveat Brush", cursive;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        transform: rotate(-4deg);
+    }
+    .dresscode-text {
+        font-size: 1.5rem;
+        line-height: 1.625;
+    }
+    .dresscode-subtext {
+        opacity: 0.7;
+        font-size: 1.125rem;
+    }
+
+    @media (min-width: 768px) {
+        .dresscode-title {
+            font-size: 4rem;
+        }
+        .dresscode-text {
+            font-size: 2rem;
+        }
+        .dresscode-subtext {
+            font-size: 1.5rem;
+        }
+        .dresscode-blobbg {
+            width: 14rem;
+            height: 14rem;
+            left: 4rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .dresscode-title {
+            font-size: 5rem;
+        }
+        .dresscode-text {
+            font-size: 2.5rem;
+        }
+        .dresscode-subtext {
+            font-size: 1.75rem;
+        }
+        .dresscode-blobbg {
+            width: 18rem;
+            height: 18rem;
+            left: 6rem;
+        }
+    }
+</style>

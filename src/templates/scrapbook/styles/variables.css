@@ -13,6 +13,13 @@
     --line-height: 36px;
     --font-script: 'Caveat', cursive;
     --font-marker: 'Permanent Marker', cursive;
+
+    /* Global Footer Variables Mapping */
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+    --font-sans: 'Caveat', cursive;
+    --font-serif: 'Permanent Marker', cursive;
 }
 
 :root[data-theme="dark"] {
@@ -26,6 +33,10 @@
     --accent-line: rgba(255, 255, 255, 0.15);
     --bg-card: #2a2a2a;
     --tape-bg: rgba(255, 255, 255, 0.2);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
 }
 
 :root[data-theme="emerald"] {
@@ -37,6 +48,10 @@
     --accent-line: rgba(47, 97, 76, 0.3);
     --bg-card: #ffffff;
     --tape-bg: rgba(255, 255, 255, 0.6);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
 }
 
 :root[data-theme="rose"] {
@@ -48,6 +63,10 @@
     --accent-line: rgba(181, 131, 141, 0.4);
     --bg-card: #ffffff;
     --tape-bg: rgba(255, 255, 255, 0.7);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
 }
 
 :root[data-theme="gold"] {
@@ -60,4 +79,8 @@
     --accent-line: rgba(194, 168, 120, 0.4);
     --bg-card: #ffffff;
     --tape-bg: rgba(255, 255, 255, 0.8);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
 }

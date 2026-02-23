@@ -1,6 +1,7 @@
 ---
 import "./styles/variables.css";
 import ThemeToggle from "../../components/ThemeToggle.astro";
+import Footer from "../../components/Footer.astro";
 
 interface Props {
     title: string;
@@ -207,5 +208,6 @@ const { title } = Astro.props;
                 fill: var(--pink-main);
             }
         </style>
+        <Footer />
     </body>
 </html>

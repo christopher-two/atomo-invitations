@@ -1,0 +1,230 @@
+---
+interface Props {
+    whatsappNumber: string;
+}
+
+const { whatsappNumber } = Astro.props;
+---
+
+<!-- 6. RSVP (CONFIRMAR ASISTENCIA) -->
+<section class="rsvp-section">
+    <h2 class="rsvp-title">¿Te apuntas?</h2>
+
+    <form id="rsvp-form" class="rsvp-form" data-wa={whatsappNumber}>
+        <div class="rsvp-field">
+            <label class="rsvp-label-1"
+                >Tu nombre (y el de tu +1 si aplica)</label
+            >
+            <input
+                type="text"
+                id="name-input"
+                class="input-line rsvp-input"
+                placeholder="Escribe aquí..."
+                required
+            />
+        </div>
+
+        <div class="rsvp-field">
+            <label class="rsvp-label-2">¿Alergias o dieta especial?</label>
+            <input
+                type="text"
+                id="allergies-input"
+                class="input-line rsvp-input"
+                placeholder="Ej. Vegano, intolerante a la lactosa..."
+            />
+        </div>
+
+        <div class="rsvp-checkbox-container">
+            <input type="checkbox" id="assist" class="rsvp-checkbox" required />
+            <label for="assist" class="rsvp-checkbox-label"
+                >¡Obvio no me lo pierdo!</label
+            >
+        </div>
+
+        <button type="submit" class="btn-organic-solid rsvp-btn">
+            ¡Confirmar!
+        </button>
+    </form>
+</section>
+
+<style>
+    .rsvp-section {
+        width: 100%;
+        padding: 4rem 2rem 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+        box-sizing: border-box;
+    }
+    .rsvp-title {
+        font-family: "Caveat Brush", cursive;
+        font-size: 3.75rem;
+        margin-bottom: 2rem;
+        transform: rotate(-5deg);
+    }
+    .rsvp-form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+    .rsvp-field {
+        width: 100%;
+        position: relative;
+    }
+    .rsvp-label-1 {
+        display: block;
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        margin-left: 0.5rem;
+        transform: rotate(-1deg);
+    }
+    .rsvp-label-2 {
+        display: block;
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+        margin-left: 0.5rem;
+        transform: rotate(1deg);
+    }
+    .rsvp-input {
+        font-family: "Kalam", cursive;
+    }
+    .rsvp-checkbox-container {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        padding: 0 0.5rem;
+    }
+    .rsvp-checkbox {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 0.25rem;
+        accent-color: var(--accent-color);
+    }
+    .rsvp-checkbox-label {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .rsvp-btn {
+        font-size: 1.875rem;
+        font-family: "Caveat Brush", cursive;
+        padding: 1rem 3rem;
+        margin-top: 1.5rem;
+        width: 100%;
+        max-width: 280px;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+        .rsvp-title {
+            font-size: 5rem;
+        }
+        .rsvp-label-1,
+        .rsvp-label-2 {
+            font-size: 1.5rem;
+        }
+        .rsvp-input {
+            font-size: 1.5rem;
+        }
+        .rsvp-checkbox {
+            width: 2rem;
+            height: 2rem;
+        }
+        .rsvp-checkbox-label {
+            font-size: 2rem;
+        }
+        .rsvp-btn {
+            font-size: 2.5rem;
+            max-width: 400px;
+            padding: 1.25rem 4rem;
+        }
+        .rsvp-section {
+            padding: 5rem 3rem 4rem 3rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .rsvp-title {
+            font-size: 6.5rem;
+        }
+        .rsvp-label-1,
+        .rsvp-label-2 {
+            font-size: 2rem;
+        }
+        .rsvp-input {
+            font-size: 2rem;
+        }
+        .rsvp-checkbox {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+        .rsvp-checkbox-label {
+            font-size: 2.5rem;
+        }
+        .rsvp-btn {
+            font-size: 3rem;
+            max-width: 500px;
+            padding: 1.5rem 5rem;
+        }
+        .rsvp-section {
+            padding: 6rem 4rem 5rem 4rem;
+        }
+        .rsvp-form {
+            gap: 3rem;
+        }
+    }
+</style>
+
+<script>
+    function setupRSVPForm() {
+        const form = document.getElementById("rsvp-form");
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const nameInput = document.getElementById(
+                    "name-input"
+                ) as HTMLInputElement;
+                const allergiesInput = document.getElementById(
+                    "allergies-input"
+                ) as HTMLInputElement;
+
+                const name = nameInput?.value.trim();
+                const allergies = allergiesInput?.value.trim();
+                const waNumber = form.getAttribute("data-wa") || "";
+
+                if (name) {
+                    let message = `¡Hola! Confirmo mi asistencia al brunch. Soy ${name}.`;
+                    if (allergies) {
+                        message += ` Nota importante: ${allergies}.`;
+                    }
+                    message += ` ¡Obvio no me lo pierdo!`;
+
+                    const url = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+                        message
+                    )}`;
+
+                    if (window.showToast) {
+                        window.showToast(
+                            `¡Listo ${name}! Te redirigimos a WhatsApp...`,
+                            "🥂"
+                        );
+                    }
+
+                    setTimeout(() => {
+                        window.open(url, "_blank");
+                        (e.target as HTMLFormElement).reset(); // Limpiar formulario
+                    }, 1500);
+                }
+            });
+        }
+    }
+
+    document.addEventListener("astro:page-load", setupRSVPForm);
+    setupRSVPForm();
+</script>

@@ -1,0 +1,339 @@
+---
+interface Props {
+    eventTitlePart1?: string;
+    eventTitlePart2?: string;
+    eventTitlePart3?: string;
+    locationName?: string;
+    locationAddress?: string;
+    eventTime?: string;
+    eventType?: string;
+    guestOfHonor?: string;
+}
+
+const {
+    eventTitlePart1 = "¿Chelita",
+    eventTitlePart2 = "y",
+    eventTitlePart3 = "brunch?",
+    locationName = "Calle Cualquiera 123",
+    locationAddress = "Cualquier lugar",
+    eventTime = "11 am",
+    eventType = "Cumple #30",
+    guestOfHonor = "Olivia",
+} = Astro.props;
+---
+
+<!-- 1. HERO SECTION -->
+<section class="hero-section">
+    <!-- Título fragmentado para imitar la asimetría del poster -->
+    <div class="hero-title-1">
+        {eventTitlePart1}
+    </div>
+
+    <!-- Contenedor central con ilustraciones SVG y la letra "y" -->
+    <div class="hero-center-container">
+        <!-- SVG Botella Verde -->
+        <svg
+            class="hero-svg-bottle animate-float"
+            viewBox="0 0 100 250"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path d="M40 240 Q 50 245 60 240 L 55 245 Z" fill="rgba(0,0,0,0.1)"
+            ></path>
+            <path
+                d="M25 100 Q 20 150 25 230 Q 50 240 75 230 Q 80 150 75 100 Q 70 60 60 40 L 55 10 Q 50 5 45 10 L 40 40 Q 30 60 25 100 Z"
+                fill="#6A8A4A"></path>
+            <path
+                d="M35 110 Q 30 160 35 220"
+                stroke="rgba(255,255,255,0.3)"
+                stroke-width="4"
+                stroke-linecap="round"></path>
+            <rect
+                x="30"
+                y="140"
+                width="40"
+                height="50"
+                rx="5"
+                fill="#C5D8A4"
+                opacity="0.9"
+                transform="rotate(-2 50 165)"></rect>
+        </svg>
+
+        <!-- SVG Vaso Cerveza Oscura -->
+        <svg
+            class="hero-svg-glass animate-float-alt"
+            viewBox="0 0 120 160"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M20 10 L 35 150 Q 60 160 85 150 L 100 10 Z"
+                fill="rgba(255,255,255,0.2)"></path>
+            <path d="M25 40 L 33 145 Q 60 152 87 145 L 95 40 Z" fill="#6B3314"
+            ></path>
+            <path d="M25 40 Q 60 45 95 40 Q 60 35 25 40 Z" fill="#8B4513"
+            ></path>
+            <path
+                d="M22 25 Q 35 10 50 20 Q 70 5 90 20 Q 105 35 95 45 Q 60 55 25 45 Q 10 35 22 25 Z"
+                fill="#F4E8D1"></path>
+            <path
+                d="M30 50 L 38 130"
+                stroke="rgba(255,255,255,0.4)"
+                stroke-width="3"
+                stroke-linecap="round"></path>
+        </svg>
+
+        <div class="hero-title-2">
+            {eventTitlePart2}
+        </div>
+    </div>
+
+    <div class="hero-title-3">
+        {eventTitlePart3}
+    </div>
+
+    <div class="hero-details">
+        <p>{locationName}</p>
+        <p>{locationAddress}</p>
+        <p class="hero-time">{eventTime}</p>
+    </div>
+
+    <div class="hero-honoree">
+        <p class="hero-type">{eventType}</p>
+        <p class="hero-name">{guestOfHonor}</p>
+    </div>
+</section>
+
+<!-- Divisor ondulado dibujado -->
+<div class="hero-divider">
+    <svg
+        width="200"
+        height="20"
+        viewBox="0 0 200 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            d="M5 10 Q 15 0 25 10 T 45 10 T 65 10 T 85 10 T 105 10 T 125 10 T 145 10 T 165 10 T 185 10 T 195 10"
+            stroke="currentColor"
+            stroke-width="2"
+            fill="none"
+            stroke-linecap="round"></path>
+    </svg>
+</div>
+
+<style>
+    .hero-section {
+        width: 100%;
+        padding: 3rem 1.5rem 2rem 1.5rem;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-height: 85vh;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .hero-title-1 {
+        font-family: "Caveat Brush", cursive;
+        color: var(--accent-color);
+        font-size: 4.5rem;
+        transform: rotate(-6deg);
+        margin-left: 0.5rem;
+        z-index: 20;
+        line-height: 1;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-center-container {
+        position: relative;
+        width: 100%;
+        height: 16rem;
+        margin: 0.5rem 0;
+    }
+
+    .hero-svg-bottle {
+        position: absolute;
+        left: 2rem;
+        top: 1rem;
+        width: 6rem;
+        height: 14rem;
+        z-index: 10;
+    }
+
+    .hero-svg-glass {
+        position: absolute;
+        right: 1rem;
+        bottom: 0;
+        width: 8rem;
+        height: 12rem;
+        z-index: 0;
+    }
+
+    .hero-title-2 {
+        font-family: "Caveat Brush", cursive;
+        color: var(--accent-color);
+        font-size: 3.75rem;
+        position: absolute;
+        right: 4rem;
+        top: 4rem;
+        transform: rotate(15deg);
+        z-index: 20;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-title-3 {
+        font-family: "Caveat Brush", cursive;
+        color: var(--accent-color);
+        font-size: 5.5rem;
+        transform: rotate(4deg);
+        text-align: center;
+        margin-top: -3rem;
+        z-index: 20;
+        line-height: 1;
+        text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-details {
+        margin-top: 3rem;
+        font-size: 1.5rem;
+        transform: rotate(-2deg);
+        padding: 0 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .hero-time {
+        font-size: 1.875rem;
+        font-weight: bold;
+        margin-top: 0.5rem;
+    }
+
+    .hero-honoree {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 2rem;
+        text-align: right;
+        transform: rotate(-5deg);
+    }
+
+    .hero-type {
+        font-size: 1.5rem;
+        opacity: 0.9;
+    }
+
+    .hero-name {
+        font-size: 2.25rem;
+    }
+
+    .hero-divider {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        opacity: 0.5;
+        color: var(--text-main);
+    }
+
+    /* Adjust sizing for massive screens if necessary, but max-width limits it */
+    @media (min-width: 768px) {
+        .hero-section {
+            padding: 5rem 2rem 4rem 2rem;
+        }
+        .hero-title-1 {
+            font-size: 6.5rem;
+            margin-left: 2rem;
+        }
+        .hero-center-container {
+            height: 22rem;
+            margin: 1rem 0;
+        }
+        .hero-svg-bottle {
+            width: 8rem;
+            height: 18rem;
+            left: 4rem;
+        }
+        .hero-svg-glass {
+            width: 10rem;
+            height: 15rem;
+            right: 4rem;
+        }
+        .hero-title-2 {
+            font-size: 5rem;
+            right: 8rem;
+            top: 5rem;
+        }
+        .hero-title-3 {
+            font-size: 8rem;
+            margin-top: -4rem;
+        }
+        .hero-details {
+            font-size: 2rem;
+            margin-top: 5rem;
+        }
+        .hero-time {
+            font-size: 2.5rem;
+        }
+        .hero-honoree {
+            bottom: 4rem;
+            right: 4rem;
+        }
+        .hero-type {
+            font-size: 2rem;
+        }
+        .hero-name {
+            font-size: 3.5rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-section {
+            padding: 6rem 3rem 5rem 3rem;
+        }
+        .hero-title-1 {
+            font-size: 8rem;
+            margin-left: 3rem;
+        }
+        .hero-center-container {
+            height: 28rem;
+            margin: 2rem 0;
+        }
+        .hero-svg-bottle {
+            width: 10rem;
+            height: 22rem;
+            left: 8rem;
+        }
+        .hero-svg-glass {
+            width: 12rem;
+            height: 18rem;
+            right: 8rem;
+        }
+        .hero-title-2 {
+            font-size: 6.5rem;
+            right: 12rem;
+            top: 7rem;
+        }
+        .hero-title-3 {
+            font-size: 10rem;
+            margin-top: -6rem;
+        }
+        .hero-details {
+            font-size: 2.5rem;
+            margin-top: 6rem;
+        }
+        .hero-time {
+            font-size: 3rem;
+        }
+        .hero-honoree {
+            bottom: 5rem;
+            right: 8rem;
+        }
+        .hero-type {
+            font-size: 2.5rem;
+        }
+        .hero-name {
+            font-size: 4.5rem;
+        }
+    }
+</style>
