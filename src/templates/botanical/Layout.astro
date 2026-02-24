@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from "../../components/ThemeToggle.astro";
+import SEO from "../../components/SEO.astro";
 import "./styles/variables.css";
 
 interface Props {
@@ -13,7 +14,10 @@ const { title } = Astro.props;
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
 
@@ -25,7 +29,7 @@ const { title } = Astro.props;
             rel="stylesheet"
         />
 
-        <title>{title}</title>
+        <SEO title={title} />
     </head>
     <body>
         <ThemeToggle />
