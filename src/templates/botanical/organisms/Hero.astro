@@ -110,17 +110,16 @@
     }
 
     .hero-date {
-        position: absolute;
-        bottom: 2rem;
-        width: 100%;
+        position: relative;
         font-family: var(--font-serif);
-        font-size: 3.75rem;
+        font-size: 2.75rem;
         color: #f6f4ee; /* Explicit light color to contrast with darkened photos */
         letter-spacing: 0.15em;
         text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
         text-align: center;
         z-index: 10;
         margin: 0;
+        margin-top: 1rem;
     }
 
     .hero-overlay-content {
@@ -139,12 +138,12 @@
 
     .couple-names {
         font-family: var(--font-script);
-        font-size: 4.5rem;
+        font-size: 3.75rem;
         color: #f6f4ee; /* Explicit light color */
         margin: 0;
-        margin-top: -2rem; /* Adjusted visually for center balance */
         text-align: center;
         text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+        line-height: 1.1;
     }
 
     @media (min-width: 768px) {
@@ -182,13 +181,12 @@
         }
 
         .hero-date {
-            bottom: 3rem;
             font-size: 6rem;
+            margin-top: 2rem;
         }
 
         .couple-names {
             font-size: 6rem;
-            margin-top: 0;
         }
     }
 

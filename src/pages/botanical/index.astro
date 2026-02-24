@@ -4,8 +4,9 @@ import Hero from "../../templates/botanical/organisms/Hero.astro";
 import Countdown from "../../templates/botanical/organisms/Countdown.astro";
 import Gallery from "../../templates/botanical/organisms/Gallery.astro";
 import Details from "../../templates/botanical/organisms/Details.astro";
-import Music from "../../templates/botanical/organisms/Music.astro";
+import Locations from "../../templates/botanical/organisms/Locations.astro";
 import RSVP from "../../templates/botanical/organisms/RSVP.astro";
+import Footer from "../../components/Footer.astro";
 ---
 
 <Layout title="Botanical">
@@ -14,8 +15,9 @@ import RSVP from "../../templates/botanical/organisms/RSVP.astro";
         <Countdown />
         <Gallery />
         <Details />
-        <Music />
+        <Locations />
         <RSVP />
+        <Footer />
     </main>
 </Layout>
 
@@ -28,5 +30,6 @@ import RSVP from "../../templates/botanical/organisms/RSVP.astro";
         flex-direction: column;
         position: relative;
         overflow-x: hidden;
+        --color-accent: var(--color-verde); /* Needed by Footer.astro */
     }
 </style>
