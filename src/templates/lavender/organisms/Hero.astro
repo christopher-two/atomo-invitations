@@ -1,0 +1,306 @@
+---
+import heroImage from "../assets/Quinseañera.png";
+---
+
+<section class="hero-section content-layer">
+    <!-- Decoración Acuarela Top Left -->
+    <svg
+        class="decor-top-left"
+        viewBox="0 0 200 200"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <defs>
+            <filter id="blur1" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="15"></feGaussianBlur>
+            </filter>
+        </defs>
+        <circle
+            cx="50"
+            cy="50"
+            r="60"
+            fill="#C8A2C8"
+            filter="url(#blur1)"
+            opacity="0.6"></circle>
+        <path
+            d="M40,100 C80,120 120,80 100,40 C80,0 40,20 20,60 Z"
+            fill="#6B3B82"
+            filter="url(#blur1)"
+            opacity="0.4"></path>
+        <circle
+            cx="100"
+            cy="20"
+            r="40"
+            fill="#E6D3E6"
+            filter="url(#blur1)"
+            opacity="0.7"></circle>
+    </svg>
+
+    <!-- Decoración Acuarela Bottom Right -->
+    <svg
+        class="decor-bottom-right"
+        viewBox="0 0 200 200"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <defs>
+            <filter id="blur2" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="18"></feGaussianBlur>
+            </filter>
+        </defs>
+        <circle
+            cx="150"
+            cy="150"
+            r="70"
+            fill="#C8A2C8"
+            filter="url(#blur2)"
+            opacity="0.5"></circle>
+        <path
+            d="M100,180 C140,200 180,160 160,120 C140,80 100,100 80,140 Z"
+            fill="#6B3B82"
+            filter="url(#blur2)"
+            opacity="0.3"></path>
+    </svg>
+
+    <!-- Foto de la Quinceañera (Bottom Left Decoración) -->
+    <div class="hero-image-corner animate-fade-in-left">
+        <img
+            src={heroImage.src}
+            alt="Quinceañera Marcela"
+            class="corner-image"
+        />
+    </div>
+
+    <!-- Contenido Hero -->
+    <div class="hero-content">
+        <p class="hero-invitation">Te invitamos a celebrar los XV años de</p>
+
+        <div class="name-container">
+            <h1 class="hero-name">
+                Marcela<br />
+                <span class="hero-surname">Andrade</span>
+            </h1>
+            <!-- Mariposa animada -->
+            <span class="butterfly-icon animate-float">🦋</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="hero-date">
+            <p>21 | 09 | 26</p>
+        </div>
+    </div>
+
+    <!-- Flecha Scroll -->
+    <div class="scroll-arrow animate-bounce">
+        <i class="fa-solid fa-chevron-down"></i>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        position: relative;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .decor-top-left {
+        position: absolute;
+        top: -2.5rem;
+        left: -2.5rem;
+        width: 16rem;
+        height: 16rem;
+        opacity: 0.6;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .decor-bottom-right {
+        position: absolute;
+        bottom: -2.5rem;
+        right: -2.5rem;
+        width: 18rem;
+        height: 18rem;
+        opacity: 0.6;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    /* Imagen Inferior Izquierda */
+    .hero-image-corner {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 12rem;
+        height: 16rem;
+        z-index: 5; /* Detrás del texto pero sobre el fondo */
+        pointer-events: none; /* No interfiere con clics o scroll */
+        opacity: 0.85; /* Ligeramente transparente para ser sutil */
+        border-top-right-radius: 8rem; /* Suaviza la esquina que apunta al centro */
+        overflow: hidden;
+        mask-image: linear-gradient(to top right, black 40%, transparent 100%);
+        -webkit-mask-image: linear-gradient(
+            to top right,
+            black 40%,
+            transparent 100%
+        );
+    }
+
+    .corner-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Pull the entire content block up to reduce the top gap */
+        margin-top: -12vh;
+    }
+
+    .hero-invitation {
+        font-family: var(--font-script);
+        font-size: 2.25rem;
+        color: var(--color-text-muted);
+        margin-bottom: 1.5rem;
+    }
+
+    .name-container {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .hero-name {
+        font-family: var(--font-serif);
+        font-size: 3rem;
+        color: var(--color-accent-dark);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        line-height: 1.1;
+        margin: 0;
+    }
+
+    .hero-surname {
+        font-size: 2.25rem;
+        opacity: 0.9;
+    }
+
+    .butterfly-icon {
+        position: absolute;
+        top: -1.5rem;
+        right: -1rem;
+        font-size: 1.875rem;
+        color: var(--color-accent-dark);
+        opacity: 0.8;
+    }
+
+    .divider {
+        width: 6rem;
+        height: 1px;
+        background-color: color-mix(
+            in srgb,
+            var(--color-accent-light) 50%,
+            transparent
+        );
+        margin-bottom: 2rem;
+    }
+
+    .hero-date {
+        font-family: var(--font-sans);
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        color: var(--color-accent-dark);
+        font-size: 1.25rem;
+    }
+
+    .hero-date p {
+        margin: 0;
+    }
+
+    .scroll-arrow {
+        position: absolute;
+        bottom: 2.5rem;
+        color: var(--color-accent-light);
+        font-size: 1.5rem;
+        z-index: 10;
+    }
+
+    /* Animación de entrada de la imagen lateral */
+    .animate-fade-in-left {
+        animation: fade-in-left 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes fade-in-left {
+        0% {
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        100% {
+            opacity: 0.85;
+            transform: translateX(0);
+        }
+    }
+
+    @media (min-width: 640px) {
+        .hero-name {
+            font-size: 3.75rem;
+        }
+        .hero-surname {
+            font-size: 3rem;
+        }
+        .hero-image-corner {
+            width: 16rem;
+            height: 20rem;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .decor-top-left {
+            width: 24rem;
+            height: 24rem;
+        }
+
+        .decor-bottom-right {
+            width: 35rem;
+            height: 35rem;
+        }
+
+        .hero-image-corner {
+            width: 22rem;
+            height: 30rem;
+            opacity: 0.7; /* Más sutil en pantallas grandes para no distraer */
+        }
+
+        .hero-invitation {
+            font-size: 3rem;
+        }
+
+        .hero-name {
+            font-size: 6rem;
+        }
+
+        .hero-surname {
+            font-size: 4.5rem;
+        }
+
+        .butterfly-icon {
+            top: -2.5rem;
+            right: -2.5rem;
+            font-size: 3rem;
+        }
+
+        .hero-date {
+            font-size: 1.5rem;
+        }
+    }
+</style>

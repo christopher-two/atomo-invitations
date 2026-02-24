@@ -1,0 +1,41 @@
+---
+import Layout from "../../templates/lavender/Layout.astro";
+import Hero from "../../templates/lavender/organisms/Hero.astro";
+import Countdown from "../../templates/lavender/organisms/Countdown.astro";
+import Itinerary from "../../templates/lavender/organisms/Itinerary.astro";
+import DressCode from "../../templates/lavender/organisms/DressCode.astro";
+import Gallery from "../../templates/lavender/organisms/Gallery.astro";
+import Music from "../../templates/lavender/organisms/Music.astro";
+import RSVP from "../../templates/lavender/organisms/RSVP.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout title="XV Años - Marcela Andrade">
+    <!-- Contenedor Principal (Todo el ancho) -->
+    <main class="main-container">
+        <!-- Textura global -->
+        <div class="bg-texture"></div>
+
+        <Hero />
+        <Countdown />
+        <Itinerary />
+        <DressCode />
+        <Gallery />
+        <Music />
+        <RSVP />
+        <Footer />
+    </main>
+</Layout>
+
+<style>
+    .main-container {
+        width: 100%;
+        background-color: var(--color-bg-main);
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        /* Variable override for global footer */
+        --color-accent: var(--color-accent-light);
+        --color-text: var(--color-text-muted);
+    }
+</style>

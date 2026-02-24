@@ -1,0 +1,393 @@
+---
+---
+
+<section class="rsvp-section content-layer">
+    <!-- Arreglo floral inferior (SVG Abstracto expandido) -->
+    <svg
+        class="decor-bottom"
+        viewBox="0 0 1000 300"
+        preserveAspectRatio="none"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <defs>
+            <filter id="blur3" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="30"></feGaussianBlur>
+            </filter>
+        </defs>
+        <circle
+            cx="150"
+            cy="250"
+            r="150"
+            fill="#C8A2C8"
+            filter="url(#blur3)"
+            opacity="0.6"></circle>
+        <circle
+            cx="500"
+            cy="350"
+            r="250"
+            fill="#6B3B82"
+            filter="url(#blur3)"
+            opacity="0.3"></circle>
+        <circle
+            cx="850"
+            cy="250"
+            r="180"
+            fill="#E6D3E6"
+            filter="url(#blur3)"
+            opacity="0.7"></circle>
+    </svg>
+
+    <!-- Tarjeta Formulario -->
+    <div class="rsvp-card">
+        <div class="rsvp-header">
+            <h2 class="rsvp-title">Asistencia</h2>
+            <p class="rsvp-subtitle">
+                ¡Tu presencia hará este día aún más especial!
+            </p>
+        </div>
+
+        <form id="rsvpForm" class="rsvp-form">
+            <!-- Nombre -->
+            <div class="form-group">
+                <label class="form-label">Nombre Completo</label>
+                <input type="text" required class="form-input" />
+            </div>
+
+            <!-- Pases -->
+            <div class="form-group">
+                <label class="form-label">Número de Personas</label>
+                <select required class="form-select">
+                    <option value="" disabled selected
+                        >Selecciona una opción</option
+                    >
+                    <option value="1">1 Pase</option>
+                    <option value="2">2 Pases</option>
+                    <option value="3">3 Pases</option>
+                    <option value="4">4 Pases</option>
+                    <option value="5">5 Pases</option>
+                </select>
+            </div>
+
+            <!-- Confirmación -->
+            <div class="form-group full-width">
+                <label class="form-label">¿Asistirás?</label>
+                <div class="radio-options">
+                    <label class="radio-card">
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="yes"
+                            required
+                            class="radio-input"
+                        />
+                        <span class="radio-text">Sí, ahí estaré con gusto</span>
+                    </label>
+                    <label class="radio-card">
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="no"
+                            class="radio-input"
+                        />
+                        <span class="radio-text"
+                            >Lamentablemente no podré asistir</span
+                        >
+                    </label>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="form-group full-width submit-group">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Confirmar Asistencia
+                </button>
+            </div>
+        </form>
+
+        <div id="rsvpSuccess" class="success-message" style="display: none;">
+            <div class="success-icon">
+                <i class="fa-regular fa-circle-check"></i>
+            </div>
+            <p class="success-title">¡Mensaje enviado!</p>
+            <p class="success-subtitle">Gracias por responder.</p>
+        </div>
+    </div>
+
+    <p class="rsvp-footer">
+        Por favor, confirma antes del 01 de Septiembre, 2026.
+    </p>
+</section>
+
+<style>
+    .rsvp-section {
+        padding: 6rem 1.5rem;
+        position: relative;
+    }
+
+    .decor-bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 24rem;
+        opacity: 0.5;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .rsvp-card {
+        position: relative;
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 2rem;
+        border-radius: 40px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border: 1px solid #ffffff;
+        max-width: 56rem;
+        margin: 0 auto;
+    }
+
+    .rsvp-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .rsvp-title {
+        font-family: var(--font-script);
+        font-size: 3rem;
+        color: var(--color-accent-dark);
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    .rsvp-subtitle {
+        font-family: var(--font-script);
+        font-size: 1.5rem;
+        color: var(--color-text-muted);
+        margin: 0;
+    }
+
+    .rsvp-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: left;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        color: var(--color-accent-dark);
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+        margin-left: 1rem;
+    }
+
+    .form-input,
+    .form-select {
+        width: 100%;
+        background-color: #ffffff;
+        border: 1px solid rgba(200, 162, 200, 0.5);
+        border-radius: 9999px;
+        padding: 1rem 1.5rem;
+        font-family: inherit;
+        font-size: 0.875rem;
+        color: var(--color-accent-dark);
+        outline: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        box-sizing: border-box;
+    }
+
+    .form-select {
+        color: var(--color-text-muted);
+        appearance: none;
+        cursor: pointer;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%237A6882' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 1rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+        border-color: var(--color-accent-dark);
+        box-shadow: 0 0 0 1px var(--color-accent-dark);
+    }
+
+    .radio-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .radio-card {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid rgba(200, 162, 200, 0.3);
+        border-radius: 9999px;
+        cursor: pointer;
+        background-color: #ffffff;
+        transition: background-color 0.3s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .radio-card:hover {
+        background-color: var(--color-bg-soft);
+    }
+
+    .radio-input {
+        width: 1.25rem;
+        height: 1.25rem;
+        accent-color: var(--color-accent-dark);
+        margin-left: 0.5rem;
+    }
+
+    .radio-text {
+        margin-left: 0.75rem;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+    }
+
+    .submit-group {
+        padding-top: 1rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        background-color: var(--color-accent-dark);
+        color: #ffffff;
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: 0.875rem;
+        letter-spacing: 0.2em;
+        padding: 1.25rem 2rem;
+        border-radius: 9999px;
+        border: none;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(107, 59, 130, 0.3);
+    }
+
+    .submit-btn:hover {
+        background-color: var(--color-accent-light);
+        box-shadow: 0 10px 20px rgba(200, 162, 200, 0.4);
+    }
+
+    .submit-btn:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
+
+    .success-message {
+        text-align: center;
+        padding: 2.5rem 0;
+    }
+
+    .success-icon {
+        color: var(--color-accent-dark);
+        font-size: 3.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .success-title {
+        font-family: var(--font-script);
+        font-size: 2.5rem;
+        color: var(--color-accent-dark);
+        margin-bottom: 0.5rem;
+        margin-top: 0;
+    }
+
+    .success-subtitle {
+        font-family: var(--font-sans);
+        font-size: 1rem;
+        color: var(--color-text-muted);
+        margin: 0;
+    }
+
+    .rsvp-footer {
+        text-align: center;
+        font-family: var(--font-sans);
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-text-muted);
+        margin-top: 4rem;
+        position: relative;
+        z-index: 10;
+        line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+        .rsvp-card {
+            padding: 3.5rem;
+        }
+
+        .rsvp-title {
+            font-size: 3.75rem;
+        }
+
+        .rsvp-subtitle {
+            font-size: 1.875rem;
+        }
+
+        .rsvp-form {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .full-width {
+            grid-column: span 2 / span 2;
+        }
+
+        .radio-options {
+            flex-direction: row;
+        }
+
+        .radio-text,
+        .form-input,
+        .form-select,
+        .submit-btn {
+            font-size: 1rem;
+        }
+
+        .form-label,
+        .rsvp-footer {
+            font-size: 0.875rem;
+        }
+    }
+</style>
+
+<script>
+    const form = document.getElementById("rsvpForm");
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const successDiv = document.getElementById("rsvpSuccess");
+            const btn = document.getElementById("submitBtn");
+
+            if (btn && successDiv) {
+                btn.innerHTML =
+                    '<i class="fa-solid fa-spinner fa-spin"></i> Procesando...';
+                (btn as HTMLButtonElement).disabled = true;
+
+                // Simular envío
+                setTimeout(() => {
+                    form.style.display = "none";
+                    successDiv.style.display = "block";
+                }, 1500);
+            }
+        });
+    }
+</script>

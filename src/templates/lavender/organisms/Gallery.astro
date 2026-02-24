@@ -1,0 +1,205 @@
+---
+const images = [
+    "https://images.unsplash.com/photo-1594968840428-c116bd8dd6f3?auto=format&fit=crop&q=80&w=400&h=500", // Original 1
+    "https://images.unsplash.com/photo-1510520434124-5bc7e642b61d?auto=format&fit=crop&q=80&w=400&h=500", // Original 2
+    "https://images.unsplash.com/photo-1542042161784-26ab9e041e89?auto=format&fit=crop&q=80&w=400&h=500", // Original 3
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&q=80&w=400&h=500", // Original 4
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 1
+    "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 2
+    "https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 3
+    "https://images.unsplash.com/photo-1505934333218-8feecdba23a7?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 4
+    "https://images.unsplash.com/photo-1460364157752-926555421a7e?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 5
+    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 6
+    "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 7
+    "https://images.unsplash.com/photo-1494955870715-979c4f1010d5?auto=format&fit=crop&q=80&w=400&h=500", // Elegant 8
+];
+
+// Función para asignar una clase de flotación (1, 2, 3) cíclicamente
+const getFloatClass = (index: number) => `item-float-${(index % 3) + 1}`;
+---
+
+<section class="gallery-section content-layer">
+    <h2 class="gallery-title">Momentos...</h2>
+
+    <div class="gallery-marquee-wrapper">
+        <!-- Primera pista (Track 1) -->
+        <div class="gallery-track">
+            {
+                images.map((src, index) => (
+                    <div class={`gallery-item ${getFloatClass(index)}`}>
+                        <img
+                            src={src}
+                            alt={`Momento especial ${index + 1}`}
+                            class="gallery-img"
+                            loading="lazy"
+                        />
+                        <div class="gallery-overlay" />
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Segunda pista (Track 2) (Duplicado idéntico para el loop infinito) -->
+        <div class="gallery-track" aria-hidden="true">
+            {
+                images.map((src, index) => (
+                    <div class={`gallery-item ${getFloatClass(index)}`}>
+                        <img
+                            src={src}
+                            alt={`Momento especial ${index + 1}`}
+                            class="gallery-img"
+                            loading="lazy"
+                        />
+                        <div class="gallery-overlay" />
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .gallery-section {
+        padding: 5rem 0;
+        overflow: hidden;
+        background-color: transparent;
+    }
+
+    .gallery-title {
+        font-family: var(--font-script);
+        font-size: 3rem;
+        text-align: center;
+        color: var(--color-accent-light);
+        margin-bottom: 4rem;
+        line-height: 1.2;
+    }
+
+    /* SISTEMA MARQUEE INFALIBLE */
+    .gallery-marquee-wrapper {
+        display: flex;
+        overflow: hidden;
+        user-select: none;
+        gap: 2rem;
+        padding: 3rem 0; /* Espacio vertical para que la flotación no se corte */
+        width: 100%;
+    }
+
+    .gallery-track {
+        flex-shrink: 0;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 2rem;
+        width: max-content;
+        min-width: 100%; /* Garantiza que ocupe todo el ancho de la pantalla si hay pocas fotos */
+        /* Animación más lenta (60s) debido a que ahora hay 12 imágenes */
+        animation: marquee-scroll-mobile 60s linear infinite;
+    }
+
+    /* Pausar en hover para mejor UX */
+    .gallery-marquee-wrapper:hover .gallery-track {
+        animation-play-state: paused;
+    }
+
+    /* TARJETAS DE GALERÍA BASE */
+    .gallery-item {
+        flex-shrink: 0;
+        width: 16rem;
+        height: 22rem;
+        position: relative;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border: 4px solid #ffffff;
+        background-color: #f3f4f6;
+    }
+
+    .gallery-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%);
+        opacity: 0.8;
+        mix-blend-mode: multiply;
+        transition: transform 0.7s ease, filter 0.7s ease;
+        display: block; /* Elimina espacio inferior extra en algunos navegadores */
+    }
+
+    .gallery-item:hover .gallery-img {
+        transform: scale(1.1);
+        filter: grayscale(0%);
+    }
+
+    .gallery-overlay {
+        position: absolute;
+        inset: 0; /* Shorthand para top/right/bottom/left: 0 */
+        background-color: rgba(200, 162, 200, 0.1);
+        mix-blend-mode: overlay;
+        pointer-events: none;
+    }
+
+    /* ANIMACIONES POR HARDWARE (FLOTAR Y SCROLL) */
+    .item-float-1 {
+        animation: float-up-down 5s ease-in-out infinite;
+    }
+    .item-float-2 {
+        animation: float-up-down 6.5s ease-in-out infinite 1s;
+    }
+    .item-float-3 {
+        animation: float-up-down 5.5s ease-in-out infinite 0.5s;
+    }
+
+    /* Uso nombres únicos para keyframes porque Astro rompe el CSS si se redefinen en @media */
+    @keyframes marquee-scroll-mobile {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(calc(-100% - 2rem), 0, 0);
+        }
+    }
+
+    @keyframes float-up-down {
+        0%,
+        100% {
+            transform: translate3d(0, 0px, 0);
+        }
+        50% {
+            transform: translate3d(0, -30px, 0);
+        }
+    }
+
+    /* RESPONSIVE DESKTOP */
+    @media (min-width: 768px) {
+        .gallery-title {
+            font-size: 4.375rem;
+        }
+
+        .gallery-item {
+            width: 20rem;
+            height: 28rem;
+            border-width: 8px;
+        }
+
+        .gallery-marquee-wrapper {
+            gap: 4rem;
+        }
+
+        .gallery-track {
+            gap: 4rem;
+            /* Aún más lento en desktop (100s) por el tamaño de las fotos */
+            animation: marquee-scroll-desktop 100s linear infinite;
+        }
+    }
+
+    /* Declarar el keyframe de desktop fuera del media query es una mejor práctica en Astro */
+    @keyframes marquee-scroll-desktop {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(calc(-100% - 4rem), 0, 0);
+        }
+    }
+</style>
