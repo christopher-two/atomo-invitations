@@ -1,0 +1,153 @@
+---
+---
+
+<section class="details-section">
+    <div class="detail-item">
+        <h3 class="detail-title">CEREMONIA</h3>
+        <h2 class="detail-time">16:00 HRS</h2>
+        <p class="detail-location">
+            Parroquia de San Miguel Arcángel<br />
+            Centro Histórico
+        </p>
+    </div>
+
+    <div class="detail-item reception">
+        <h3 class="detail-title">RECEPCIÓN</h3>
+        <h2 class="detail-time">18:30 HRS</h2>
+        <p class="detail-location">
+            Hacienda Los Eucaliptos<br />
+            Jardín Principal
+        </p>
+    </div>
+
+    <div class="detail-item">
+        <div class="dress-code-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+        </div>
+        <h3 class="detail-title">CÓDIGO DE VESTIMENTA</h3>
+        <p class="dress-code">Etiqueta Rigurosa</p>
+    </div>
+</section>
+
+<style>
+    .details-section {
+        padding: 4rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        max-width: 72rem;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .detail-title {
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        color: var(--color-carbon);
+        margin-bottom: 0.5rem;
+    }
+
+    .detail-time {
+        font-family: var(--font-serif);
+        font-size: 1.875rem;
+        color: var(--color-verde);
+        margin-bottom: 1rem;
+    }
+
+    .detail-location {
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        font-weight: 300;
+        line-height: 1.75;
+        color: var(--color-carbon);
+    }
+
+    .reception {
+        padding-top: 2rem;
+        border-top: 1px solid rgba(74, 93, 78, 0.2);
+    }
+
+    .dress-code-icon {
+        width: 2rem;
+        height: 2rem;
+        border: 1px solid var(--color-verde);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .dress-code-icon svg {
+        width: 1rem;
+        height: 1rem;
+        color: var(--color-verde);
+    }
+
+    .dress-code {
+        font-family: var(--font-serif);
+        font-size: 1.25rem;
+        color: var(--color-verde);
+        font-style: italic;
+    }
+
+    @media (min-width: 768px) {
+        .details-section {
+            padding: 4rem 1.5rem;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: flex-start;
+            gap: 0;
+        }
+
+        .detail-item {
+            width: 33.333%;
+        }
+
+        .detail-title {
+            font-size: 0.875rem;
+        }
+
+        .detail-time {
+            font-size: 3rem;
+        }
+
+        .detail-location {
+            font-size: 1rem;
+        }
+
+        .reception {
+            padding-top: 0;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            border-top: none;
+            border-left: 1px solid rgba(74, 93, 78, 0.2);
+            border-right: 1px solid rgba(74, 93, 78, 0.2);
+        }
+
+        .dress-code-icon {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        .dress-code-icon svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .dress-code {
+            font-size: 1.5rem;
+        }
+    }
+</style>

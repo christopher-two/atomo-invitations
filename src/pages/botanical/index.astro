@@ -1,0 +1,32 @@
+---
+import Layout from "../../templates/botanical/Layout.astro";
+import Hero from "../../templates/botanical/organisms/Hero.astro";
+import Countdown from "../../templates/botanical/organisms/Countdown.astro";
+import Gallery from "../../templates/botanical/organisms/Gallery.astro";
+import Details from "../../templates/botanical/organisms/Details.astro";
+import Music from "../../templates/botanical/organisms/Music.astro";
+import RSVP from "../../templates/botanical/organisms/RSVP.astro";
+---
+
+<Layout title="Botanical">
+    <main class="main-content">
+        <Hero />
+        <Countdown />
+        <Gallery />
+        <Details />
+        <Music />
+        <RSVP />
+    </main>
+</Layout>
+
+<style>
+    .main-content {
+        width: 100%;
+        min-height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow-hidden;
+    }
+</style>

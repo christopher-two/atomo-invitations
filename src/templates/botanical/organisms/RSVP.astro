@@ -1,0 +1,323 @@
+---
+---
+
+<section class="rsvp-section">
+    <!-- Hojas de fondo inferiores -->
+    <svg class="botanical-decoration bottom-left" viewBox="0 0 100 100">
+        <use href="#hoja-eucalipto" x="0" y="0" transform="rotate(-20 50 50) scale(1.5)" />
+    </svg>
+    <svg class="botanical-decoration bottom-right" viewBox="0 0 100 100">
+        <use href="#hoja-eucalipto" x="0" y="0" transform="rotate(-20 50 50) scale(1.5)" />
+    </svg>
+
+    <h2 class="rsvp-title">
+        Esperamos contar<br />con tu presencia
+    </h2>
+    
+    <form id="rsvp-form" class="rsvp-form">
+        <div class="form-group">
+            <input 
+                type="text" 
+                placeholder="Nombre y Apellido" 
+                required 
+                class="form-input"
+            />
+        </div>
+        
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="asistencia" value="si" class="radio-btn">
+                <div class="radio-circle">
+                    <div class="radio-indicator"></div>
+                </div>
+                <span class="radio-text">SÍ, ASISTIRÉ</span>
+            </label>
+
+            <label class="radio-label">
+                <input type="radio" name="asistencia" value="no" class="radio-btn">
+                <div class="radio-circle">
+                    <div class="radio-indicator"></div>
+                </div>
+                <span class="radio-text">NO PODRÉ</span>
+            </label>
+        </div>
+
+        <button type="submit" class="submit-button">
+            CONFIRMAR ASISTENCIA
+        </button>
+    </form>
+</section>
+
+<script>
+    // Lógica para los Radio Buttons personalizados
+    const radios = document.querySelectorAll('.radio-btn');
+    const indicators = document.querySelectorAll('.radio-indicator');
+
+    radios.forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Ocultar todos los indicadores
+            indicators.forEach(ind => ind.classList.add('hidden'));
+            
+            // Mostrar solo el indicador del radio seleccionado
+            if (this.checked) {
+                const label = this.closest('.radio-label');
+                const indicator = label?.querySelector('.radio-indicator');
+                if (indicator) {
+                    indicator.classList.remove('hidden');
+                }
+            }
+        });
+    });
+
+    // Prevención de envío del formulario para demo
+    const form = document.getElementById('rsvp-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            btn.textContent = '¡CONFIRMADO!';
+            btn.classList.add('submitted');
+            setTimeout(() => {
+                btn.textContent = 'CONFIRMAR ASISTENCIA';
+                btn.classList.remove('submitted');
+                this.reset();
+                indicators.forEach(ind => ind.classList.add('hidden'));
+            }, 3000);
+        });
+    }
+</script>
+
+<style>
+    .rsvp-section {
+        position: relative;
+        padding-top: 4rem;
+        padding-bottom: 8rem;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .botanical-decoration {
+        position: absolute;
+        bottom: 0;
+        width: 10rem;
+        height: 10rem;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    .bottom-left {
+        left: 0;
+        transform: scaleY(1);
+    }
+
+    .bottom-right {
+        right: 0;
+        transform: scale(-1, 1);
+    }
+
+    .rsvp-title {
+        font-family: var(--font-script);
+        font-size: 3.125rem;
+        color: var(--color-verde);
+        margin-bottom: 2.5rem;
+        z-index: 10;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .rsvp-form {
+        width: 100%;
+        max-width: 36rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        z-index: 10;
+        background-color: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 0.75rem;
+        border: 1px solid rgba(74, 93, 78, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .form-input {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--color-verde);
+        border-radius: 0;
+        outline: none;
+        box-shadow: none !important;
+        padding: 0.75rem 0;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        color: var(--color-carbon);
+    }
+
+    .form-input::placeholder {
+        color: #9ca3af;
+    }
+
+    .form-input:focus {
+        border-bottom-width: 2px;
+    }
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding-top: 1rem;
+    }
+
+    .radio-label {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        cursor: pointer;
+        width: 100%;
+        max-width: 12.5rem;
+        justify-content: center;
+        position: relative;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .radio-circle {
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 1px solid var(--color-verde);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        pointer-events: none;
+    }
+
+    .radio-indicator {
+        width: 0.75rem;
+        height: 0.75rem;
+        border-radius: 50%;
+        background-color: var(--color-verde);
+        display: none;
+    }
+
+    .radio-label:hover .radio-indicator {
+        display: block;
+    }
+
+    .radio-text {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        color: var(--color-carbon);
+        pointer-events: none;
+    }
+
+    .radio-btn {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .submit-button {
+        width: 100%;
+        background-color: var(--color-verde);
+        padding: 1.25rem;
+        color: var(--color-white);
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.15em;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-top: 0.5rem;
+    }
+
+    .submit-button:hover {
+        background-color: #3A4A3E;
+    }
+
+    .submit-button.submitted {
+        background-color: var(--color-carbon);
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    @media (min-width: 768px) {
+        .rsvp-section {
+            padding-top: 4rem;
+            padding-bottom: 8rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .botanical-decoration {
+            width: 16rem;
+            height: 16rem;
+        }
+
+        .rsvp-title {
+            font-size: 4.375rem;
+        }
+
+        .rsvp-form {
+            padding: 3rem;
+        }
+
+        .form-input {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        .radio-group {
+            flex-direction: row;
+            gap: 2rem;
+        }
+
+        .radio-label {
+            width: auto;
+            max-width: none;
+        }
+
+        .radio-circle {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        .radio-indicator {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .radio-text {
+            font-size: 0.875rem;
+        }
+
+        .submit-button {
+            font-size: 0.875rem;
+            padding: 1.25rem;
+        }
+    }
+</style>
