@@ -1,0 +1,99 @@
+/* variables.css for Harry Potter (Magic) Template */
+
+:root {
+    /* Color Palette */
+    --color-parchment: #f4ebd8;
+    --color-ink: #2c1e16;
+    --color-ink-light: #5c4033;
+    --color-ink-red: #8b1c1c;
+
+    /* Global Theme Variables Mapping */
+    --color-bg: var(--color-parchment);
+    --color-text: var(--color-ink);
+    --color-accent: var(--color-ink-red);
+
+    /* Typography */
+    --font-magic: 'Cinzel', serif;
+    --font-classic: 'Cormorant Garamond', serif;
+    --font-sans: 'Quicksand', sans-serif;
+
+    /* Default spacing/layout variables if needed */
+}
+
+/* 
+    Optional: Alternate themes for the Harry Potter template (e.g., dark mode could be "Nocturne Alley" style)
+*/
+:root[data-theme="dark"] {
+    --color-parchment: #1a1512;
+    --color-ink: #e8dcc5;
+    --color-ink-light: #a38c75;
+    --color-ink-red: #8b1c1c;
+
+    --color-bg: var(--color-parchment);
+    --color-text: var(--color-ink);
+    --color-accent: var(--color-ink-red);
+}
+
+/* Animations defined globally for the template */
+
+/* Animación de Levitación (Wingardium Leviosa) */
+@keyframes hp-levitate {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* Animación Flecha Bote */
+@keyframes hp-bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-8px);
+    }
+
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Mapa del Merodeador (Fondo Animado) */
+@keyframes hp-flow {
+    to {
+        stroke-dashoffset: -1000;
+    }
+}
+
+@keyframes hp-stepFade {
+    0% {
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.8;
+    }
+
+    40% {
+        opacity: 0.8;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}

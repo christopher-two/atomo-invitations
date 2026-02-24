@@ -1,0 +1,239 @@
+---
+// Hero.astro
+---
+
+<section class="hp-hero-section">
+    <div class="hp-hero-stars">
+        <!-- Estrellas SVG en tinta roja -->
+        <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--color-ink-red)"
+            stroke-width="1.5"
+            class="hp-star-pulse"
+        >
+            <path
+                d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+                fill="var(--color-ink-red)"
+                stroke="none"></path>
+        </svg>
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--color-ink-red)"
+            stroke-width="1.5"
+            class="hp-star-pulse hp-star-delay"
+        >
+            <path
+                d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+                fill="var(--color-ink-red)"
+                stroke="none"></path>
+        </svg>
+    </div>
+
+    <div class="hp-hero-content">
+        <p class="hp-hero-subtitle">El Ministerio de Magia anuncia la</p>
+        <h1 class="hp-hero-title">FIESTA DE<br />DISFRACES</h1>
+        <p class="hp-hero-tagline">Un evento mágico de películas y series</p>
+    </div>
+
+    <!-- Iconografía HP (Gafas y Rayo en estilo tinta) -->
+    <div class="hp-hero-icons hp-levitate">
+        <!-- El Rayo -->
+        <svg
+            width="30"
+            height="50"
+            viewBox="0 0 30 50"
+            class="hp-icon-lightning"
+        >
+            <path
+                d="M20 0 L0 25 L12 25 L5 50 L28 18 L15 18 Z"
+                fill="var(--color-ink-red)"></path>
+        </svg>
+        <!-- Las Gafas -->
+        <svg width="120" height="50" viewBox="0 0 120 50">
+            <circle
+                cx="25"
+                cy="25"
+                r="22"
+                fill="none"
+                class="hp-glasses-stroke"
+                stroke-width="3"></circle>
+            <circle
+                cx="95"
+                cy="25"
+                r="22"
+                fill="none"
+                class="hp-glasses-stroke"
+                stroke-width="3"></circle>
+            <path
+                d="M47 25 C 55 15, 65 15, 73 25"
+                fill="none"
+                class="hp-glasses-stroke"
+                stroke-width="3"
+                stroke-linecap="round"></path>
+        </svg>
+    </div>
+
+    <div class="hp-hero-scroll hp-bounce">
+        <span class="hp-scroll-text">Usa el traslador hacia abajo</span>
+        <i class="ph-thin ph-caret-down hp-scroll-icon"></i>
+    </div>
+</section>
+
+<!-- Separador de Varita Mágica (Tinta) -->
+<div class="hp-hero-separator">
+    <svg width="150" height="10" viewBox="0 0 150 10">
+        <line
+            x1="0"
+            y1="5"
+            x2="60"
+            y2="5"
+            stroke="var(--color-ink-light)"
+            stroke-width="1"
+            stroke-dasharray="2 2"></line>
+        <circle cx="75" cy="5" r="3" fill="var(--color-ink-red)"></circle>
+        <line
+            x1="90"
+            y1="5"
+            x2="150"
+            y2="5"
+            stroke="var(--color-ink-light)"
+            stroke-width="1"
+            stroke-dasharray="2 2"></line>
+    </svg>
+</div>
+
+<style>
+    .hp-hero-section {
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 1.5rem;
+        position: relative;
+    }
+
+    .hp-hero-stars {
+        position: absolute;
+        top: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .hp-star-pulse {
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+
+    .hp-star-delay {
+        animation-delay: 1s;
+        margin-top: -10px;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.5;
+        }
+    }
+
+    .hp-hero-content {
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        z-index: 10;
+        position: relative;
+    }
+
+    .hp-hero-subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.625rem; /* 10px */
+        letter-spacing: 0.4em;
+        color: var(--color-ink-light);
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .hp-hero-title {
+        font-family: var(--font-magic);
+        font-size: 2.25rem; /* 36px */
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        line-height: 1.25;
+        color: var(--color-ink);
+    }
+
+    @media (min-width: 768px) {
+        .hp-hero-title {
+            font-size: 3rem; /* 48px */
+        }
+    }
+
+    .hp-hero-tagline {
+        font-family: var(--font-classic);
+        font-size: 1.25rem;
+        font-style: italic;
+        color: var(--color-ink-light);
+        font-weight: 600;
+    }
+
+    .hp-hero-icons {
+        margin: 2.5rem 0;
+        position: relative;
+    }
+
+    .hp-icon-lightning {
+        position: absolute;
+        top: -2.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hp-glasses-stroke {
+        stroke: var(--color-ink);
+    }
+
+    .hp-hero-scroll {
+        position: absolute;
+        bottom: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        opacity: 0.8;
+        cursor: pointer;
+    }
+
+    .hp-scroll-text {
+        font-family: var(--font-sans);
+        font-size: 0.625rem; /* 10px */
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        color: var(--color-ink-light);
+        font-weight: 600;
+    }
+
+    .hp-scroll-icon {
+        font-size: 1.5rem;
+        color: var(--color-ink-red);
+    }
+
+    .hp-hero-separator {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 0;
+    }
+</style>

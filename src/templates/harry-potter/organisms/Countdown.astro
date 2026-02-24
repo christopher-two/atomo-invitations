@@ -1,0 +1,155 @@
+---
+// Countdown.astro
+---
+
+<section class="hp-countdown-section">
+    <p class="hp-countdown-subtitle">La magia comienza en</p>
+
+    <div class="hp-countdown-container">
+        <div class="hp-countdown-item">
+            <span id="days" class="hp-countdown-number">00</span>
+            <span class="hp-countdown-label">DÍAS</span>
+        </div>
+
+        <div class="hp-countdown-divider"></div>
+
+        <div class="hp-countdown-item">
+            <span id="hours" class="hp-countdown-number">00</span>
+            <span class="hp-countdown-label">HRS</span>
+        </div>
+
+        <div class="hp-countdown-divider"></div>
+
+        <div class="hp-countdown-item">
+            <span id="minutes" class="hp-countdown-number">00</span>
+            <span class="hp-countdown-label">MIN</span>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hp-countdown-section {
+        padding: 3rem 1.5rem;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .hp-countdown-subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.625rem; /* 10px */
+        letter-spacing: 0.3em;
+        color: var(--color-ink-light);
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    .hp-countdown-container {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem; /* gap-6 */
+    }
+
+    .hp-countdown-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hp-countdown-number {
+        font-family: var(--font-magic);
+        font-size: 2.25rem; /* 36px */
+        font-weight: 700;
+        color: var(--color-ink);
+    }
+
+    @media (min-width: 768px) {
+        .hp-countdown-number {
+            font-size: 3rem; /* 48px */
+        }
+    }
+
+    .hp-countdown-label {
+        font-family: var(--font-sans);
+        font-size: 0.625rem; /* 10px */
+        letter-spacing: 0.1em;
+        color: var(--color-ink-red);
+        margin-top: 0.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+    }
+
+    .hp-countdown-divider {
+        width: 1px;
+        height: 3rem;
+        background-color: var(--color-ink-light);
+        opacity: 0.3;
+        transform: rotate(12deg);
+    }
+</style>
+
+<script>
+    // --- Lógica del Contador ---
+    // Extraída como se definió en el documento HTML original
+
+    function initCountdown() {
+        const today = new Date();
+        const eventDate = new Date(
+            today.getFullYear() + 1,
+            4,
+            7,
+            18,
+            0,
+            0
+        ).getTime(); // 7 de Mayo (mes 4)
+
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+
+        if (!daysEl || !hoursEl || !minutesEl) return;
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+
+            if (distance < 0) {
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutes = Math.floor(
+                (distance % (1000 * 60 * 60)) / (1000 * 60)
+            );
+
+            daysEl.innerText = days.toString().padStart(2, "0");
+            hoursEl.innerText = hours.toString().padStart(2, "0");
+            minutesEl.innerText = minutes.toString().padStart(2, "0");
+        };
+
+        // Clear previous intervals if Astro swaps content
+        if ((window as any).hpCountdownInterval)
+            clearInterval((window as any).hpCountdownInterval);
+
+        (window as any).hpCountdownInterval = setInterval(
+            updateCountdown,
+            1000
+        ) as any;
+        updateCountdown();
+    }
+
+    // Support Astro View Transitions
+    document.addEventListener("astro:page-load", initCountdown);
+    // Initial load
+    initCountdown();
+</script>

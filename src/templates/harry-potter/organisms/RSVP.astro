@@ -1,0 +1,261 @@
+---
+// RSVP.astro
+---
+
+<section class="hp-rsvp-section">
+    <div class="hp-rsvp-header">
+        <h2 class="hp-rsvp-title">Envía tu Lechuza</h2>
+        <p class="hp-rsvp-subtitle">
+            El Ministerio necesita conocer tu respuesta antes de la luna llena.
+        </p>
+    </div>
+
+    <form id="hp-rsvp-form" class="hp-rsvp-form">
+        <div class="hp-rsvp-options">
+            <label class="hp-rsvp-label">
+                <input
+                    type="radio"
+                    name="attendance"
+                    value="yes"
+                    class="hp-custom-radio"
+                    required
+                />
+                <span class="hp-rsvp-text-container hp-text-yes">
+                    <strong class="hp-rsvp-option-title"
+                        >Juro solemnemente que asistiré</strong
+                    >
+                    <span class="hp-rsvp-option-desc"
+                        >Ya estoy preparando mi caldero y mi disfraz.</span
+                    >
+                </span>
+            </label>
+            <label class="hp-rsvp-label">
+                <input
+                    type="radio"
+                    name="attendance"
+                    value="no"
+                    class="hp-custom-radio"
+                />
+                <span class="hp-rsvp-text-container hp-text-no">
+                    <strong class="hp-rsvp-option-title hp-title-no"
+                        >Travesura realizada</strong
+                    >
+                    <span class="hp-rsvp-option-desc"
+                        >Me han castigado en Azkaban (No podré ir).</span
+                    >
+                </span>
+            </label>
+        </div>
+
+        <div class="hp-rsvp-submit-container">
+            <!-- Botón estilo Sello del Ministerio -->
+            <button type="submit" class="hp-submit-btn">
+                Enviar Respuesta Mágica
+            </button>
+        </div>
+    </form>
+</section>
+
+<style>
+    .hp-rsvp-section {
+        padding: 4rem 1.5rem 2.5rem;
+        margin-bottom: 2.5rem;
+        border-top: 1px solid rgba(92, 64, 51, 0.3); /* inkLight with opacity */
+        margin-top: 2rem;
+    }
+
+    .hp-rsvp-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .hp-rsvp-title {
+        font-family: var(--font-magic);
+        font-size: 1.875rem; /* 30px */
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+        color: var(--color-ink);
+    }
+
+    .hp-rsvp-subtitle {
+        color: var(--color-ink-light);
+        font-style: italic;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .hp-rsvp-form {
+        max-width: 24rem; /* 384px */
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .hp-rsvp-options {
+        padding-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: left;
+    }
+
+    .hp-rsvp-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        cursor: pointer;
+    }
+
+    .hp-custom-radio {
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border: 1px solid var(--color-ink-light);
+        border-radius: 50%;
+        position: relative;
+        cursor: pointer;
+        outline: none;
+        margin-top: 0.25rem;
+        flex-shrink: 0;
+    }
+
+    .hp-custom-radio:checked {
+        border-color: var(--color-ink-red);
+    }
+
+    .hp-custom-radio:checked::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        background-color: var(--color-ink-red);
+        border-radius: 50%;
+    }
+
+    .hp-rsvp-text-container {
+        color: var(--color-ink-light);
+        transition: color 0.3s ease;
+    }
+
+    .hp-rsvp-label:hover .hp-text-yes {
+        color: var(--color-ink-red);
+    }
+
+    .hp-rsvp-label:hover .hp-text-no {
+        color: var(--color-ink);
+    }
+
+    .hp-rsvp-option-title {
+        display: block;
+        font-family: var(--font-magic);
+        font-size: 1.125rem; /* 18px */
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+        color: var(--color-ink);
+        transition: color 0.3s ease;
+    }
+
+    .hp-title-no {
+        color: var(--color-ink-light);
+    }
+
+    .hp-rsvp-label:hover .hp-text-yes .hp-rsvp-option-title {
+        color: var(--color-ink-red);
+    }
+
+    .hp-rsvp-label:hover .hp-text-no .hp-title-no {
+        color: var(--color-ink);
+    }
+
+    .hp-rsvp-option-desc {
+        font-size: 0.875rem; /* 14px */
+        font-style: italic;
+    }
+
+    .hp-rsvp-submit-container {
+        padding-top: 2rem;
+    }
+
+    .hp-submit-btn {
+        width: 100%;
+        background-color: var(--color-ink-red);
+        color: var(--color-parchment);
+        border: 2px solid var(--color-ink-red);
+        font-family: var(--font-sans);
+        font-weight: 700;
+        padding: 1rem 0;
+        text-transform: uppercase;
+        font-size: 0.75rem; /* 12px */
+        letter-spacing: 0.3em;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .hp-submit-btn:hover,
+    .hp-submit-btn:focus {
+        background-color: transparent;
+        color: var(--color-ink-red);
+        outline: none;
+    }
+
+    .hp-submit-btn:active {
+        transform: scale(0.95);
+    }
+</style>
+
+<script>
+    // --- Envío del Formulario RSVP (WhatsApp) ---
+    function initRSVP() {
+        const form = document.getElementById("hp-rsvp-form") as HTMLFormElement;
+
+        if (!form) return;
+
+        // Clean up old listener to prevent duplicates in Astro View Transitions
+        const handleSubmit = function (e: Event) {
+            e.preventDefault();
+
+            const radioButtons = document.querySelectorAll(
+                'input[name="attendance"]'
+            );
+            let attendance = "";
+            radioButtons.forEach((radio) => {
+                if ((radio as HTMLInputElement).checked) {
+                    attendance = (radio as HTMLInputElement).value;
+                }
+            });
+
+            // REEMPLAZA ESTE NÚMERO POR EL TUYO (incluye código de país sin el '+', ej. 52 para México)
+            const numeroWhatsApp = "521234567890";
+            let mensaje = "";
+
+            if (attendance === "yes") {
+                mensaje =
+                    "¡Hola! Juro solemnemente que asistiré a la fiesta mágica. ⚡";
+            } else if (attendance === "no") {
+                mensaje =
+                    "Hola. Travesura realizada... Me han castigado en Azkaban y no podré asistir. 🦉";
+            } else {
+                return; // Not selected
+            }
+
+            const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(
+                mensaje
+            )}`;
+            window.open(url, "_blank");
+
+            form.reset();
+        };
+
+        form.removeEventListener("submit", handleSubmit);
+        form.addEventListener("submit", handleSubmit);
+    }
+
+    document.addEventListener("astro:page-load", initRSVP);
+    initRSVP();
+</script>

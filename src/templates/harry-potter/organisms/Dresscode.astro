@@ -1,0 +1,54 @@
+---
+// Dresscode.astro
+---
+
+<section class="hp-dresscode-section">
+    <!-- Icono Sombrero Seleccionador / Magia -->
+    <i class="ph-thin ph-sparkle hp-dresscode-icon hp-levitate"></i>
+    <h2 class="hp-dresscode-title">Atuendo Requerido</h2>
+    <p class="hp-dresscode-text">
+        Túnicas de gala, tu uniforme de la casa, o tu mejor cosplay de
+        películas. No se permiten prendas Muggles aburridas.<br />
+        <span class="hp-dresscode-highlight"
+            >¡Vístete para impresionar o te lanzaremos un maleficio!</span
+        >
+    </p>
+</section>
+
+<style>
+    .hp-dresscode-section {
+        padding: 3rem 1.5rem;
+        text-align: center;
+    }
+
+    .hp-dresscode-icon {
+        font-size: 2.25rem; /* 36px */
+        margin-bottom: 1rem;
+        color: var(--color-ink-red);
+        display: inline-block;
+    }
+
+    .hp-dresscode-title {
+        font-family: var(--font-magic);
+        font-size: 1.5rem; /* 24px */
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 1rem;
+        color: var(--color-ink);
+    }
+
+    .hp-dresscode-text {
+        color: var(--color-ink-light);
+        line-height: 1.625;
+        font-weight: 600;
+        max-width: 32rem;
+        margin: 0 auto;
+    }
+
+    .hp-dresscode-highlight {
+        font-style: italic;
+        color: var(--color-ink-red);
+        margin-top: 1rem;
+        display: block;
+    }
+</style>

@@ -1,4 +1,20 @@
 ---
+export interface Props {
+    allowedThemes?: string[];
+}
+const { allowedThemes } = Astro.props;
+
+const allThemes = [
+    { value: "light", label: "Claro", swatch: "swatch-light" },
+    { value: "dark", label: "Oscuro", swatch: "swatch-dark" },
+    { value: "emerald", label: "Esmeralda", swatch: "swatch-emerald" },
+    { value: "rose", label: "Rose Gold", swatch: "swatch-rose" },
+    { value: "gold", label: "Dorado", swatch: "swatch-gold" },
+];
+
+const themesToShow = allowedThemes
+    ? allThemes.filter((t) => allowedThemes.includes(t.value))
+    : allThemes;
 ---
 
 <div class="theme-switcher">
@@ -32,29 +48,17 @@
     </button>
 
     <div id="theme-menu" class="theme-menu">
-        <button class="theme-option" data-value="light" aria-label="Tema Claro">
-            <span class="swatch swatch-light"></span> Claro
-        </button>
-        <button class="theme-option" data-value="dark" aria-label="Tema Oscuro">
-            <span class="swatch swatch-dark"></span> Oscuro
-        </button>
-        <button
-            class="theme-option"
-            data-value="emerald"
-            aria-label="Tema Esmeralda"
-        >
-            <span class="swatch swatch-emerald"></span> Esmeralda
-        </button>
-        <button
-            class="theme-option"
-            data-value="rose"
-            aria-label="Tema Rose Gold"
-        >
-            <span class="swatch swatch-rose"></span> Rose Gold
-        </button>
-        <button class="theme-option" data-value="gold" aria-label="Tema Dorado">
-            <span class="swatch swatch-gold"></span> Dorado
-        </button>
+        {
+            themesToShow.map((theme) => (
+                <button
+                    class="theme-option"
+                    data-value={theme.value}
+                    aria-label={`Tema ${theme.label}`}
+                >
+                    <span class={`swatch ${theme.swatch}`} /> {theme.label}
+                </button>
+            ))
+        }
     </div>
 </div>
 
@@ -179,7 +183,21 @@
     const options = document.querySelectorAll(".theme-option");
 
     // Tema inicial
-    const currentTheme = localStorage.getItem("theme") || "light";
+    let currentTheme = localStorage.getItem("theme") || "light";
+
+    // Verificar si el tema está disponible en este toggle
+    let isThemeAvailable = false;
+    options.forEach((opt) => {
+        if (opt.getAttribute("data-value") === currentTheme) {
+            isThemeAvailable = true;
+        }
+    });
+
+    // Si no está disponible (ej. cambió de plantilla), forzar el primero válido
+    if (!isThemeAvailable && options.length > 0) {
+        currentTheme = options[0].getAttribute("data-value") || "light";
+        localStorage.setItem("theme", currentTheme);
+    }
 
     if (currentTheme !== "light") {
         document.documentElement.setAttribute("data-theme", currentTheme);
