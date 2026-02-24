@@ -1,0 +1,112 @@
+---
+// Music.astro
+---
+
+<section class="music-section">
+    <div class="music-header">
+        <h2 class="section-title">LA MÚSICA</h2>
+        <p class="text-script intro-text">¿Qué canción te hace zapatear?</p>
+    </div>
+
+    <form class="music-form" id="western-music-form">
+        <div class="input-group">
+            <input
+                type="text"
+                id="song-request"
+                name="song"
+                class="input-western"
+                placeholder="Nombre de la canción y artista"
+                required
+            />
+        </div>
+
+        <button type="submit" class="btn-western">ENVIAR CANCIÓN</button>
+    </form>
+
+    <!-- Success message initially hidden -->
+    <div id="music-success-msg" class="success-msg hidden">
+        <p class="text-script">¡Gracias! La hemos añadido a la gramola.</p>
+    </div>
+</section>
+
+<script>
+    const form = document.getElementById("western-music-form");
+    const successMsg = document.getElementById("music-success-msg");
+
+    if (form) {
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            // Typically you'd send to an API here
+
+            // Show success message
+            form.style.display = "none";
+            if (successMsg) {
+                successMsg.classList.remove("hidden");
+                successMsg.classList.add("visible");
+            }
+        });
+    }
+</script>
+
+<style>
+    .music-section {
+        padding: 6rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .music-header {
+        margin-bottom: 3rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .section-title {
+        font-size: clamp(3rem, 6vw, 4.5rem); /* Scaled for PC */
+        letter-spacing: 0.1em;
+    }
+
+    .intro-text {
+        font-size: clamp(2rem, 3vw, 2.5rem); /* Scaled for PC */
+        margin: 0;
+    }
+
+    .music-form {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem; /* Abundant whitespace */
+        width: 100%;
+        max-width: 600px; /* Wider for PC */
+        align-items: center;
+    }
+
+    .input-group {
+        width: 100%;
+    }
+
+    .success-msg {
+        margin-top: 2rem;
+        text-align: center;
+        color: var(--ink-color);
+        transition: opacity 0.5s ease;
+    }
+
+    .success-msg p {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .hidden {
+        display: none;
+        opacity: 0;
+    }
+
+    .visible {
+        display: block;
+        opacity: 1;
+    }
+</style>
