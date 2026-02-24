@@ -1,32 +1,42 @@
 ---
+import floral from "../assets/floral-1.svg?raw";
+const innerSVG = floral.replace(
+    /[\s\S]*<svg[^>]*>([\s\S]*?)<\/svg>[\s\S]*/,
+    "$1"
+);
 ---
 
 <section class="rsvp-section">
     <!-- Hojas de fondo inferiores -->
-    <svg class="botanical-decoration bottom-left" viewBox="0 0 100 100">
-        <use href="#hoja-eucalipto" x="0" y="0" transform="rotate(-20 50 50) scale(1.5)" />
+    <svg class="botanical-decoration bottom-left" viewBox="0 0 512 512">
+        <g transform="rotate(-20 256 256) scale(0.9)" set:html={innerSVG}></g>
     </svg>
-    <svg class="botanical-decoration bottom-right" viewBox="0 0 100 100">
-        <use href="#hoja-eucalipto" x="0" y="0" transform="rotate(-20 50 50) scale(1.5)" />
+    <svg class="botanical-decoration bottom-right" viewBox="0 0 512 512">
+        <g transform="rotate(-20 256 256) scale(0.9)" set:html={innerSVG}></g>
     </svg>
 
     <h2 class="rsvp-title">
         Esperamos contar<br />con tu presencia
     </h2>
-    
+
     <form id="rsvp-form" class="rsvp-form">
         <div class="form-group">
-            <input 
-                type="text" 
-                placeholder="Nombre y Apellido" 
-                required 
+            <input
+                type="text"
+                placeholder="Nombre y Apellido"
+                required
                 class="form-input"
             />
         </div>
-        
+
         <div class="radio-group">
             <label class="radio-label">
-                <input type="radio" name="asistencia" value="si" class="radio-btn">
+                <input
+                    type="radio"
+                    name="asistencia"
+                    value="si"
+                    class="radio-btn"
+                />
                 <div class="radio-circle">
                     <div class="radio-indicator"></div>
                 </div>
@@ -34,7 +44,12 @@
             </label>
 
             <label class="radio-label">
-                <input type="radio" name="asistencia" value="no" class="radio-btn">
+                <input
+                    type="radio"
+                    name="asistencia"
+                    value="no"
+                    class="radio-btn"
+                />
                 <div class="radio-circle">
                     <div class="radio-indicator"></div>
                 </div>
@@ -50,39 +65,43 @@
 
 <script>
     // Lógica para los Radio Buttons personalizados
-    const radios = document.querySelectorAll('.radio-btn');
-    const indicators = document.querySelectorAll('.radio-indicator');
+    const radios = document.querySelectorAll(".radio-btn");
+    const indicators = document.querySelectorAll(".radio-indicator");
 
-    radios.forEach(radio => {
-        radio.addEventListener('change', function() {
+    radios.forEach((radio) => {
+        radio.addEventListener("change", function (this: HTMLInputElement) {
             // Ocultar todos los indicadores
-            indicators.forEach(ind => ind.classList.add('hidden'));
-            
+            indicators.forEach((ind) => ind.classList.add("hidden"));
+
             // Mostrar solo el indicador del radio seleccionado
             if (this.checked) {
-                const label = this.closest('.radio-label');
-                const indicator = label?.querySelector('.radio-indicator');
+                const label = this.closest(".radio-label");
+                const indicator = label?.querySelector(".radio-indicator");
                 if (indicator) {
-                    indicator.classList.remove('hidden');
+                    indicator.classList.remove("hidden");
                 }
             }
         });
     });
 
     // Prevención de envío del formulario para demo
-    const form = document.getElementById('rsvp-form');
+    const form = document.getElementById("rsvp-form") as HTMLFormElement | null;
     if (form) {
-        form.addEventListener('submit', function(e) {
+        form.addEventListener("submit", function (this: HTMLFormElement, e) {
             e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            btn.textContent = '¡CONFIRMADO!';
-            btn.classList.add('submitted');
-            setTimeout(() => {
-                btn.textContent = 'CONFIRMAR ASISTENCIA';
-                btn.classList.remove('submitted');
-                this.reset();
-                indicators.forEach(ind => ind.classList.add('hidden'));
-            }, 3000);
+            const btn = this.querySelector(
+                'button[type="submit"]'
+            ) as HTMLButtonElement | null;
+            if (btn) {
+                btn.textContent = "¡CONFIRMADO!";
+                btn.classList.add("submitted");
+                setTimeout(() => {
+                    btn.textContent = "CONFIRMAR ASISTENCIA";
+                    btn.classList.remove("submitted");
+                    this.reset();
+                    indicators.forEach((ind) => ind.classList.add("hidden"));
+                }, 3000);
+            }
         });
     }
 </script>
@@ -103,20 +122,21 @@
 
     .botanical-decoration {
         position: absolute;
-        bottom: 0;
-        width: 10rem;
-        height: 10rem;
+        bottom: -2rem;
+        width: 15rem;
+        height: 15rem;
         opacity: 0.7;
         pointer-events: none;
+        color: var(--color-verde);
     }
 
     .bottom-left {
-        left: 0;
+        left: -3rem;
         transform: scaleY(1);
     }
 
     .bottom-right {
-        right: 0;
+        right: -3rem;
         transform: scale(-1, 1);
     }
 
@@ -137,7 +157,11 @@
         flex-direction: column;
         gap: 2rem;
         z-index: 10;
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: color-mix(
+            in srgb,
+            var(--color-white) 60%,
+            transparent
+        );
         backdrop-filter: blur(10px);
         padding: 2rem;
         border-radius: 0.75rem;
@@ -254,7 +278,7 @@
     }
 
     .submit-button:hover {
-        background-color: #3A4A3E;
+        background-color: #3a4a3e;
     }
 
     .submit-button.submitted {
@@ -274,8 +298,17 @@
         }
 
         .botanical-decoration {
-            width: 16rem;
-            height: 16rem;
+            width: 30rem;
+            height: 30rem;
+            bottom: -5rem;
+        }
+
+        .bottom-left {
+            left: -5rem;
+        }
+
+        .bottom-right {
+            right: -5rem;
         }
 
         .rsvp-title {

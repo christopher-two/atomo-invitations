@@ -1,7 +1,19 @@
 ---
+import floral from "../assets/floral-1.svg?raw";
+const innerSVG = floral.replace(
+    /[\s\S]*<svg[^>]*>([\s\S]*?)<\/svg>[\s\S]*/,
+    "$1"
+);
 ---
 
 <section class="countdown-section">
+    <!-- Hojas de fondo inferiores (Copia exacta de RSVP) -->
+    <svg class="botanical-decoration bottom-left" viewBox="0 0 512 512">
+        <g transform="rotate(-20 256 256) scale(0.9)" set:html={innerSVG}></g>
+    </svg>
+    <svg class="botanical-decoration bottom-right" viewBox="0 0 512 512">
+        <g transform="rotate(-20 256 256) scale(0.9)" set:html={innerSVG}></g>
+    </svg>
     <div class="countdown-container">
         <div class="countdown-item">
             <span id="dias" class="countdown-number">00</span>
@@ -20,7 +32,7 @@
             <span class="countdown-label">SEG</span>
         </div>
     </div>
-    
+
     <!-- Separador -->
     <div class="divider"></div>
 </section>
@@ -29,38 +41,77 @@
     // Lógica del Contador Regresivo
     const fechaBoda = new Date(2026, 2, 20, 16, 0, 0).getTime();
 
-    const intervalo = setInterval(function() {
+    const diasEl = document.getElementById("dias");
+    const horasEl = document.getElementById("horas");
+    const minutosEl = document.getElementById("minutos");
+    const segundosEl = document.getElementById("segundos");
+
+    const intervalo = setInterval(function () {
         const ahora = new Date().getTime();
         const distancia = fechaBoda - ahora;
 
         if (distancia < 0) {
             clearInterval(intervalo);
-            document.getElementById("dias").innerText = "00";
-            document.getElementById("horas").innerText = "00";
-            document.getElementById("minutos").innerText = "00";
-            document.getElementById("segundos").innerText = "00";
+            if (diasEl) diasEl.innerText = "00";
+            if (horasEl) horasEl.innerText = "00";
+            if (minutosEl) minutosEl.innerText = "00";
+            if (segundosEl) segundosEl.innerText = "00";
             return;
         }
 
         const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const horas = Math.floor(
+            (distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutos = Math.floor(
+            (distancia % (1000 * 60 * 60)) / (1000 * 60)
+        );
         const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-        document.getElementById("dias").innerText = dias < 10 ? "0" + dias : dias;
-        document.getElementById("horas").innerText = horas < 10 ? "0" + horas : horas;
-        document.getElementById("minutos").innerText = minutos < 10 ? "0" + minutos : minutos;
-        document.getElementById("segundos").innerText = segundos < 10 ? "0" + segundos : segundos;
+        if (diasEl)
+            diasEl.innerText = (dias < 10 ? "0" + dias : dias).toString();
+        if (horasEl)
+            horasEl.innerText = (horas < 10 ? "0" + horas : horas).toString();
+        if (minutosEl)
+            minutosEl.innerText = (
+                minutos < 10 ? "0" + minutos : minutos
+            ).toString();
+        if (segundosEl)
+            segundosEl.innerText = (
+                segundos < 10 ? "0" + segundos : segundos
+            ).toString();
     }, 1000);
 </script>
 
 <style>
     .countdown-section {
-        padding: 4rem 1.5rem;
+        position: relative;
+        padding: 2rem 1.5rem 5rem;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
+        overflow: hidden;
+    }
+
+    .botanical-decoration {
+        position: absolute;
+        bottom: -2rem;
+        width: 15rem;
+        height: 15rem;
+        opacity: 0.7;
+        pointer-events: none;
+        color: var(--color-verde);
+    }
+
+    .bottom-left {
+        left: -3rem;
+        transform: scaleY(1);
+    }
+
+    .bottom-right {
+        right: -3rem;
+        transform: scale(-1, 1);
     }
 
     .countdown-container {
@@ -80,13 +131,13 @@
 
     .countdown-number {
         font-family: var(--font-serif);
-        font-size: 2.25rem;
+        font-size: 3rem;
         color: var(--color-verde);
     }
 
     .countdown-label {
         font-family: var(--font-sans);
-        font-size: 0.55rem;
+        font-size: 0.75rem;
         letter-spacing: 0.15em;
         margin-top: 0.5rem;
         color: var(--color-carbon);
@@ -101,7 +152,21 @@
 
     @media (min-width: 768px) {
         .countdown-section {
-            padding: 4rem 1.5rem;
+            padding: 3rem 1.5rem 5rem;
+        }
+
+        .botanical-decoration {
+            width: 30rem;
+            height: 30rem;
+            bottom: -5rem;
+        }
+
+        .bottom-left {
+            left: -5rem;
+        }
+
+        .bottom-right {
+            right: -5rem;
         }
 
         .countdown-container {
@@ -110,11 +175,11 @@
         }
 
         .countdown-number {
-            font-size: 3.75rem;
+            font-size: 5rem;
         }
 
         .countdown-label {
-            font-size: 0.875rem;
+            font-size: 1rem;
         }
 
         .divider {
