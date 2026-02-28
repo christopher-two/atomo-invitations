@@ -1,55 +1,85 @@
 ---
 import { createSupabaseClient } from "../../lib/supabase";
-import MinimalistLayout from "../../templates/botanical/Layout.astro"; // Fallback layout, we will dynamically load components later or redirect.
-// For the query-only requirement, we will fetch the data and set the headers.
 
 const { username } = Astro.params;
 
-// Access Cloudflare environment variables
+// Access Cloudflare environment variables (prod) or import.meta.env (dev)
 // @ts-ignore
 const locals = Astro.locals as any;
-// @ts-ignore
-const processEnv = typeof process !== "undefined" ? process.env : {};
-const env = locals?.runtime?.env || processEnv;
+const env = locals?.runtime?.env || import.meta.env;
 const supabase = createSupabaseClient(env);
 
-// 1. Fetch Profile
+// ──────────────────────────────────────────────
+// 1. Fetch Profile by username
+// ──────────────────────────────────────────────
 const { data: profile, error: profileError } = await supabase
     .from("profiles")
-    .select("id, display_name, avatar_url")
+    .select("id, display_name, avatar_url, username")
     .eq("username", username)
     .single();
 
 if (profileError || !profile) {
-    return Astro.redirect("/404"); // Or returning a 404 response
+    return Astro.redirect("/404");
 }
 
-// 2. Fetch Active Invitation for this profile
+// ──────────────────────────────────────────────
+// 2. Fetch the active user invitation
+//    Join invitation_templates in a single query for defaults
+// ──────────────────────────────────────────────
 const { data: invitation, error: invitationError } = await supabase
     .from("invitations")
-    .select("*")
+    .select(
+        `
+        *,
+        invitation_templates (
+            id,
+            name,
+            description,
+            default_colors,
+            default_custom_data
+        )
+    `
+    )
     .eq("user_id", profile.id)
     .eq("is_active", true)
     .single();
 
 if (invitationError || !invitation) {
-    // If no active invitation, maybe they just have a profile but no event yet.
     return Astro.redirect("/404");
 }
 
-// 3. Set Cache Headers for Cloudflare CDN (The "Vitrina")
-// Cache for 1 year (s-maxage=31536000), allowing stale data while revalidating (stale-while-revalidate)
-// Cloudflare will serve this HTML to visitors instantly.
+// ──────────────────────────────────────────────
+// 3. Merge template defaults with user overrides
+//    User values always win; template provides the schema/fallbacks
+// ──────────────────────────────────────────────
+const templateDef = invitation.invitation_templates ?? {};
+const mergedInvitation = {
+    ...invitation,
+    // Merge custom_data: template defaults first, user values override
+    custom_data: {
+        ...(templateDef.default_custom_data ?? {}),
+        ...(invitation.custom_data ?? {}),
+    },
+    // Merge colors: template defaults first, user values override
+    colors: {
+        ...(templateDef.default_colors ?? {}),
+        ...(invitation.colors ?? {}),
+    },
+};
+
+// ──────────────────────────────────────────────
+// 4. Set Cache-Control for Cloudflare CDN
+// ──────────────────────────────────────────────
 Astro.response.headers.set(
     "Cache-Control",
     "public, max-age=0, s-maxage=31536000, stale-while-revalidate"
 );
 
-// We determine which template to render based on invitation.template_id
-// We import the correct Layout dynamically.
-const templateId = invitation.template_id || "elegant";
+// ──────────────────────────────────────────────
+// 5. Dynamically import the correct template component
+// ──────────────────────────────────────────────
+const templateId = invitation.template_id || "botanical";
 
-// Pre-define imports so Astro/Vite knows about them statically
 const templateComponents = {
     botanical: import("../../components/templates/botanical/index.astro"),
     brunch: import("../../components/templates/brunch/index.astro"),
@@ -64,15 +94,13 @@ const templateComponents = {
 
 type TemplateKey = keyof typeof templateComponents;
 
-let TemplateComponent;
-
-if (templateId in templateComponents) {
-    const Component = await templateComponents[templateId as TemplateKey];
-    TemplateComponent = Component.default;
-} else {
-    // Fallback if template doesn't exist
+if (!(templateId in templateComponents)) {
     return Astro.redirect("/404");
 }
+
+const { default: TemplateComponent } = await templateComponents[
+    templateId as TemplateKey
+];
 ---
 
-<TemplateComponent invitation={invitation} profile={profile} />
+<TemplateComponent invitation={mergedInvitation} profile={profile} />
