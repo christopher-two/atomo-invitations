@@ -1,0 +1,76 @@
+---
+const { invitation, profile } = Astro.props;
+---
+
+<section class="dress-code-section content-layer">
+    <div class="dress-code-icon">
+        <i class="fa-solid fa-shirt"></i>
+    </div>
+    <h2 class="dress-code-title">Código de Vestimenta</h2>
+    <p class="dress-code-subtitle">FORMAL / ELEGANTE</p>
+    <p class="dress-code-quote">
+        "Respetuosamente, te pedimos evitar el color púrpura y lila, ya que está
+        reservado para la quinceañera."
+    </p>
+</section>
+
+<style>
+    .dress-code-section {
+        padding: 4rem 1.5rem;
+        text-align: center;
+        max-width: 56rem;
+        margin: 0 auto;
+    }
+
+    .dress-code-icon {
+        color: var(--color-accent-light);
+        font-size: 3rem;
+        margin-bottom: 2rem;
+    }
+
+    .dress-code-title {
+        font-family: var(--font-serif);
+        font-size: 2.25rem;
+        letter-spacing: 0.1em;
+        color: var(--color-accent-dark);
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        margin-top: 0;
+    }
+
+    .dress-code-subtitle {
+        font-family: var(--font-sans);
+        font-weight: 500;
+        color: var(--color-text-muted);
+        letter-spacing: 0.05em;
+        font-size: 1.125rem;
+        margin-bottom: 2rem;
+    }
+
+    .dress-code-quote {
+        font-family: var(--font-script);
+        font-size: 1.875rem;
+        color: var(--color-accent-light);
+        max-width: 42rem;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+        .dress-code-section {
+            padding: 6rem 1.5rem;
+        }
+
+        .dress-code-title {
+            font-size: 2.75rem;
+        }
+
+        .dress-code-subtitle {
+            font-size: 1.25rem;
+        }
+
+        .dress-code-quote {
+            font-size: 2.25rem;
+        }
+    }
+</style>

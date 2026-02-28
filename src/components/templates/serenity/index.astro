@@ -1,0 +1,22 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Location from "./organisms/Location.astro";
+import DressCode from "./organisms/DressCode.astro";
+import RSVP from "./organisms/RSVP.astro";
+
+const { invitation, profile } = Astro.props;
+const pageTitle = invitation?.title || "Serenity RSVP - Daniela";
+---
+
+<Layout title={pageTitle}>
+    <Hero invitation={invitation} profile={profile} />
+    <Countdown invitation={invitation} />
+    <div class="divider" data-aos="fade"></div>
+    <Location invitation={invitation} />
+    <div class="divider" data-aos="fade"></div>
+    <DressCode invitation={invitation} />
+    <div class="divider" data-aos="fade"></div>
+    <RSVP invitation={invitation} profile={profile} />
+</Layout>

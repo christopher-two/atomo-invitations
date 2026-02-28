@@ -1,0 +1,38 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Gallery from "./organisms/Gallery.astro";
+import Details from "./organisms/Details.astro";
+import Locations from "./organisms/Locations.astro";
+import RSVP from "./organisms/RSVP.astro";
+import Footer from "../../Footer.astro";
+
+const { invitation, profile } = Astro.props;
+const title = invitation?.title || "Botanical";
+---
+
+<Layout title={title}>
+    <main class="main-content">
+        <Hero invitation={invitation} profile={profile} />
+        <Countdown invitation={invitation} profile={profile} />
+        <Gallery invitation={invitation} profile={profile} />
+        <Details invitation={invitation} profile={profile} />
+        <Locations invitation={invitation} profile={profile} />
+        <RSVP invitation={invitation} profile={profile} />
+        <Footer />
+    </main>
+</Layout>
+
+<style>
+    .main-content {
+        width: 100%;
+        min-height: 100vh;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow-x: hidden;
+        --color-accent: var(--color-verde); /* Needed by Footer.astro */
+    }
+</style>

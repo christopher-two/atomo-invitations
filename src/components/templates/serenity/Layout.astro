@@ -1,0 +1,81 @@
+---
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import SEO from "../../components/SEO.astro";
+import "./styles/variables.css";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- AOS Library -->
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+        <SEO title={title} />
+    </head>
+    <body>
+        <ThemeToggle />
+        <slot />
+
+        <!-- AOS Script -->
+        <script is:inline src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script is:inline>
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+            });
+        </script>
+        <style is:global>
+            section {
+                padding: var(--section-padding);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                max-width: var(--max-width);
+                margin: 0 auto;
+                min-height: 100vh;
+            }
+
+            .icon {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 1.5rem;
+                opacity: 0.7;
+            }
+
+            .divider {
+                width: 80px;
+                height: 1px;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    var(--color-accent),
+                    transparent
+                );
+                margin: 4rem auto;
+                opacity: 0.5;
+            }
+        </style>
+    </body>
+</html>

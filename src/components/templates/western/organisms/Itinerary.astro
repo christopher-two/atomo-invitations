@@ -1,0 +1,181 @@
+---
+// Itinerary.astro
+import bullSkullSvg from "../assets/bull-skull.svg";
+import botSvg from "../assets/bot.svg";
+
+const { invitation } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+const defaultItinerary = [
+    { time: "7:00 PM", description: "Cócteles de bienvenida" },
+    { time: "8:30 PM", description: "Cena bajo las estrellas" },
+    { time: "10:00 PM", description: "Baile y zapateo" },
+    { time: "12:00 AM", description: "Tornaboda (Midnight snack)" },
+];
+
+const itinerary =
+    customData.itinerary && Array.isArray(customData.itinerary)
+        ? customData.itinerary
+        : defaultItinerary;
+
+const dressCodeTitle = customData.dress_code || "Western Chic";
+const dressCodeHint =
+    customData.dress_code_hint || "(Botas y sombreros bienvenidos)";
+---
+
+<section class="plan-section">
+    <div class="section-header">
+        <img src={bullSkullSvg.src} alt="Cráneo de toro" class="skull-icon" />
+        <h2 class="section-title">EL PLAN</h2>
+    </div>
+
+    <div class="timeline">
+        <!-- Visual bullets instead of boxes -->
+        {
+            itinerary.map((event: any) => (
+                <div class="timeline-event">
+                    <span class="time">{event.time}</span>
+                    <span class="description">{event.description}</span>
+                </div>
+            ))
+        }
+    </div>
+
+    <!-- Dress Code Section at the end of itinerary -->
+    <div class="dress-code-wrapper">
+        <img src={botSvg.src} alt="Botas vaqueras" class="boots-icon" />
+        <div class="dress-code-content">
+            <p class="text-script">Código de vestimenta:</p>
+            <h3 class="dress-code-title">{dressCodeTitle}</h3>
+            <p class="dress-code-hint">{dressCodeHint}</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .plan-section {
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 3rem;
+        gap: 1rem;
+    }
+
+    .skull-icon {
+        width: clamp(
+            140px,
+            20vw,
+            180px
+        ); /* Dramatically increased for mobile */
+        filter: sepia(100%) hue-rotate(340deg) saturate(150%) contrast(150%)
+            brightness(50%);
+    }
+
+    .section-title {
+        font-size: clamp(3rem, 6vw, 5rem); /* Responsive for PC */
+        letter-spacing: 0.1em;
+    }
+
+    .timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem; /* Increased gap for better breathing room on PC */
+        width: 100%;
+        max-width: 600px; /* Wider for PC */
+        position: relative;
+    }
+
+    /* The vertical line for the timeline */
+    .timeline::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 2px;
+        background-color: var(--ink-color);
+        opacity: 0.3; /* Subtle line */
+    }
+
+    .timeline-event {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        position: relative;
+        padding-left: 20px;
+    }
+
+    /* Hand drawn style bullet */
+    .timeline-event::before {
+        content: "";
+        position: absolute;
+        left: -4px; /* Align with center of timeline line */
+        width: 10px;
+        height: 10px;
+        background-color: var(--bg-color);
+        border: 2px solid var(--ink-color);
+        border-radius: 50%;
+    }
+
+    .time {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: clamp(1rem, 2vw, 1.25rem); /* Responsive for PC */
+        min-width: 90px; /* Aligns descriptions */
+        color: var(--ink-color);
+    }
+
+    .description {
+        font-family: var(--font-serif);
+        font-size: clamp(1.2rem, 3vw, 2rem); /* Responsive for PC */
+        color: var(--ink-color);
+    }
+
+    .dress-code-wrapper {
+        margin-top: 5rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        width: 100%;
+        max-width: 600px; /* Wider for PC */
+        justify-content: center;
+    }
+
+    .boots-icon {
+        width: clamp(
+            160px,
+            25vw,
+            220px
+        ); /* Dramatically increased for mobile */
+        filter: sepia(100%) hue-rotate(340deg) saturate(150%) contrast(150%)
+            brightness(50%);
+    }
+
+    .dress-code-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .dress-code-content .text-script {
+        font-size: clamp(1.75rem, 3vw, 2.5rem); /* Responsive for PC */
+        margin: 0;
+    }
+
+    .dress-code-title {
+        font-size: clamp(2rem, 4vw, 3rem); /* Responsive for PC */
+        letter-spacing: 0.05em;
+    }
+
+    .dress-code-hint {
+        font-size: clamp(0.85rem, 1.5vw, 1.1rem); /* Responsive for PC */
+        opacity: 0.8;
+    }
+</style>

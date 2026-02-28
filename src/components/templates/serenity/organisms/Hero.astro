@@ -1,0 +1,116 @@
+---
+const { invitation, profile } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+const celebrateText = customData.celebrate_text || "CELEBREMOS JUNTOS";
+const honoree = invitation?.title || customData.honoree || "Daniela";
+const eventDescription =
+    invitation?.subtitle || customData.event_description || "Mis 22 Años";
+---
+
+<section class="hero">
+    <div class="icon-container" data-aos="zoom-in">
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1"
+            class="icon"
+        >
+            <path
+                d="M12 22C12 22 12 13 12 11C12 9 10 7 8 7C6 7 4 9 4 11C4 13 6 15 8 15C10 15 12 13 12 13M12 22C12 22 12 13 12 11C12 9 14 7 16 7C18 7 20 9 20 11C20 13 18 15 16 15C14 15 12 13 12 13"
+            ></path>
+        </svg>
+    </div>
+
+    <span class="subtitle" data-aos="fade-up" data-aos-delay="200"
+        >{celebrateText}
+    </span>
+
+    <div class="names">
+        <h1 class="main-name" data-aos="fade-up" data-aos-delay="400">
+            {honoree}
+        </h1>
+    </div>
+
+    <p class="description" data-aos="fade-up" data-aos-delay="600">
+        {eventDescription}
+    </p>
+
+    <div class="scroll-indicator" data-aos="fade" data-aos-delay="800">
+        <div class="line"></div>
+    </div>
+</section>
+
+<style>
+    .hero {
+        min-height: 100vh;
+        justify-content: center;
+        position: relative;
+    }
+
+    .subtitle {
+        font-family: var(--font-sans);
+        font-size: 0.8rem;
+        letter-spacing: 0.3rem;
+        color: var(--color-accent);
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+    }
+
+    .main-name {
+        font-family: var(--font-script);
+        font-size: 5rem;
+        margin-bottom: 1rem;
+        font-weight: 400;
+    }
+
+    .description {
+        font-family: var(--font-serif);
+        font-size: 1.5rem;
+        font-style: italic;
+        color: var(--color-text);
+        opacity: 0.8;
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .line {
+        width: 1px;
+        height: 60px;
+        background: linear-gradient(
+            to bottom,
+            var(--color-accent),
+            transparent
+        );
+        animation: scrollLine 2s infinite ease-in-out;
+        transform-origin: top;
+    }
+
+    @keyframes scrollLine {
+        0% {
+            transform: scaleY(0);
+            opacity: 0;
+        }
+        50% {
+            transform: scaleY(1);
+            opacity: 1;
+        }
+        100% {
+            transform: scaleY(1);
+            transform-origin: bottom;
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .main-name {
+            font-size: 3.5rem;
+        }
+    }
+</style>

@@ -1,0 +1,162 @@
+---
+// 2. CUENTA REGRESIVA
+const { invitation } = Astro.props;
+const eventDate = invitation?.event_date;
+---
+
+<section class="countdown-section">
+    <h2 class="countdown-title">Ya falta menos...</h2>
+
+    <div class="countdown-container">
+        <!-- Días -->
+        <div class="blob countdown-blob">
+            <span id="days" class="countdown-number">00</span>
+            <span class="countdown-label">Días</span>
+        </div>
+        <!-- Horas -->
+        <div class="blob countdown-blob hours">
+            <span id="hours" class="countdown-number">00</span>
+            <span class="countdown-label">Hrs</span>
+        </div>
+        <!-- Minutos -->
+        <div class="blob countdown-blob mins">
+            <span id="mins" class="countdown-number">00</span>
+            <span class="countdown-label">Mins</span>
+        </div>
+    </div>
+</section>
+
+<style>
+    .countdown-section {
+        width: 100%;
+        padding: 2.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-sizing: border-box;
+    }
+    .countdown-title {
+        font-family: "Caveat Brush", cursive;
+        font-size: 2.25rem;
+        margin-bottom: 2rem;
+        transform: rotate(-3deg);
+        color: var(--accent-color);
+    }
+    .countdown-container {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+    }
+    .countdown-blob {
+        width: 6rem;
+        height: 6rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+    .countdown-blob.hours {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50% 50% 30% 70% / 50% 60% 40% 50%;
+    }
+    .countdown-blob.mins {
+        border-radius: 60% 40% 50% 50% / 40% 40% 60% 60%;
+    }
+    .countdown-number {
+        font-family: "Caveat Brush", cursive;
+        font-size: 2.25rem;
+        color: var(--text-contrast);
+        margin-top: 0.5rem;
+    }
+    .countdown-label {
+        font-size: 0.875rem;
+        position: absolute;
+        bottom: 0.75rem;
+        opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+        .countdown-title {
+            font-size: 3rem;
+        }
+        .countdown-blob {
+            width: 8rem;
+            height: 8rem;
+        }
+        .countdown-number {
+            font-size: 3rem;
+        }
+        .countdown-label {
+            font-size: 1.125rem;
+            bottom: 1rem;
+        }
+        .countdown-container {
+            gap: 2rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .countdown-title {
+            font-size: 4rem;
+        }
+        .countdown-blob {
+            width: 10rem;
+            height: 10rem;
+        }
+        .countdown-number {
+            font-size: 4rem;
+            margin-top: 1rem;
+        }
+        .countdown-label {
+            font-size: 1.5rem;
+            bottom: 1.25rem;
+        }
+        .countdown-container {
+            gap: 3rem;
+        }
+    }
+</style>
+
+<script>
+    function setupCountdown() {
+        // Configuramos la fecha a 15 días en el futuro para que el demo siempre funcione
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 15);
+        targetDate.setHours(11, 0, 0, 0);
+
+        function update() {
+            const now = new Date();
+            const diff = targetDate.getTime() - now.getTime();
+
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minsEl = document.getElementById("mins");
+
+            if (!daysEl || !hoursEl || !minsEl) return;
+
+            if (diff <= 0) {
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minsEl.innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diff / 1000 / 60) % 60);
+
+            daysEl.innerText = days.toString().padStart(2, "0");
+            hoursEl.innerText = hours.toString().padStart(2, "0");
+            minsEl.innerText = mins.toString().padStart(2, "0");
+        }
+
+        update(); // llamada inicial
+        setInterval(update, 60000); // Actualizar cada minuto
+    }
+
+    // Setup en Astro requiere esto cuando hay view transitions o hidratación
+    document.addEventListener("astro:page-load", setupCountdown);
+    // Para la carga inicial
+    setupCountdown();
+</script>

@@ -1,0 +1,131 @@
+---
+const { invitation, profile } = Astro.props;
+---
+
+<!-- 4. VIBE CHECK (Galería Polaroid) -->
+<section class="mb-16 md:mb-24">
+    <h2
+        class="marker-font text-3xl md:text-5xl text-[var(--pink-main)] mb-8 transform rotate-2 text-center"
+    >
+        <span
+            class="theme-text"
+            data-light="Nuestra Vibra"
+            data-dark="Momentos"
+            data-emerald="Recuerdos"
+            data-rose="Amor"
+            data-gold="Celebración">Nuestra Vibra</span
+        >
+    </h2>
+    <div
+        class="flex flex-wrap justify-center gap-6 md:gap-12 pb-12 pt-8 px-2 w-full"
+    >
+        <!-- Polaroid 1 -->
+        <div
+            class="polaroid snap-center shrink-0 p-2 md:p-4 bg-[var(--bg-card)] shadow-md transform"
+            style="--rot: -4; transform: rotate(calc(var(--rot) * 1deg));"
+        >
+            <div
+                class="tape md:w-16 w-10 mx-auto -mt-4 bg-[var(--tape-bg)] backdrop-blur-sm shadow-sm h-3 relative z-10 mb-2"
+            >
+            </div>
+            <div
+                class="w-36 h-36 md:w-56 md:h-56 bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-400 overflow-hidden"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    alt="Vibra 1"
+                    class="theme-img object-cover w-full h-full grayscale hover:grayscale-0 transition duration-300"
+                    data-light-src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-dark-src="https://images.unsplash.com/photo-1566737236500-c8ac43014a67?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-emerald-src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-rose-src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-gold-src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                />
+            </div>
+            <p
+                class="text-center mt-3 md:mt-4 marker-font text-sm md:text-2xl text-[var(--charcoal)]"
+            >
+                <span
+                    class="theme-text"
+                    data-light="¡Salud!"
+                    data-dark="Elegancia"
+                    data-emerald="Lo logramos"
+                    data-rose="El Vestido"
+                    data-gold="Brindis">¡Salud!</span
+                >
+            </p>
+        </div>
+        <!-- Polaroid 2 -->
+        <div
+            class="polaroid snap-center shrink-0 p-2 md:p-4 bg-[var(--bg-card)] shadow-md transform"
+            style="--rot: 3; transform: rotate(calc(var(--rot) * 1deg));"
+        >
+            <div
+                class="tape md:w-16 w-10 mx-auto -mt-4 bg-[var(--tape-bg)] backdrop-blur-sm shadow-sm h-3 relative z-10 mb-2"
+            >
+            </div>
+            <div
+                class="w-36 h-36 md:w-56 md:h-56 bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-400 overflow-hidden"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    alt="Vibra 2"
+                    class="theme-img object-cover w-full h-full grayscale hover:grayscale-0 transition duration-300"
+                    data-light-src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-dark-src="https://images.unsplash.com/photo-1511790403141-53697965852e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-emerald-src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-rose-src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-gold-src="https://images.unsplash.com/photo-1518049362265-d5b2a6467637?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                />
+            </div>
+            <p
+                class="text-center mt-3 md:mt-4 marker-font text-sm md:text-2xl text-[var(--pink-main)]"
+            >
+                <span
+                    class="theme-text"
+                    data-light="BFFs"
+                    data-dark="Glamour"
+                    data-emerald="Orgullo"
+                    data-rose="Los Anillos"
+                    data-gold="Magia">BFFs</span
+                >
+            </p>
+        </div>
+        <!-- Polaroid 3 -->
+        <div
+            class="polaroid snap-center shrink-0 p-2 md:p-4 bg-[var(--bg-card)] shadow-md transform"
+            style="--rot: -2; transform: rotate(calc(var(--rot) * 1deg));"
+        >
+            <div
+                class="tape md:w-16 w-10 mx-auto -mt-4 bg-[var(--tape-bg)] backdrop-blur-sm shadow-sm h-3 relative z-10 mb-2"
+            >
+            </div>
+            <div
+                class="w-36 h-36 md:w-56 md:h-56 bg-gray-200 border border-gray-300 flex items-center justify-center text-gray-400 overflow-hidden"
+            >
+                <img
+                    src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    alt="Vibra 3"
+                    class="theme-img object-cover w-full h-full grayscale hover:grayscale-0 transition duration-300"
+                    data-light-src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-dark-src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-emerald-src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-rose-src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                    data-gold-src="https://images.unsplash.com/photo-1510076857177-7470076d4098?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                />
+            </div>
+            <p
+                class="text-center mt-3 md:mt-4 marker-font text-sm md:text-2xl text-[var(--charcoal)]"
+            >
+                <span
+                    class="theme-text"
+                    data-light="Mood"
+                    data-dark="Style"
+                    data-emerald="Amigos"
+                    data-rose="Detalles"
+                    data-gold="Juntos">Mood</span
+                >
+            </p>
+        </div>
+    </div>
+</section>

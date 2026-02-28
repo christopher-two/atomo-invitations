@@ -1,0 +1,222 @@
+---
+const { invitation, profile } = Astro.props;
+
+// Use dynamic data or fallback to defaults
+const title = invitation?.title || "Juan & Karla";
+const subtitle =
+    invitation?.subtitle || "CON GRAN ALEGRÍA TE INVITAMOS A NUESTRA BODA";
+
+// Date formatting
+let eventDateString = "20 . 03 . 26";
+if (invitation?.event_date) {
+    const d = new Date(invitation.event_date);
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = String(d.getMonth() + 1).padStart(2, "0");
+    const year = String(d.getFullYear()).slice(-2);
+    eventDateString = `${day} . ${month} . ${year}`;
+}
+
+// Gallery rendering
+const defaultImages = [
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+];
+
+const galleryImages =
+    invitation?.gallery && invitation.gallery.length > 0
+        ? invitation.gallery
+        : defaultImages;
+---
+
+<section class="hero-section">
+    <p class="invitation-text">{subtitle}</p>
+
+    <div class="hero-carousel-wrapper">
+        <div class="carousel-track">
+            {/* Duplicated images for infinite effect */}
+            {
+                [1, 2].map(() => (
+                    <>
+                        {galleryImages.map((src: string, index: number) => (
+                            <img
+                                src={src}
+                                alt={`Foto ${index + 1}`}
+                                class="hero-carousel-image"
+                            />
+                        ))}
+                    </>
+                ))
+            }
+        </div>
+        <div class="image-gradient"></div>
+
+        <div class="hero-overlay-content">
+            <h1 class="couple-names">{title}</h1>
+            <h2 class="hero-date">{eventDateString}</h2>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hero-section {
+        position: relative;
+        padding-top: 4rem;
+        padding-bottom: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .invitation-text {
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        color: var(--color-carbon);
+        margin-bottom: 2rem;
+        z-index: 10;
+        margin-top: 2rem;
+        text-align: center;
+    }
+
+    .hero-carousel-wrapper {
+        position: relative;
+        width: 100vw;
+        max-width: 100vw;
+        height: 55vh;
+        margin-bottom: 0;
+        overflow: hidden;
+        z-index: 5;
+    }
+
+    .carousel-track {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        width: calc(100vw * 6); /* 6 images combined */
+        height: 100%;
+        animation: scrollInfinite 30s linear infinite;
+    }
+
+    .hero-carousel-image {
+        width: 100vw;
+        max-width: none; /* override default img rules */
+        height: 100%;
+        object-fit: cover;
+        flex: 0 0 100vw;
+        display: block;
+        filter: grayscale(20%) sepia(10%) brightness(55%);
+    }
+
+    @keyframes scrollInfinite {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        } /* Halfway because we duplicated the list */
+    }
+
+    .image-gradient {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        pointer-events: none;
+    }
+
+    .hero-date {
+        position: relative;
+        font-family: var(--font-serif);
+        font-size: 2.75rem;
+        color: #f6f4ee; /* Explicit light color to contrast with darkened photos */
+        letter-spacing: 0.15em;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        z-index: 10;
+        margin: 0;
+        margin-top: 1rem;
+    }
+
+    .hero-overlay-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        pointer-events: none;
+    }
+
+    .couple-names {
+        font-family: var(--font-script);
+        font-size: 3.75rem;
+        color: #f6f4ee; /* Explicit light color */
+        margin: 0;
+        text-align: center;
+        text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+        line-height: 1.1;
+    }
+
+    @media (min-width: 768px) {
+        .hero-section {
+            padding-top: 4rem;
+            padding-bottom: 0;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .invitation-text {
+            font-size: 0.875rem;
+        }
+
+        .hero-carousel-wrapper {
+            height: 80vh;
+        }
+
+        .carousel-track {
+            width: calc(80vw * 6);
+        }
+
+        .hero-carousel-image {
+            width: 80vw; /* On desktop show partial of next image */
+            flex: 0 0 80vw;
+        }
+
+        @keyframes scrollInfinite {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .hero-date {
+            font-size: 6rem;
+            margin-top: 2rem;
+        }
+
+        .couple-names {
+            font-size: 6rem;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .hero-date {
+            font-size: 9rem;
+        }
+
+        .couple-names {
+            font-size: 9rem;
+        }
+    }
+</style>

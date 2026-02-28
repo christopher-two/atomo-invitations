@@ -1,0 +1,85 @@
+---
+interface Props {
+    eventDate: string;
+    eventTime: string;
+    invitation?: any;
+}
+
+const { eventDate, eventTime, invitation, profile } = Astro.props;
+const customData = invitation?.custom_data || {};
+---
+
+<!-- STICKERS DECORATIVOS SUPERIORES -->
+<div class="sticker text-6xl md:text-8xl -top-4 -left-2 transform -rotate-12">
+    <i
+        class="theme-icon fa-solid fa-compact-disc text-[var(--pink-main)] opacity-80"
+        data-light="fa-solid fa-compact-disc"
+        data-dark="fa-solid fa-star"
+        data-emerald="fa-solid fa-graduation-cap"
+        data-rose="fa-solid fa-ring"
+        data-gold="fa-solid fa-gem"
+        data-current-icon-class="fa-solid fa-compact-disc"></i>
+</div>
+<div class="sticker text-6xl md:text-8xl top-4 right-4 transform rotate-12">
+    <i
+        class="theme-icon fa-solid fa-heart text-[var(--pink-main)] opacity-80"
+        data-light="fa-solid fa-heart"
+        data-dark="fa-solid fa-moon"
+        data-emerald="fa-solid fa-scroll"
+        data-rose="fa-solid fa-champagne-glasses"
+        data-gold="fa-solid fa-crown"
+        data-current-icon-class="fa-solid fa-heart"></i>
+</div>
+
+<!-- Estrellas/Sparkles SVG -->
+<svg
+    class="sparkle top-24 left-10 md:left-20 w-8 h-8 md:w-12 md:h-12"
+    viewBox="0 0 24 24"
+    style="animation-delay: 0s;"
+    ><path
+        d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"
+        class="svg-pink"></path>
+</svg>
+<svg
+    class="sparkle top-48 right-6 md:right-32 w-10 h-10 md:w-16 md:h-16"
+    viewBox="0 0 24 24"
+    style="animation-delay: 1s;"
+    ><path
+        d="M12 0L13.5 8.5L22 10L13.5 11.5L12 20L10.5 11.5L2 10L10.5 8.5L12 0Z"
+        class="svg-pink"></path>
+</svg>
+
+<!-- 1. HERO SECTION -->
+<section class="text-center mt-12 mb-16 md:mb-24 relative">
+    <h1
+        class="marker-font text-5xl sm:text-7xl md:text-8xl uppercase tracking-wider transform -rotate-2"
+    >
+        <span
+            class="theme-text block text-[var(--charcoal)] mb-2 md:mb-6"
+            data-light="Noche de"
+            data-dark="Noche de"
+            data-emerald="Mi"
+            data-rose="Despedida"
+            data-gold="Nuestro">Noche de</span
+        >
+        <span
+            class="theme-text block text-[var(--charcoal)]"
+            data-light="Chicas"
+            data-dark="Gala"
+            data-emerald="Graduación"
+            data-rose="de Soltera"
+            data-gold="Aniversario">Chicas</span
+        >
+    </h1>
+    <div class="mt-4 md:mt-8">
+        <span
+            class="text-2xl md:text-4xl marker-underline text-[var(--charcoal)] opacity-90"
+            >sábado {eventDate}
+        </span>
+    </div>
+    <div class="mt-2 md:mt-6">
+        <span class="text-2xl md:text-4xl font-bold text-[var(--charcoal)]"
+            >{eventTime}
+        </span>
+    </div>
+</section>

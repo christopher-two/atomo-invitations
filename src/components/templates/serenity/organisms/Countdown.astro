@@ -1,0 +1,133 @@
+---
+const { invitation, profile } = Astro.props;
+---
+
+<section class="countdown-section">
+    <div class="date-container">
+        <h2 class="event-date">16 . 08 . 2026</h2>
+        <span class="event-time">21:00 HS</span>
+    </div>
+
+    <div id="countdown" class="countdown-grid">
+        <div class="time-block">
+            <span class="number" id="days">00</span>
+            <span class="label">DÍAS</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="hours">00</span>
+            <span class="label">HORAS</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="minutes">00</span>
+            <span class="label">MINS</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="seconds">00</span>
+            <span class="label">SEGS</span>
+        </div>
+    </div>
+</section>
+
+<script>
+    const targetDate = new Date("August 16, 2026 21:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = targetDate - now;
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor(
+            (difference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        if (daysEl) daysEl.innerText = days.toString().padStart(2, "0");
+        if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, "0");
+        if (minutesEl)
+            minutesEl.innerText = minutes.toString().padStart(2, "0");
+        if (secondsEl)
+            secondsEl.innerText = seconds.toString().padStart(2, "0");
+
+        if (difference < 0) {
+            clearInterval(interval);
+            const countdownEl = document.getElementById("countdown");
+            if (countdownEl) countdownEl.innerHTML = "<h3>¡ES EL DÍA!</h3>";
+        }
+    }
+
+    const interval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
+<style>
+    .countdown-section {
+        background-color: var(--color-bg);
+        min-height: auto;
+    }
+
+    .date-container {
+        margin-bottom: 4rem;
+    }
+
+    .event-date {
+        font-size: 3rem;
+        letter-spacing: 0.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .event-time {
+        font-family: var(--font-sans);
+        font-size: 0.9rem;
+        letter-spacing: 0.1rem;
+        color: var(--color-accent);
+    }
+
+    .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .number {
+        font-family: var(--font-serif);
+        font-size: 3.5rem;
+        font-weight: 300;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    .label {
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.1rem;
+        color: var(--color-accent);
+    }
+
+    @media (max-width: 480px) {
+        .event-date {
+            font-size: 2rem;
+        }
+        .countdown-grid {
+            gap: 1rem;
+        }
+        .number {
+            font-size: 2.5rem;
+        }
+    }
+</style>

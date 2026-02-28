@@ -1,0 +1,140 @@
+:root {
+    --color-bg: #F6F4EE;
+    --color-text: #333333;
+    --color-verde: #4A5D4E;
+    --color-crema: #F6F4EE;
+    --color-carbon: #333333;
+    --color-white: #ffffff;
+
+    --font-script: 'Alex Brush', cursive;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Montserrat', sans-serif;
+
+    --max-width: 1200px;
+    --section-padding: 4rem 1rem;
+}
+
+:root[data-theme="dark"] {
+    --color-bg: #1a1a1a;
+    --color-text: #F6F4EE;
+    --color-verde: #6B7E6D;
+    --color-carbon: #F6F4EE;
+    --color-crema: #2a2a2a;
+    --color-white: #222222;
+}
+
+:root[data-theme="emerald"] {
+    --color-bg: #f2f7f4;
+    --color-text: #2a3b32;
+    --color-verde: #3d4f40;
+    --color-carbon: #1e2b24;
+    --color-crema: #e6efe8;
+    --color-white: #ffffff;
+}
+
+:root[data-theme="rose"] {
+    --color-bg: #fff5f5;
+    --color-text: #4a2c2c;
+    --color-verde: #8b5d5d;
+    --color-carbon: #361f1f;
+    --color-crema: #ffebeb;
+    --color-white: #ffffff;
+}
+
+:root[data-theme="gold"] {
+    --color-bg: #fdfaf6;
+    --color-text: #3d3522;
+    --color-verde: #8b7355;
+    --color-carbon: #2b2518;
+    --color-crema: #f5eedf;
+    --color-white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+}
+
+/* Utilidades */
+.text-center {
+    text-align: center;
+}
+
+.w-full {
+    width: 100%;
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+/* Animación fade-in */
+.fade-in {
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

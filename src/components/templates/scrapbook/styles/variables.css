@@ -1,0 +1,86 @@
+:root {
+    /* Default (Light/Pink) Theme */
+    --pink-main: #FF82B2;
+    --charcoal: #2A2A2A;
+    --bg-paper: #ffffff;
+    --line-color: #d1d5db;
+    /* horizontal lines */
+    --accent-line: rgba(255, 130, 178, 0.4);
+    /* vertical decorative line */
+    --bg-card: #ffffff;
+    /* for polaroids, boxes */
+    --tape-bg: rgba(255, 255, 255, 0.7);
+    --line-height: 36px;
+    --font-script: 'Caveat', cursive;
+    --font-marker: 'Permanent Marker', cursive;
+
+    /* Global Footer Variables Mapping */
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+    --font-sans: 'Caveat', cursive;
+    --font-serif: 'Permanent Marker', cursive;
+}
+
+:root[data-theme="dark"] {
+    --pink-main: #cdcdcd;
+    /* silver/white accent */
+    --charcoal: #ffffff;
+    /* text */
+    --bg-paper: #1a1a1a;
+    /* dark chalkboard/paper */
+    --line-color: #333333;
+    --accent-line: rgba(255, 255, 255, 0.15);
+    --bg-card: #2a2a2a;
+    --tape-bg: rgba(255, 255, 255, 0.2);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+}
+
+:root[data-theme="emerald"] {
+    --pink-main: #2F614C;
+    /* emerald green */
+    --charcoal: #1A2821;
+    --bg-paper: #F2F5F3;
+    --line-color: #C1D0C8;
+    --accent-line: rgba(47, 97, 76, 0.3);
+    --bg-card: #ffffff;
+    --tape-bg: rgba(255, 255, 255, 0.6);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+}
+
+:root[data-theme="rose"] {
+    --pink-main: #B5838D;
+    /* dusty rose */
+    --charcoal: #4A3A3D;
+    --bg-paper: #FFF5F7;
+    --line-color: #E5CDD2;
+    --accent-line: rgba(181, 131, 141, 0.4);
+    --bg-card: #ffffff;
+    --tape-bg: rgba(255, 255, 255, 0.7);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+}
+
+:root[data-theme="gold"] {
+    --pink-main: #C2A878;
+    /* elegant gold */
+    --charcoal: #2F2A20;
+    --bg-paper: #FCFBF8;
+    /* cream */
+    --line-color: #E6DBC6;
+    --accent-line: rgba(194, 168, 120, 0.4);
+    --bg-card: #ffffff;
+    --tape-bg: rgba(255, 255, 255, 0.8);
+
+    --color-accent: var(--pink-main);
+    --color-text: var(--charcoal);
+    --color-bg: var(--bg-paper);
+}

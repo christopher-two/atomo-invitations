@@ -1,0 +1,36 @@
+---
+interface Props {
+    mapUrl: string;
+    invitation?: any;
+}
+
+const { mapUrl, invitation } = Astro.props;
+const customData = invitation?.custom_data || {};
+const venueName = customData.location?.name || "Calle Cualquiera 123";
+const venueCity = customData.location?.city || "Cualquier Lugar";
+---
+
+<!-- 5. UBICACIÓN -->
+<section class="mb-16 md:mb-24 text-center relative max-w-4xl mx-auto">
+    <div
+        class="sticker text-5xl md:text-7xl -left-4 md:-left-12 -top-6 transform -rotate-12"
+    >
+        <i class="fa-solid fa-glasses text-[var(--pink-main)] opacity-80"></i>
+    </div>
+    <h2 class="marker-font text-2xl md:text-4xl text-[var(--charcoal)]">
+        TE ESPERAMOS EN
+    </h2>
+    <p
+        class="text-[var(--pink-main)] text-2xl md:text-5xl mt-4 leading-tight uppercase font-bold px-4"
+    >
+        Calle Cualquiera 123,<br />Cualquier Lugar
+    </p>
+    <a
+        href={mapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="hand-drawn-border mt-8 md:mt-12 text-xl md:text-3xl marker-font px-8 py-4 inline-block text-[var(--charcoal)] hover:text-[var(--charcoal)]"
+    >
+        <i class="fa-solid fa-location-dot mr-2"></i> ABRIR EN MAPS
+    </a>
+</section>

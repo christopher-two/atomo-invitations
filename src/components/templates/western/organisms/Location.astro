@@ -1,0 +1,103 @@
+---
+// Location.astro
+const { invitation } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+const locationTitle = customData.location?.title || "RANCHO";
+const locationIntro = customData.location?.intro || "Nos vemos en el";
+const locationAddress =
+    customData.location?.address || "123 Anywhere Street, Any City";
+const locationMaps = customData.location?.maps_url || "https://maps.google.com";
+---
+
+<section class="location-section">
+    <div class="location-header">
+        <p class="text-script intro-text">{locationIntro}</p>
+        <h2 class="main-title">{locationTitle}</h2>
+    </div>
+
+    <div class="address-container">
+        <!-- Sans-serif address -->
+        <p class="address-text">{locationAddress}</p>
+    </div>
+
+    <!-- Full width button with map pin (emoji fallback or svg icon) -->
+    <a
+        href={locationMaps}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-western btn-map"
+    >
+        <!-- SVGs are preferred, simple pin inline here, or placeholder -->
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="map-icon"
+            ><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+            ></path><circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        VER EN GOOGLE MAPS
+    </a>
+</section>
+
+<style>
+    .location-section {
+        padding: 6rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .location-header {
+        margin-bottom: 2rem;
+    }
+
+    .intro-text {
+        font-size: clamp(2.5rem, 4vw, 3.5rem); /* Responsive for PC */
+        margin-bottom: -0.5rem; /* pull up the serif title */
+    }
+
+    .main-title {
+        font-size: clamp(4rem, 15vw, 7rem); /* Scale up on PC */
+        letter-spacing: 0.1em;
+    }
+
+    .address-container {
+        margin-bottom: 3rem;
+    }
+
+    .address-text {
+        font-size: clamp(1.1rem, 2vw, 1.5rem); /* Responsive for PC */
+        font-weight: 500;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* Override standard max-width for this specific button to be full constraint width */
+    .btn-map {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        max-width: 600px; /* Don't let it become completely huge on ultra wides */
+        /* The spec says 100% of screen with margin 20px sides.
+           Our main container is now max-width 1000px padding 2rem (32px), 
+           so 600px button will look correct centered on PC. */
+    }
+
+    .map-icon {
+        /* Slightly offset up visually */
+        transform: translateY(-1px);
+    }
+</style>

@@ -1,0 +1,28 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Plan from "./organisms/Plan.astro";
+import VibeCheck from "./organisms/VibeCheck.astro";
+import Location from "./organisms/Location.astro";
+import RSVP from "./organisms/RSVP.astro";
+
+const { invitation, profile } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+const title = invitation?.title || "Noche de Chicas - Invitación";
+const eventDate = customData.event_date_label || "22 de Abril";
+const eventTime = customData.event_time || "7:00 P.M.";
+const mapUrl = customData.location?.maps_url || "https://maps.google.com";
+const whatsappNumber =
+    customData.rsvp?.whatsapp || profile?.whatsapp || "521234567890";
+---
+
+<Layout title={title}>
+    <Hero eventDate={eventDate} eventTime={eventTime} invitation={invitation} />
+    <Countdown invitation={invitation} />
+    <Plan invitation={invitation} />
+    <VibeCheck invitation={invitation} />
+    <Location mapUrl={mapUrl} invitation={invitation} />
+    <RSVP whatsappNumber={whatsappNumber} invitation={invitation} />
+</Layout>

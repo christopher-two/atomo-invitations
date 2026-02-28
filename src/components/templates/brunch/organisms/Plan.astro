@@ -1,0 +1,156 @@
+---
+interface Props {
+    dateFull: string;
+    time: string;
+    placeName: string;
+    placeDetails: string;
+    mapUrl?: string;
+}
+
+const { dateFull, time, placeName, placeDetails, mapUrl = "#" } = Astro.props;
+---
+
+<!-- 3. EL PLAN (DETALLES) -->
+<section class="plan-section">
+    <h2 class="plan-title">El Plan</h2>
+
+    <div class="plan-details-container">
+        <div class="plan-date-box blob-custom">
+            <p class="plan-date">{dateFull}</p>
+            <p class="plan-time">{time}</p>
+        </div>
+
+        <div class="plan-location">
+            <p class="plan-place-name">{placeName}</p>
+            <p class="plan-place-details">{placeDetails}</p>
+        </div>
+    </div>
+
+    <!-- Se cambió a un <a> real para el mapa -->
+    <a
+        href={mapUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-organic plan-map-btn"
+    >
+        Ver en el mapa 📍
+    </a>
+</section>
+
+<style>
+    .plan-section {
+        width: 100%;
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    .plan-title {
+        font-family: "Caveat Brush", cursive;
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        transform: rotate(2deg);
+        color: var(--accent-color);
+    }
+    .plan-details-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        font-size: 1.25rem;
+    }
+    .plan-date-box {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 1.5rem;
+    }
+    .plan-date-box.blob-custom {
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    }
+    .plan-date {
+        font-size: 1.875rem;
+        margin-bottom: 0.5rem;
+        transform: rotate(-2deg);
+    }
+    .plan-time {
+        font-size: 1.5rem;
+        font-weight: bold;
+        font-family: "Caveat Brush", cursive;
+        letter-spacing: 0.1em;
+        color: var(--accent-color);
+    }
+    .plan-location {
+        margin-top: 1rem;
+    }
+    .plan-place-name {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+    }
+    .plan-place-details {
+        opacity: 0.8;
+        font-size: 1.125rem;
+    }
+    .plan-map-btn {
+        margin-top: 2rem;
+        padding: 0.75rem 2rem;
+        font-size: 1.25rem;
+        display: inline-block;
+        background-color: transparent;
+        color: var(--text-main);
+        text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+        .plan-title {
+            font-size: 4rem;
+        }
+        .plan-date-box {
+            padding: 2rem;
+        }
+        .plan-date {
+            font-size: 2.5rem;
+        }
+        .plan-time {
+            font-size: 2rem;
+        }
+        .plan-place-name {
+            font-size: 2rem;
+        }
+        .plan-place-details {
+            font-size: 1.5rem;
+        }
+        .plan-map-btn {
+            font-size: 1.5rem;
+            padding: 1rem 3rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .plan-title {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+        }
+        .plan-date-box {
+            padding: 3rem;
+        }
+        .plan-date {
+            font-size: 3rem;
+        }
+        .plan-time {
+            font-size: 2.5rem;
+        }
+        .plan-location {
+            margin-top: 2rem;
+        }
+        .plan-place-name {
+            font-size: 2.5rem;
+        }
+        .plan-place-details {
+            font-size: 1.75rem;
+        }
+        .plan-map-btn {
+            font-size: 2rem;
+            padding: 1.25rem 4rem;
+            margin-top: 3rem;
+        }
+    }
+</style>

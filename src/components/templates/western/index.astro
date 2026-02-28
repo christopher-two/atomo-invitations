@@ -1,0 +1,73 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Itinerary from "./organisms/Itinerary.astro";
+import Gallery from "./organisms/Gallery.astro";
+import Location from "./organisms/Location.astro";
+import Music from "./organisms/Music.astro";
+import RSVP from "./organisms/RSVP.astro";
+import Footer from "../../Footer.astro";
+
+const { invitation, profile } = Astro.props;
+const title = invitation?.title || "Western Invitation";
+---
+
+<Layout title={title}>
+    <main class="main-content">
+        <!-- Textura de pergamino continuo que ocupará toda la web -->
+        <!-- Salpicaduras de tinta marrón (borders top left/right) can be pseudo elements -->
+        <div class="ink-splatter ink-top-left"></div>
+        <div class="ink-splatter ink-top-right"></div>
+
+        <Hero invitation={invitation} profile={profile} />
+        <Countdown invitation={invitation} profile={profile} />
+        <Itinerary invitation={invitation} profile={profile} />
+        <Gallery invitation={invitation} profile={profile} />
+        <Location invitation={invitation} profile={profile} />
+        <Music invitation={invitation} profile={profile} />
+        <RSVP invitation={invitation} profile={profile} />
+        <Footer />
+    </main>
+</Layout>
+
+<style>
+    .main-content {
+        width: 100%;
+        max-width: 1000px; /* Better constraint for PC */
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow-x: hidden; /* Prevent ink splatters from causing horizontal scroll on mobile */
+    }
+
+    /* Ink splatter pseudo elements using radial gradients or SVG backgrounds */
+    .ink-splatter {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        background-image: radial-gradient(
+                circle,
+                var(--ink-color) 2px,
+                transparent 3px
+            ),
+            radial-gradient(circle, var(--ink-color) 1px, transparent 2px);
+        background-size: 20px 20px, 15px 15px;
+        background-position: 0 0, 10px 10px;
+        opacity: 0.15;
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .ink-top-left {
+        top: -50px;
+        left: -50px;
+    }
+
+    .ink-top-right {
+        top: -50px;
+        right: -50px;
+    }
+</style>

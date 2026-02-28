@@ -1,0 +1,109 @@
+---
+const { invitation, profile } = Astro.props;
+// Map.astro
+---
+const { invitation, profile } = Astro.props;
+
+<section class="hp-map-section">
+    <div class="hp-map-card hp-group">
+        <!-- Fondo sutil de manchas de tinta/mapa antiguo -->
+        <div class="hp-map-card-base-bg"></div>
+
+        <div class="hp-map-card-content">
+            <h2 class="hp-map-title">Viaje por Red Flu</h2>
+            <p class="hp-map-text">
+                Asegúrate de pronunciar bien:
+                <span class="hp-map-address"
+                    >Calle Cualquiera 123, Ciudad Mágica</span
+                >
+            </p>
+            <a href="#" target="_blank" class="hp-map-button">
+                Abrir el Mapa del Merodeador
+            </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .hp-map-section {
+        padding: 3rem 1.5rem;
+    }
+
+    .hp-map-card {
+        border: 1px solid var(--color-ink-light);
+        padding: 2rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hp-map-card-base-bg {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0.03;
+        background-color: var(--color-ink);
+        pointer-events: none;
+    }
+
+    .hp-map-card-content {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Dark theme legibility adjustment */
+    :global([data-theme="dark"]) .hp-map-card-content {
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
+
+    .hp-map-title {
+        font-family: var(--font-magic);
+        font-size: 1.25rem; /* 20px */
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.5rem;
+        color: var(--color-ink);
+    }
+
+    .hp-map-text {
+        color: var(--color-ink-light);
+        font-size: 1.125rem; /* 18px */
+        margin-bottom: 1.5rem;
+        font-style: italic;
+    }
+
+    .hp-map-address {
+        color: var(--color-ink);
+        font-style: normal;
+        font-family: var(--font-sans);
+        font-size: 0.875rem; /* 14px */
+        margin-top: 0.5rem;
+        display: block;
+        font-weight: 700;
+    }
+
+    .hp-map-button {
+        display: inline-block;
+        width: 100%;
+        border: 1px solid var(--color-ink-red);
+        color: var(--color-ink-red);
+        font-family: var(--font-sans);
+        font-weight: 700;
+        padding: 0.75rem 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 0.75rem; /* 12px */
+        letter-spacing: 0.2em;
+        transition: all 0.3s ease;
+        background-color: transparent;
+    }
+
+    .hp-map-button:hover,
+    .hp-map-button:focus {
+        background-color: var(--color-ink-red);
+        color: var(--color-parchment);
+        outline: none;
+    }
+</style>

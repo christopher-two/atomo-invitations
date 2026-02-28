@@ -46,29 +46,33 @@ Astro.response.headers.set(
 );
 
 // We determine which template to render based on invitation.template_id
-// For now, we output JSON stringified data to prove the query works,
-// or we can import the correct Layout dynamically.
+// We import the correct Layout dynamically.
 const templateId = invitation.template_id || "elegant";
+
+// Pre-define imports so Astro/Vite knows about them statically
+const templateComponents = {
+    botanical: import("../../components/templates/botanical/index.astro"),
+    brunch: import("../../components/templates/brunch/index.astro"),
+    "harry-potter": import(
+        "../../components/templates/harry-potter/index.astro"
+    ),
+    lavender: import("../../components/templates/lavender/index.astro"),
+    scrapbook: import("../../components/templates/scrapbook/index.astro"),
+    serenity: import("../../components/templates/serenity/index.astro"),
+    western: import("../../components/templates/western/index.astro"),
+};
+
+type TemplateKey = keyof typeof templateComponents;
+
+let TemplateComponent;
+
+if (templateId in templateComponents) {
+    const Component = await templateComponents[templateId as TemplateKey];
+    TemplateComponent = Component.default;
+} else {
+    // Fallback if template doesn't exist
+    return Astro.redirect("/404");
+}
 ---
 
-<MinimalistLayout title={`Invitación de ${profile.display_name}`}>
-    <main
-        style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; padding: 2rem; text-align: center;"
-    >
-        <h1>¡Hola! Estás viendo la invitación de {profile.display_name}</h1>
-
-        <div
-            style="margin-top: 2rem; background: #f4f4f4; padding: 1.5rem; border-radius: 8px; max-width: 600px; text-align: left; overflow-x: auto;"
-        >
-            <h3>Datos de Supabase (SSR):</h3>
-            <pre><code>{JSON.stringify({ profile, invitation }, null, 2)}</code></pre>
-            <p style="margin-top: 1rem; color: #666;">
-                El ID de la plantilla seleccionada es: <strong
-                    >{templateId}
-                </strong>.<br />
-                Cloudflare está almacenando en caché esta respuesta gracias a las
-                cabeceras <code>Cache-Control</code>.
-            </p>
-        </div>
-    </main>
-</MinimalistLayout>
+<TemplateComponent invitation={invitation} profile={profile} />

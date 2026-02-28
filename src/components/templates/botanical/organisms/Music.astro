@@ -1,0 +1,116 @@
+---
+---
+
+<section class="music-section">
+    <h3 class="music-title">¿QUÉ CANCIÓN NO PUEDE FALTAR?</h3>
+    <div class="music-input-container">
+        <input 
+            type="text" 
+            placeholder="Escribe tu sugerencia aquí..." 
+            class="music-input"
+        />
+        <button class="music-button" aria-label="Enviar sugerencia">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </button>
+    </div>
+</section>
+
+<style>
+    .music-section {
+        padding: 4rem 2rem;
+        position: relative;
+        z-index: 10;
+        max-width: 48rem;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .music-title {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        color: var(--color-carbon);
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+
+    .music-input-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .music-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--color-verde);
+        border-radius: 0;
+        outline: none;
+        box-shadow: none !important;
+        padding: 0.5rem 0;
+        font-family: var(--font-sans);
+        font-size: 0.875rem;
+        color: var(--color-carbon);
+    }
+
+    .music-input::placeholder {
+        color: #9ca3af;
+    }
+
+    .music-input:focus {
+        border-bottom-width: 2px;
+    }
+
+    .music-button {
+        margin-left: 1rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        background-color: var(--color-verde);
+        color: var(--color-white);
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .music-button:hover {
+        background-color: var(--color-carbon);
+    }
+
+    .music-button svg {
+        width: 1rem;
+        height: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        .music-section {
+            padding: 4rem 2rem;
+        }
+
+        .music-title {
+            font-size: 0.875rem;
+        }
+
+        .music-input {
+            font-size: 1rem;
+            padding: 1rem 0;
+        }
+
+        .music-button {
+            width: 3.5rem;
+            height: 3.5rem;
+        }
+
+        .music-button svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    }
+</style>

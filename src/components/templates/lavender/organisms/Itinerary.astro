@@ -1,0 +1,228 @@
+---
+const { invitation, profile } = Astro.props;
+---
+
+<section class="itinerary-section content-layer">
+    <h2 class="itinerary-title">Cuándo & Dónde</h2>
+
+    <div class="itinerary-grid">
+        <!-- Tarjeta 1: Ceremonia -->
+        <div class="itinerary-card">
+            <div class="card-decor-bg top-right"></div>
+
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fa-solid fa-church"></i>
+                </div>
+                <h3 class="card-subtitle">Ceremonia Religiosa</h3>
+                <p class="card-time">12:30 PM</p>
+                <p class="card-location">
+                    Parroquia de San Miguel Arcángel<br />Centro Histórico
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="#" class="btn-map">Ver en Mapa</a>
+            </div>
+        </div>
+
+        <!-- Separador (Solo visible en móviles) -->
+        <div class="mobile-separator">
+            <div class="separator-line"></div>
+            <span class="separator-icon"><i class="fa-solid fa-leaf"></i></span>
+            <div class="separator-line"></div>
+        </div>
+
+        <!-- Tarjeta 2: Recepción -->
+        <div class="itinerary-card">
+            <div class="card-decor-bg bottom-left"></div>
+
+            <div class="card-content">
+                <div class="card-icon">
+                    <i class="fa-solid fa-champagne-glasses"></i>
+                </div>
+                <h3 class="card-subtitle">La Recepción</h3>
+                <p class="card-time">03:00 PM</p>
+                <p class="card-location">
+                    Jardín Los Espejos<br />Av. Las Rosas #123, Zona Sur
+                </p>
+            </div>
+            <div class="card-action">
+                <a href="#" class="btn-map">Ver en Mapa</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .itinerary-section {
+        padding: 5rem 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+    }
+
+    .itinerary-title {
+        font-family: var(--font-script);
+        font-size: 3rem;
+        text-align: center;
+        color: var(--color-accent-light);
+        margin-bottom: 4rem;
+        line-height: 1.2;
+    }
+
+    .itinerary-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        align-items: stretch;
+    }
+
+    .itinerary-card {
+        background-color: #ffffff;
+        padding: 2.5rem;
+        border-radius: 40px;
+        box-shadow: 0 8px 30px rgba(200, 162, 200, 0.15);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .itinerary-card:hover {
+        box-shadow: 0 8px 30px rgba(107, 59, 130, 0.15);
+    }
+
+    .card-decor-bg {
+        position: absolute;
+        width: 8rem;
+        height: 8rem;
+        background-color: var(--color-bg-soft);
+        border-radius: 50%;
+        mix-blend-mode: multiply;
+        opacity: 0.5;
+        transition: transform 0.5s ease;
+    }
+
+    .itinerary-card:hover .card-decor-bg {
+        transform: scale(1.5);
+    }
+
+    .card-decor-bg.top-right {
+        top: -2.5rem;
+        right: -2.5rem;
+    }
+
+    .card-decor-bg.bottom-left {
+        bottom: -2.5rem;
+        left: -2.5rem;
+    }
+
+    .card-content {
+        position: relative;
+        z-index: 10;
+        margin-bottom: 2.5rem;
+    }
+
+    .card-icon {
+        color: var(--color-accent-light);
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-subtitle {
+        font-family: var(--font-serif);
+        font-size: 1.875rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-accent-dark);
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    .card-time {
+        font-family: var(--font-sans);
+        color: var(--color-accent-light);
+        font-size: 1.25rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-location {
+        font-family: var(--font-sans);
+        font-weight: 300;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--color-text-muted);
+        margin-bottom: 0;
+    }
+
+    .card-action {
+        position: relative;
+        z-index: 10;
+    }
+
+    .btn-map {
+        display: inline-block;
+        background-color: var(--color-bg-soft);
+        color: var(--color-accent-dark);
+        font-family: var(--font-sans);
+        font-weight: 500;
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+        padding: 1rem 2rem;
+        border-radius: 9999px;
+        text-transform: uppercase;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-map:hover {
+        background-color: var(--color-accent-light);
+        color: #ffffff;
+    }
+
+    .mobile-separator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        opacity: 0.5;
+    }
+
+    .separator-line {
+        height: 1px;
+        width: 3rem;
+        background-color: var(--color-accent-light);
+    }
+
+    .separator-icon {
+        color: var(--color-accent-light);
+        font-size: 0.875rem;
+    }
+
+    @media (min-width: 768px) {
+        .itinerary-section {
+            padding: 8rem 1.5rem;
+        }
+
+        .itinerary-title {
+            font-size: 4.375rem;
+            margin-bottom: 4rem;
+        }
+
+        .itinerary-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4rem;
+        }
+
+        .itinerary-card {
+            padding: 3rem;
+        }
+
+        .mobile-separator {
+            display: none;
+        }
+    }
+</style>

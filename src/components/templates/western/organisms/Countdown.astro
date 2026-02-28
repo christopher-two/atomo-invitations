@@ -1,0 +1,135 @@
+---
+// Countdown.astro
+const { invitation } = Astro.props;
+
+// Use a fallback date if none provided
+const targetDate = invitation?.event_date
+    ? new Date(invitation.event_date).getTime()
+    : new Date("2026-06-19T18:00:00").getTime();
+---
+
+<section class="countdown-section">
+    <p class="text-script intro-text">Ensilla tu caballo en:</p>
+
+    <!-- Invisible boxes (just the structure) as per design -->
+    <div class="timer-container" id="western-countdown" data-date={targetDate}>
+        <div class="time-block">
+            <span class="number" id="days">00</span>
+            <span class="label">DÍAS</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="hours">00</span>
+            <span class="label">HRS</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="mins">00</span>
+            <span class="label">MIN</span>
+        </div>
+        <div class="time-block">
+            <span class="number" id="secs">00</span>
+            <span class="label">SEG</span>
+        </div>
+    </div>
+
+    <!-- Hand drawn horizontal line (border bottom) -->
+    <div class="drawn-divider"></div>
+</section>
+
+<script>
+    // Component script for countdown
+    const countdownElement = document.getElementById("western-countdown");
+    if (countdownElement) {
+        const dbDate = parseInt(countdownElement.dataset.date || "0");
+        const countDownDate =
+            isNaN(dbDate) || dbDate === 0 ? new Date().getTime() : dbDate;
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            if (distance < 0) {
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+            const minutes = Math.floor(
+                (distance % (1000 * 60 * 60)) / (1000 * 60)
+            );
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const dEl = document.getElementById("days");
+            const hEl = document.getElementById("hours");
+            const mEl = document.getElementById("mins");
+            const sEl = document.getElementById("secs");
+
+            if (dEl) dEl.innerText = days.toString().padStart(2, "0");
+            if (hEl) hEl.innerText = hours.toString().padStart(2, "0");
+            if (mEl) mEl.innerText = minutes.toString().padStart(2, "0");
+            if (sEl) sEl.innerText = seconds.toString().padStart(2, "0");
+        };
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    }
+</script>
+
+<style>
+    .countdown-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+
+    .intro-text {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .timer-container {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 400px;
+        margin-bottom: 4rem;
+    }
+
+    .time-block {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* No solid boxes, just constraints */
+        min-width: 60px;
+    }
+
+    .number {
+        font-family: var(--font-serif);
+        font-size: 3.5rem; /* Giant serif brown */
+        line-height: 1;
+        color: var(--ink-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .label {
+        font-family: var(--font-sans);
+        font-size: 0.75rem; /* Tiny sans-serif */
+        letter-spacing: 0.1em;
+        color: var(--ink-color);
+    }
+
+    /* "Fina línea horizontal dibujada a mano alzada" */
+    .drawn-divider {
+        width: 80%;
+        height: 2px;
+        background-color: var(--ink-color);
+        border-radius: 50%; /* Gives a slightly softer, uneven look horizontally if stretched */
+        /* Better yet, use a subtle clip path or box-shadow trick for unevenness */
+        box-shadow: 0px 1px 1px rgba(90, 51, 21, 0.5);
+        opacity: 0.8;
+    }
+</style>

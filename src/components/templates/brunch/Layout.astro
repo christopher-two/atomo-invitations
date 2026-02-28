@@ -1,0 +1,263 @@
+---
+import ThemeToggle from "../../components/ThemeToggle.astro";
+import Footer from "../../components/Footer.astro";
+import SEO from "../../components/SEO.astro";
+import "./styles/variables.css";
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <SEO title={title} />
+
+        <!-- Preconnect para las fuentes -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <!-- FontAwesome (si se requiere) -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        />
+
+        <!-- Fuentes para simular el trazo manual y marcador (Brunch) -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Kalam:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body class="brunch-body">
+        <ThemeToggle />
+
+        <main class="brunch-main">
+            <!-- Contenedor centralizado para el contenido -->
+            <div class="brunch-container">
+                <slot />
+            </div>
+
+            <!-- Custom Toast -->
+            <div
+                id="toast-modal"
+                class="fixed bottom-10 left-1/2 bg-[var(--text-main)] text-[var(--bg-color)] px-6 py-4 rounded-2xl shadow-2xl z-50 flex items-center gap-3 border-4 border-[var(--accent-color)] font-bold text-lg w-11/12 max-w-sm"
+                style="border-radius: 25px 5px 25px 5px/5px 25px 5px 25px;"
+            >
+                <span id="toast-icon">✨</span>
+                <span id="toast-msg">Mensaje guardado</span>
+            </div>
+        </main>
+
+        <Footer />
+        <script>
+            // Configuración Global del Toast para Brunch
+            declare global {
+                interface Window {
+                    showToast: (message: string, icon?: string) => void;
+                }
+            }
+
+            let toastTimeout: ReturnType<typeof setTimeout>;
+
+            function setupToast() {
+                window.showToast = function (message: string, icon = "✨") {
+                    const toast = document.getElementById("toast-modal");
+                    const toastMsg = document.getElementById("toast-msg");
+                    const toastIcon = document.getElementById("toast-icon");
+
+                    if (toast && toastMsg && toastIcon) {
+                        toastMsg.innerText = message;
+                        toastIcon.innerText = icon;
+
+                        toast.classList.add("show");
+
+                        clearTimeout(toastTimeout);
+                        toastTimeout = setTimeout(() => {
+                            toast.classList.remove("show");
+                        }, 3000);
+                    }
+                };
+            }
+
+            document.addEventListener("astro:page-load", setupToast);
+            setupToast();
+        </script>
+        <style is:global>
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+            body {
+                background-color: var(--bg-color);
+                color: var(--text-main);
+                -webkit-tap-highlight-color: transparent;
+                width: 100%;
+            }
+
+            .brunch-body {
+                -webkit-font-smoothing: antialiased;
+                min-height: 100vh;
+                position: relative;
+                font-family: "Kalam", cursive;
+                transition: background-color 0.5s, color 0.5s;
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            .brunch-main {
+                width: 100%;
+                min-height: 100vh;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 3rem;
+                overflow-x: hidden;
+            }
+
+            .brunch-container {
+                width: 100%;
+                max-width: 576px;
+                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                position: relative;
+                z-index: 10;
+                overflow-x: hidden; /* Prevent child rotations from pushing width */
+            }
+
+            @media (min-width: 768px) {
+                .brunch-container {
+                    max-width: 768px;
+                    overflow-x: visible; /* SVGs and decorations can safely exceed slightly on desktop */
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .brunch-container {
+                    max-width: 1024px;
+                }
+            }
+
+            .font-kalam {
+                font-family: "Kalam", cursive;
+            }
+
+            .font-brush {
+                font-family: "Caveat Brush", cursive;
+                color: var(--accent-color);
+            }
+
+            /* Botones con bordes irregulares simulando dibujo a mano */
+            .btn-organic {
+                border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+                border: 2px solid var(--text-main);
+                transition: all 0.3s ease;
+            }
+
+            .btn-organic:hover,
+            .btn-organic:active {
+                background-color: var(--accent-color);
+                color: var(--text-contrast);
+                border-color: var(--accent-color);
+                transform: scale(1.05) rotate(-2deg);
+            }
+
+            .btn-organic-solid {
+                border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+                background-color: var(--accent-color);
+                color: var(--text-contrast);
+                border: none;
+                transition: all 0.3s ease;
+            }
+
+            .btn-organic-solid:hover,
+            .btn-organic-solid:active {
+                transform: scale(1.05) rotate(2deg);
+                filter: brightness(1.1);
+            }
+
+            /* Campos de formulario estilo "línea dibujada" */
+            .input-line {
+                background: transparent;
+                border: none;
+                border-bottom: 2px dashed rgba(255, 255, 255, 0.6);
+                color: var(--text-main);
+                width: 100%;
+                padding: 0.5rem 0;
+                font-size: 1.25rem;
+                transition: border-color 0.3s;
+            }
+
+            .input-line:focus {
+                outline: none;
+                border-bottom: 2px solid var(--accent-color);
+            }
+
+            .input-line::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            /* Formas orgánicas de fondo */
+            .blob {
+                border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+                background: rgba(255, 255, 255, 0.15);
+            }
+
+            /* Custom Toast Modal */
+            #toast-modal {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(20px) translateX(-50%);
+            }
+            #toast-modal.show {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0) translateX(-50%);
+            }
+
+            /* Animaciones globales */
+            @keyframes float {
+                0% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(-15px) rotate(2deg);
+                }
+                100% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+            }
+
+            @keyframes float-reverse {
+                0% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+                50% {
+                    transform: translateY(10px) rotate(-3deg);
+                }
+                100% {
+                    transform: translateY(0px) rotate(0deg);
+                }
+            }
+
+            .animate-float {
+                animation: float 6s ease-in-out infinite;
+            }
+            .animate-float-alt {
+                animation: float-reverse 7s ease-in-out infinite;
+            }
+        </style>
+    </body>
+</html>

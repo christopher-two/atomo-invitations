@@ -1,0 +1,95 @@
+---
+const { invitation } = Astro.props;
+
+const defaultImages = [
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+];
+
+const galleryImages =
+    invitation?.gallery && invitation.gallery.length >= 3
+        ? invitation.gallery
+        : defaultImages;
+---
+
+<section class="gallery-section">
+    <div class="gallery-container">
+        <div class="gallery-image first">
+            <img src={galleryImages[0]} alt="Detalle boda 1" />
+        </div>
+        <div class="gallery-image middle">
+            <img src={galleryImages[1]} alt="Detalle boda 2" />
+        </div>
+        <div class="gallery-image last">
+            <img src={galleryImages[2]} alt="Detalle boda 3" />
+        </div>
+    </div>
+</section>
+
+<style>
+    .gallery-section {
+        padding: 3rem 1.5rem;
+        max-width: 80rem;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .gallery-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 1rem;
+        width: 100%;
+        height: 50vh;
+    }
+
+    .gallery-image {
+        width: 50%;
+        height: 90%;
+        padding-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    .gallery-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .gallery-image.middle {
+        display: none;
+    }
+
+    .gallery-image.last {
+        padding-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+        .gallery-section {
+            padding: 3rem 3rem;
+        }
+
+        .gallery-container {
+            gap: 2rem;
+            height: 70vh;
+        }
+
+        .gallery-image {
+            width: 33.333%;
+            padding-bottom: 2rem;
+        }
+
+        .gallery-image.middle {
+            display: block;
+            height: 100%;
+            padding-bottom: 0;
+            padding-top: 1rem;
+        }
+
+        .gallery-image.last {
+            padding-top: 4rem;
+        }
+    }
+</style>

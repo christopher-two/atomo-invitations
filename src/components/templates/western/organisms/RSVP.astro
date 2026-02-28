@@ -1,0 +1,268 @@
+---
+// RSVP.astro
+const { invitation } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+const rsvpTitle = customData.rsvp?.title || "RSVP";
+const rsvpSubtitle =
+    customData.rsvp?.subtitle || "Confirma antes del 1 de Junio";
+---
+
+<section class="rsvp-section relative overflow-hidden">
+    <!-- Extra ink splatters for the finale -->
+    <div class="ink-splatter ink-bottom-left"></div>
+    <div class="ink-splatter ink-bottom-right"></div>
+
+    <div class="rsvp-header">
+        <h2 class="main-title">{rsvpTitle}</h2>
+        <p class="subtitle">{rsvpSubtitle}</p>
+    </div>
+
+    <form class="rsvp-form" id="western-rsvp-form">
+        <div class="form-inputs">
+            <input
+                type="text"
+                id="guest-name"
+                name="name"
+                class="input-western"
+                placeholder="Nombre y Apellido"
+                required
+            />
+
+            <input
+                type="tel"
+                id="guest-phone"
+                name="phone"
+                class="input-western"
+                placeholder="Teléfono"
+                required
+            />
+        </div>
+
+        <div class="radio-group">
+            <label class="custom-radio">
+                <input
+                    type="radio"
+                    name="attendance"
+                    value="yes"
+                    required
+                    checked
+                />
+                <span class="drawn-box"></span>
+                <span class="radio-label text-script"
+                    >¡Yee-haw! Ahí estaré.</span
+                >
+            </label>
+
+            <label class="custom-radio">
+                <input type="radio" name="attendance" value="no" />
+                <span class="drawn-box"></span>
+                <span class="radio-label text-script"
+                    >Me quedo en el rancho (No asistiré).</span
+                >
+            </label>
+        </div>
+
+        <button type="submit" class="btn-western btn-large">CONFIRMAR</button>
+    </form>
+
+    <div id="rsvp-success-msg" class="success-msg hidden">
+        <p class="text-script">¡Recibido, vaquero!</p>
+    </div>
+</section>
+
+<script>
+    const rsvpForm = document.getElementById("western-rsvp-form");
+    const rsvpSuccessMsg = document.getElementById("rsvp-success-msg");
+
+    if (rsvpForm) {
+        rsvpForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            // Handle form submission logic here
+
+            rsvpForm.style.display = "none";
+            if (rsvpSuccessMsg) {
+                rsvpSuccessMsg.classList.remove("hidden");
+                rsvpSuccessMsg.classList.add("visible");
+            }
+        });
+    }
+</script>
+
+<style>
+    .rsvp-section {
+        padding: 8rem 2rem 6rem; /* Extra top padding */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        overflow: hidden; /* Prevent ink splatters from causing horizontal/vertical scroll */
+    }
+
+    /* Ink splatter pseudo elements for bottom corners */
+    .ink-splatter {
+        position: absolute;
+        width: clamp(250px, 40vw, 400px); /* Larger on PC */
+        height: clamp(250px, 40vw, 400px); /* Larger on PC */
+        background-image: radial-gradient(
+                circle,
+                var(--ink-color) 2px,
+                transparent 3px
+            ),
+            radial-gradient(circle, var(--ink-color) 1px, transparent 2px);
+        background-size: 25px 25px, 15px 15px;
+        background-position: 0 0, 12px 12px;
+        opacity: 0.25; /* "más concentración" */
+        border-radius: 50%;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .ink-bottom-left {
+        bottom: -100px;
+        left: -100px;
+    }
+
+    .ink-bottom-right {
+        bottom: -100px;
+        right: -100px;
+    }
+
+    .rsvp-header {
+        margin-bottom: 3rem;
+        z-index: 1;
+        position: relative;
+    }
+
+    .main-title {
+        font-size: clamp(4.5rem, 15vw, 8rem); /* Scale up on PC */
+        line-height: 1;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+        font-weight: 500;
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+    }
+
+    .rsvp-form {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        width: 100%;
+        max-width: 600px; /* Wider for PC */
+        align-items: center;
+        z-index: 1;
+        position: relative;
+    }
+
+    .form-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+        width: 100%;
+    }
+
+    .radio-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+        align-items: flex-start; /* Align radios to the left for better reading */
+        padding: 0 1rem;
+    }
+
+    .custom-radio {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .custom-radio input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    /* Sketchy box */
+    .drawn-box {
+        width: clamp(24px, 3vw, 30px);
+        height: clamp(24px, 3vw, 30px);
+        border: 2px solid var(--ink-color);
+        border-radius: 3px;
+        display: inline-block;
+        position: relative;
+        /* Slight rotation for drawn effect */
+        transform: rotate(-2deg);
+        transition: all 0.2s ease;
+    }
+
+    /* The "X" inside when checked */
+    .drawn-box::after {
+        content: "";
+        position: absolute;
+        display: none;
+        top: 2px;
+        left: 8px;
+        width: 6px;
+        height: 14px;
+        border: solid var(--ink-color);
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+        /* Alternative: An actual drawn X image or SVG could exist here, 
+           but a pure CSS approximation keeps it clean. */
+    }
+
+    /* Alternatively, using an actual 'X' character for a sketchy look */
+    .custom-radio input:checked ~ .drawn-box {
+        /* Optional: slight background change */
+    }
+
+    .custom-radio input:checked ~ .drawn-box::before {
+        content: "X";
+        position: absolute;
+        font-family: var(--font-script);
+        font-size: clamp(2rem, 3vw, 2.5rem);
+        color: var(--ink-color);
+        line-height: 1;
+        top: -6px;
+        left: 2px;
+    }
+
+    .radio-label {
+        font-size: clamp(1.8rem, 3vw, 2.2rem);
+    }
+
+    .btn-large {
+        font-size: clamp(1.2rem, 2vw, 1.5rem);
+        padding: 1.2rem;
+        margin-top: 1rem;
+    }
+
+    .success-msg {
+        margin-top: 2rem;
+        color: var(--ink-color);
+    }
+
+    .success-msg p {
+        font-size: clamp(3rem, 5vw, 4rem);
+    }
+
+    .hidden {
+        display: none;
+        opacity: 0;
+    }
+
+    .visible {
+        display: block;
+        opacity: 1;
+    }
+</style>

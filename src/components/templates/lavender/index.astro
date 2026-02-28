@@ -1,0 +1,44 @@
+---
+import Layout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Itinerary from "./organisms/Itinerary.astro";
+import DressCode from "./organisms/DressCode.astro";
+import Gallery from "./organisms/Gallery.astro";
+import Music from "./organisms/Music.astro";
+import RSVP from "./organisms/RSVP.astro";
+import Footer from "../../Footer.astro";
+
+const { invitation, profile } = Astro.props;
+const pageTitle = invitation?.title || "XV Años - Marcela Andrade";
+---
+
+<Layout title={pageTitle}>
+    <!-- Contenedor Principal (Todo el ancho) -->
+    <main class="main-container">
+        <!-- Textura global -->
+        <div class="bg-texture"></div>
+
+        <Hero invitation={invitation} profile={profile} />
+        <Countdown invitation={invitation} />
+        <Itinerary invitation={invitation} />
+        <DressCode invitation={invitation} />
+        <Gallery invitation={invitation} />
+        <Music invitation={invitation} />
+        <RSVP invitation={invitation} profile={profile} />
+        <Footer />
+    </main>
+</Layout>
+
+<style>
+    .main-container {
+        width: 100%;
+        background-color: var(--color-bg-main);
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        /* Variable override for global footer */
+        --color-accent: var(--color-accent-light);
+        --color-text: var(--color-text-muted);
+    }
+</style>

@@ -1,0 +1,131 @@
+---
+const { invitation } = Astro.props;
+---
+
+<section class="music-section">
+    <h2 class="music-title">Ponte una rola</h2>
+    <p class="music-subtitle">Ayúdame a armar la playlist del brunch.</p>
+
+    <form id="music-form" class="music-form">
+        <input
+            type="text"
+            id="song-input"
+            placeholder="Ej. Tusa - Karol G..."
+            class="input-line music-input"
+            required
+        />
+        <button type="submit" class="music-btn"> Agregar 🎵</button>
+    </form>
+</section>
+
+<style>
+    .music-section {
+        width: 100%;
+        padding: 3rem 2rem;
+        margin-top: 1rem;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 10px 10px 50px 50px/10px 10px 20px 20px;
+        box-sizing: border-box;
+    }
+    .music-title {
+        font-family: "Caveat Brush", cursive;
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+        transform: rotate(3deg);
+    }
+    .music-subtitle {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+    }
+    .music-form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+        position: relative;
+    }
+    .music-input {
+        font-family: "Kalam", cursive;
+        font-size: 1.125rem;
+    }
+    .music-btn {
+        font-size: 1.25rem;
+        padding: 0.5rem 1.5rem;
+        margin-top: 0.5rem;
+        background-color: transparent;
+        border: 2px solid var(--accent-color);
+        color: var(--accent-color);
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        transition: background-color 0.3s, color 0.3s;
+        cursor: pointer;
+    }
+    .music-btn:hover {
+        background-color: var(--accent-color);
+        color: var(--text-contrast);
+    }
+
+    @media (min-width: 768px) {
+        .music-title {
+            font-size: 3rem;
+        }
+        .music-subtitle {
+            font-size: 1.5rem;
+        }
+        .music-input {
+            font-size: 1.5rem;
+        }
+        .music-btn {
+            font-size: 1.75rem;
+            padding: 0.75rem 2rem;
+        }
+        .music-section {
+            padding: 4rem 3rem;
+        }
+    }
+    @media (min-width: 1024px) {
+        .music-title {
+            font-size: 4rem;
+        }
+        .music-subtitle {
+            font-size: 1.75rem;
+        }
+        .music-input {
+            font-size: 1.875rem;
+        }
+        .music-btn {
+            font-size: 2.25rem;
+            padding: 1rem 3rem;
+        }
+        .music-section {
+            padding: 5rem 4rem;
+        }
+    }
+</style>
+
+<script>
+    function setupMusicForm() {
+        const form = document.getElementById("music-form");
+        if (form) {
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const input = document.getElementById(
+                    "song-input"
+                ) as HTMLInputElement;
+                const song = input?.value;
+                if (song && song.trim()) {
+                    // Invocar el Toast global
+                    if (window.showToast) {
+                        window.showToast(
+                            `¡"${song}" agregada al playlist!`,
+                            "💿"
+                        );
+                    }
+                    input.value = ""; // limpiar input
+                }
+            });
+        }
+    }
+    document.addEventListener("astro:page-load", setupMusicForm);
+    setupMusicForm();
+</script>

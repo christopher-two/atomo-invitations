@@ -1,0 +1,182 @@
+---
+const { invitation, profile } = Astro.props;
+---
+
+<section class="music-section content-layer">
+    <div class="music-container">
+        <div class="music-icon animate-pulse-slow">
+            <i class="fa-solid fa-headphones"></i>
+        </div>
+        <h2 class="music-title">El Vals</h2>
+        <p class="music-subtitle">Escucha la canción de mi baile principal</p>
+
+        <div class="music-player-card">
+            <div class="song-info">
+                <p class="song-name">Nombre de la Canción</p>
+                <p class="song-artist">Artista Favorito</p>
+            </div>
+
+            <audio
+                id="waltzAudio"
+                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+                preload="none"></audio>
+
+            <button id="playBtn" class="play-btn">
+                <i class="fa-solid fa-play play-icon" id="playIcon"></i>
+            </button>
+
+            <p id="playText" class="play-text">Reproducir</p>
+        </div>
+    </div>
+</section>
+
+<style>
+    .music-section {
+        padding: 6rem 1.5rem;
+        background-color: var(--color-bg-soft);
+        clip-path: polygon(0 8%, 100% 0, 100% 92%, 0 100%);
+        position: relative;
+    }
+
+    .music-container {
+        text-align: center;
+        max-width: 42rem;
+        margin: 0 auto;
+    }
+
+    .music-icon {
+        color: var(--color-accent-light);
+        font-size: 2.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .music-title {
+        font-family: var(--font-serif);
+        font-size: 1.875rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-accent-dark);
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    .music-subtitle {
+        font-family: var(--font-script);
+        font-size: 1.875rem;
+        color: var(--color-text-muted);
+        margin-bottom: 2.5rem;
+    }
+
+    .music-player-card {
+        background-color: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        padding: 2rem;
+        border-radius: 40px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        border: 1px solid #ffffff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        max-width: 24rem;
+        margin: 0 auto;
+    }
+
+    .song-info {
+        text-align: center;
+    }
+
+    .song-name {
+        font-family: var(--font-sans);
+        color: var(--color-accent-dark);
+        font-weight: 500;
+        letter-spacing: 0.025em;
+        font-size: 1.125rem;
+        margin: 0;
+    }
+
+    .song-artist {
+        font-family: var(--font-sans);
+        color: var(--color-text-muted);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+    }
+
+    .play-btn {
+        width: 5rem;
+        height: 5rem;
+        background-color: var(--color-accent-dark);
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(107, 59, 130, 0.3);
+    }
+
+    .play-btn:hover {
+        background-color: var(--color-accent-light);
+        box-shadow: 0 10px 20px rgba(200, 162, 200, 0.4);
+        transform: scale(1.05);
+    }
+
+    .play-icon {
+        margin-left: 0.25rem;
+    }
+
+    .play-icon.fa-pause {
+        margin-left: 0;
+    }
+
+    .play-text {
+        font-family: var(--font-sans);
+        font-size: 0.75rem;
+        color: var(--color-text-muted);
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+    }
+
+    @media (min-width: 768px) {
+        .music-subtitle {
+            font-size: 2.25rem;
+        }
+    }
+</style>
+
+<script>
+    const audio = document.getElementById("waltzAudio") as HTMLAudioElement;
+    const playBtn = document.getElementById("playBtn");
+    const playIcon = document.getElementById("playIcon");
+    const playText = document.getElementById("playText");
+
+    if (audio && playBtn && playIcon && playText) {
+        playBtn.addEventListener("click", function () {
+            if (audio.paused) {
+                audio.play();
+                playIcon.classList.remove("fa-play", "play-icon");
+                playIcon.classList.add("fa-pause");
+                playText.innerText = "PAUSAR";
+            } else {
+                audio.pause();
+                playIcon.classList.remove("fa-pause");
+                playIcon.classList.add("fa-play", "play-icon");
+                playText.innerText = "REPRODUCIR";
+            }
+        });
+
+        audio.addEventListener("ended", function () {
+            playIcon.classList.remove("fa-pause");
+            playIcon.classList.add("fa-play", "play-icon");
+            playText.innerText = "REPRODUCIR";
+        });
+    }
+</script>

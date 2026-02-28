@@ -1,0 +1,62 @@
+---
+import BrunchLayout from "./Layout.astro";
+import Hero from "./organisms/Hero.astro";
+import Countdown from "./organisms/Countdown.astro";
+import Plan from "./organisms/Plan.astro";
+import Dresscode from "./organisms/Dresscode.astro";
+import Music from "./organisms/Music.astro";
+import RSVP from "./organisms/RSVP.astro";
+
+const { invitation, profile } = Astro.props;
+const customData = invitation?.custom_data || {};
+
+// Derive display data from Supabase fields with sensible fallbacks
+const titlePart1 = invitation?.title || customData.title_part1 || "¿Chelita";
+const titlePart2 = customData.title_part2 || "y";
+const titlePart3 = invitation?.subtitle || customData.title_part3 || "brunch?";
+
+const locationName = customData.location?.name || "Calle Cualquiera 123";
+const locationAddress = customData.location?.address || "Cualquier lugar";
+const eventTime = customData.event_time || "11 am";
+const eventType = customData.event_type || "Cumple #30";
+const guestOfHonor = customData.honoree || profile?.display_name || "Olivia";
+
+const dateFull = customData.date_full || "Sábado 12 de Oct.";
+const placeName = customData.place_name || 'Terraza "La Crudelia"';
+const placeDetails =
+    customData.place_details || "Calle Cualquiera 123, Col. Roma.";
+const mapUrl = customData.location?.maps_url || "https://maps.google.com";
+const whatsapp =
+    customData.rsvp?.whatsapp || profile?.whatsapp || "+1234567890";
+
+const pageTitle = `${titlePart1} ${titlePart2} ${titlePart3}`;
+---
+
+<BrunchLayout title={pageTitle}>
+    <Hero
+        eventTitlePart1={titlePart1}
+        eventTitlePart2={titlePart2}
+        eventTitlePart3={titlePart3}
+        locationName={locationName}
+        locationAddress={locationAddress}
+        eventTime={eventTime}
+        eventType={eventType}
+        guestOfHonor={guestOfHonor}
+    />
+
+    <Countdown invitation={invitation} />
+
+    <Plan
+        dateFull={dateFull}
+        time={eventTime}
+        placeName={placeName}
+        placeDetails={placeDetails}
+        mapUrl={mapUrl}
+    />
+
+    <Dresscode invitation={invitation} />
+
+    <Music invitation={invitation} />
+
+    <RSVP whatsappNumber={whatsapp} invitation={invitation} />
+</BrunchLayout>
