@@ -1,0 +1,74 @@
+---
+import { createSupabaseClient } from "../../lib/supabase";
+import MinimalistLayout from "../../templates/botanical/Layout.astro"; // Fallback layout, we will dynamically load components later or redirect.
+// For the query-only requirement, we will fetch the data and set the headers.
+
+const { username } = Astro.params;
+
+// Access Cloudflare environment variables
+// @ts-ignore
+const locals = Astro.locals as any;
+// @ts-ignore
+const processEnv = typeof process !== "undefined" ? process.env : {};
+const env = locals?.runtime?.env || processEnv;
+const supabase = createSupabaseClient(env);
+
+// 1. Fetch Profile
+const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("id, display_name, avatar_url")
+    .eq("username", username)
+    .single();
+
+if (profileError || !profile) {
+    return Astro.redirect("/404"); // Or returning a 404 response
+}
+
+// 2. Fetch Active Invitation for this profile
+const { data: invitation, error: invitationError } = await supabase
+    .from("invitations")
+    .select("*")
+    .eq("user_id", profile.id)
+    .eq("is_active", true)
+    .single();
+
+if (invitationError || !invitation) {
+    // If no active invitation, maybe they just have a profile but no event yet.
+    return Astro.redirect("/404");
+}
+
+// 3. Set Cache Headers for Cloudflare CDN (The "Vitrina")
+// Cache for 1 year (s-maxage=31536000), allowing stale data while revalidating (stale-while-revalidate)
+// Cloudflare will serve this HTML to visitors instantly.
+Astro.response.headers.set(
+    "Cache-Control",
+    "public, max-age=0, s-maxage=31536000, stale-while-revalidate"
+);
+
+// We determine which template to render based on invitation.template_id
+// For now, we output JSON stringified data to prove the query works,
+// or we can import the correct Layout dynamically.
+const templateId = invitation.template_id || "elegant";
+---
+
+<MinimalistLayout title={`Invitación de ${profile.display_name}`}>
+    <main
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; padding: 2rem; text-align: center;"
+    >
+        <h1>¡Hola! Estás viendo la invitación de {profile.display_name}</h1>
+
+        <div
+            style="margin-top: 2rem; background: #f4f4f4; padding: 1.5rem; border-radius: 8px; max-width: 600px; text-align: left; overflow-x: auto;"
+        >
+            <h3>Datos de Supabase (SSR):</h3>
+            <pre><code>{JSON.stringify({ profile, invitation }, null, 2)}</code></pre>
+            <p style="margin-top: 1rem; color: #666;">
+                El ID de la plantilla seleccionada es: <strong
+                    >{templateId}
+                </strong>.<br />
+                Cloudflare está almacenando en caché esta respuesta gracias a las
+                cabeceras <code>Cache-Control</code>.
+            </p>
+        </div>
+    </main>
+</MinimalistLayout>

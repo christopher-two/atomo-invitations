@@ -1,0 +1,27 @@
+---
+import Layout from "../../../templates/scrapbook/Layout.astro";
+import Hero from "../../../templates/scrapbook/organisms/Hero.astro";
+import Countdown from "../../../templates/scrapbook/organisms/Countdown.astro";
+import Plan from "../../../templates/scrapbook/organisms/Plan.astro";
+import VibeCheck from "../../../templates/scrapbook/organisms/VibeCheck.astro";
+import Location from "../../../templates/scrapbook/organisms/Location.astro";
+import RSVP from "../../../templates/scrapbook/organisms/RSVP.astro";
+
+// Frontmatter Configuration
+const title = "Noche de Chicas - Invitación";
+const eventDate = "22 de Abril";
+const eventTime = "7:00 P.M.";
+const mapUrl = "https://maps.google.com";
+
+// 🔥 WhatsApp Number (Country code + number, no '+')
+const whatsappNumber = "521234567890";
+---
+
+<Layout title={title}>
+    <Hero eventDate={eventDate} eventTime={eventTime} />
+    <Countdown />
+    <Plan />
+    <VibeCheck />
+    <Location mapUrl={mapUrl} />
+    <RSVP whatsappNumber={whatsappNumber} />
+</Layout>

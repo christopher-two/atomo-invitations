@@ -1,0 +1,32 @@
+---
+import Layout from "../../../templates/harry-potter/Layout.astro";
+import Hero from "../../../templates/harry-potter/organisms/Hero.astro";
+import Countdown from "../../../templates/harry-potter/organisms/Countdown.astro";
+import Location from "../../../templates/harry-potter/organisms/Location.astro";
+import Dresscode from "../../../templates/harry-potter/organisms/Dresscode.astro";
+import Map from "../../../templates/harry-potter/organisms/Map.astro";
+import RSVP from "../../../templates/harry-potter/organisms/RSVP.astro";
+---
+
+<Layout title="Fiesta de Disfraces | Invitación Mágica">
+    <div class="hp-content-layer">
+        <Hero />
+        <Countdown />
+        <Location />
+        <Dresscode />
+        <Map />
+        <RSVP />
+    </div>
+</Layout>
+
+<style>
+    .hp-content-layer {
+        /* Encapsula todo el contenido por encima del mapa animado */
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+</style>
