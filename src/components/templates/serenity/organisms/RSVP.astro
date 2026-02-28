@@ -1,6 +1,18 @@
 ---
 const { invitation, profile } = Astro.props;
-import Footer from "../../../components/Footer.astro";
+import Footer from "../../../Footer.astro";
+const customData = invitation?.custom_data || {};
+const whatsapp =
+    customData.rsvp?.whatsapp || profile?.whatsapp || "5211234567890";
+const rsvpDeadline = customData.rsvp?.deadline || "10 de Agosto";
+const rsvpGreeting = customData.rsvp?.greeting || "Espero verte";
+const rsvpDescription =
+    customData.rsvp?.description ||
+    `Confirma tu asistencia antes del <strong>${rsvpDeadline}</strong> para que podamos organizar todo a la perfección.`;
+const whatsappMsg = encodeURIComponent(
+    customData.rsvp?.whatsapp_message ||
+        "Hola, confirmo mi asistencia al evento!"
+);
 ---
 
 <section class="rsvp">
